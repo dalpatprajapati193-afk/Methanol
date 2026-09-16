@@ -1459,7 +1459,7 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                         <tbody className="divide-y divide-slate-100">
                           <tr>
                             <td className="py-1.5 px-3 font-semibold text-slate-800">Natural Gas Feed Gas (PNG)</td>
-                            <td className="py-1.5 px-3 font-mono text-[10px] text-sky-700">ar.ar2.ref.Png_To_Saturator_Flow_Comp</td>
+                            <td className="py-1.5 px-3 font-mono text-[10px] text-sky-700">FT-1201</td>
                             <td className="py-1.5 px-3 text-right">48.25 t/h</td>
                             <td className="py-1.5 px-3 text-right font-bold text-slate-900">48.22 t/h</td>
                             <td className="py-1.5 px-3 text-right text-slate-500">±1.0%</td>
@@ -1467,7 +1467,7 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                           </tr>
                           <tr>
                             <td className="py-1.5 px-3 font-semibold text-slate-800">Primary Reforming Process Steam</td>
-                            <td className="py-1.5 px-3 font-mono text-[10px] text-sky-700">ar.ar2.ref.P_STEAM_MAIN</td>
+                            <td className="py-1.5 px-3 font-mono text-[10px] text-sky-700">FT-1209</td>
                             <td className="py-1.5 px-3 text-right">114.80 t/h</td>
                             <td className="py-1.5 px-3 text-right font-bold text-slate-900">114.83 t/h</td>
                             <td className="py-1.5 px-3 text-right text-slate-500">±1.5%</td>
@@ -1511,7 +1511,7 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                               </span>
                             </td>
                             <td className="py-1.5 px-3 text-slate-600">
-                              <span className="font-mono text-[10px] text-purple-700 block">ar.ar2.syn.MUG_flow_to_K_1301 (10,081 kmol/h)</span>
+                              <span className="font-mono text-[10px] text-purple-700 block">1301-FI-01 (10,081 kmol/h)</span>
                               <span className="text-[9.5px] text-slate-500">CO: 13.22% • CO₂: 8.11% • H₂: 72.51% • CH₄: 3.24% • MW: 10.07 kg/kmol</span>
                             </td>
                             <td className="py-1.5 px-3 text-right font-bold text-slate-900">101.54 t/h</td>
@@ -1528,7 +1528,7 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                               </span>
                             </td>
                             <td className="py-1.5 px-3 text-slate-600">
-                              <span className="font-mono text-[10px] text-sky-700 block">AR.AR2.DCS.Condensate_Flow (V-1203 / V-1221 drain)</span>
+                              <span className="font-mono text-[10px] text-sky-700 block">1203-FI-02 (V-1203 / V-1221 drain)</span>
                               <span className="text-[9.5px] text-slate-500">Recycled to Saturator E-1222 / BFW Polishing Plant</span>
                             </td>
                             <td className="py-1.5 px-3 text-right font-bold text-slate-900">61.41 t/h</td>
@@ -1590,21 +1590,21 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                           <div className="flex justify-between py-1 border-b border-slate-100">
                             <div>
                               <span className="font-semibold text-slate-800 block">Fuel Gas Firing LHV (48.2 MJ/kg):</span>
-                              <span className="font-mono text-[9.5px] text-slate-400">ar.ar2.syn.reformer_inlet_fng + FPG (18.94 t/h)</span>
+                              <span className="font-mono text-[9.5px] text-slate-400">FT-1215 + FPG (18.94 t/h)</span>
                             </div>
                             <strong className="text-slate-900">253.6 MW (74.4%)</strong>
                           </div>
                           <div className="flex justify-between py-1 border-b border-slate-100">
                             <div>
                               <span className="text-slate-700 block">Sensible Heat in Superheated Steam (385°C):</span>
-                              <span className="font-mono text-[9.5px] text-slate-400">ar.ar2.ref.P_STEAM_MAIN (114.83 t/h)</span>
+                              <span className="font-mono text-[9.5px] text-slate-400">FT-1209 (114.83 t/h)</span>
                             </div>
                             <strong className="text-slate-900">64.5 MW (18.9%)</strong>
                           </div>
                           <div className="flex justify-between py-1 border-b border-slate-100">
                             <div>
                               <span className="text-slate-700 block">Sensible Heat in Preheated NG Feed (420°C):</span>
-                              <span className="font-mono text-[9.5px] text-slate-400">ar.ar2.ref.Png_To_Saturator_Flow_Comp (48.22 t/h)</span>
+                              <span className="font-mono text-[9.5px] text-slate-400">FT-1201 (48.22 t/h)</span>
                             </div>
                             <strong className="text-slate-900">14.2 MW (4.2%)</strong>
                           </div>
@@ -1635,7 +1635,7 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                           <div className="flex justify-between py-1 border-b border-slate-100">
                             <div>
                               <span className="text-slate-700 block">Sensible Enthalpy in Syngas at Radiant Arch (856°C):</span>
-                              <span className="font-mono text-[9.5px] text-slate-400">ar.ar2.syn.Outlet_Temperature_V_1201</span>
+                              <span className="font-mono text-[9.5px] text-slate-400">TI-1208</span>
                             </div>
                             <strong className="text-sky-900">118.2 MW (34.7%)</strong>
                           </div>
@@ -1649,14 +1649,14 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                           <div className="flex justify-between py-1 border-b border-slate-100">
                             <div>
                               <span className="text-slate-700 block">Convection BFW Economizer Absorption:</span>
-                              <span className="font-mono text-[9.5px] text-slate-400">AR.AR2.DCS.FC1214.PV (WHB BFW Circuit)</span>
+                              <span className="font-mono text-[9.5px] text-slate-400">FC-1214.PV (WHB BFW Circuit)</span>
                             </div>
                             <strong className="text-sky-900">22.5 MW (6.6%)</strong>
                           </div>
                           <div className="flex justify-between py-1 border-b border-slate-100">
                             <div>
                               <span className="font-semibold text-amber-800 block">Flue Gas Stack Loss (at 185°C):</span>
-                              <span className="font-mono text-[9.5px] text-amber-600">ar.ar2.ref.Stack_Temperature (185.0°C vs 150.0°C baseline)</span>
+                              <span className="font-mono text-[9.5px] text-amber-600">TI-1250 (185.0°C vs 150.0°C baseline)</span>
                             </div>
                             <strong className="text-amber-800 font-bold">23.6 MW (6.9%)</strong>
                           </div>
@@ -1686,7 +1686,7 @@ export const ReformerPfdCanvas: React.FC<ReformerPfdCanvasProps> = ({
                         <div className="bg-white p-2 rounded border border-slate-200">
                           <span className="text-slate-500 block text-[10px]">Combustion Air (Stoichiometric + Excess)</span>
                           <strong className="text-slate-900 text-xs">341.20 t/h</strong>
-                          <span className="block text-[9.5px] text-slate-400 mt-0.5">From ar.ar2.ref.PRIMARY_REFOSTACK_O2 (2.78% dry)</span>
+                          <span className="block text-[9.5px] text-slate-400 mt-0.5">From AI-1208 (2.78% dry)</span>
                         </div>
                         <div className="bg-white p-2 rounded border border-slate-200">
                           <span className="text-slate-500 block text-[10px]">Total Flue Gas Generated</span>

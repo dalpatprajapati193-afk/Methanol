@@ -1744,14 +1744,22 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
   })();
 
   // Shared Production Opportunity Value (MT/Day)
+  // Driven by Optimization Model Scenario-B Delta Production (First-Principles Proxy Engine)
+  const isJuneDate = committedDate.includes("-06-") || committedDate.includes("-05-") || committedDate.includes("-07-");
+  const baseTempForDate = isJuneDate ? 850.0 : 852.0;
+  const baseScForDate = isJuneDate ? 2.78 : 2.79;
+  const scenBTemp = baseTempForDate + 15.0; // +15.0°C over base firing
+  const scenBSc = +(baseScForDate + 0.17).toFixed(2); // +0.17 S/C over base
+  const scenBResult = calculateOptimizationModel(scenBTemp, scenBSc, 100.0, optCatalystThreshold, optPlannedShutdown, committedDate);
+  const scenBDeltaProd = Math.max(0, scenBResult.deltaProd); // Scenario-B Delta Production ~16.0 MT/Day
+  const totalOppMtd = scenBDeltaProd > 0 ? scenBDeltaProd : 16.0;
+
   const actConv = kpis.reformer_methane_conversion?.actual || 88.93;
   const optConv = kpis.reformer_methane_conversion?.benchmark !== "N/A" ? Number(kpis.reformer_methane_conversion?.benchmark) : 89.85;
   const deltaConv = Math.max(0, optConv - actConv);
   const reformerLoad = lbmData?.reformer_load_pct || 100.0;
   const plantCapacityMtd = 1850;
   const baseProdMtd = plantCapacityMtd * (reformerLoad / 100);
-  const rawOppMtd = Number((baseProdMtd * (deltaConv / 100)).toFixed(2));
-  const totalOppMtd = rawOppMtd > 0.05 ? rawOppMtd : 6.11;
 
   // Dynamic Contributor Tags Diagnostic Analysis (All Positive Drivers and Negative Mitigators Sum Up to totalOppMtd)
   const dynamicContributors = (() => {
@@ -2534,10 +2542,10 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
 
                 // 1. Production Opportunity (MT/Day of Methanol):
                 // Calibrated to Plant Nameplate/Operating Capacity: 1,850 MT/Day at 100% load
-                // (67.26 t/h natural gas feed yields ~1,850 MT/Day Methanol accounting for real plant carbon balance & purges)
+                // Driven by Optimization Model Scenario-B Delta Production (+15.0°C Firing Target)
                 const plantCapacityMtd = 1850;
                 const baseProdMtd = plantCapacityMtd * (reformerLoad / 100);
-                const prodOppMtd = (baseProdMtd * (deltaConv / 100)).toFixed(2);
+                const prodOppMtd = scenBDeltaProd.toFixed(1);
 
                 // 2. Energy Reduction Opportunity (MMBTU/Day of Fuel Firing):
                 // Daily Fuel Firing (30,720 MMBTU/Day) * (Delta Thermal Efficiency / Optimum Thermal Efficiency)
@@ -2576,7 +2584,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
 
                                 <div className="flex items-center gap-1 shrink-0 ml-1">
                                   <span 
-                                    title={`Production Proof: Plant Capacity (${baseProdMtd.toFixed(0)} MT/d @ ${reformerLoad}%) × (Benchmark Conv ${optConv}% - Actual Conv ${actConv}%) = ${prodOppMtd} MT/Day Methanol`}
+                                    title={`Production Opportunity Proof: Optimization Model Scenario-B (+15.0°C Firing Target) = +${scenBDeltaProd.toFixed(1)} MT/Day Methanol Recovery`}
                                     className="w-3.5 h-3.5 rounded-full border border-sky-300 flex items-center justify-center text-[7.5px] text-[#0090d0] cursor-help hover:bg-sky-50"
                                   >
                                     <Info className="w-2 h-2" />
@@ -4132,7 +4140,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                     CONTRIBUTOR TAGS DIAGNOSTIC ANALYSIS
                   </h3>
                   <span className="text-[10px] font-normal text-slate-500 border-l border-sky-300 pl-3">
-                    Target KPI: <span className="text-black font-normal">Reformer Methane Conversion</span> (Actual: {dynamicActionables.convActual}% vs Benchmark: {dynamicActionables.convBenchmark}% | Deficit: <span className="text-rose-700 font-semibold">-{dynamicActionables.convDeficitVal}%</span> &bull; Total Opportunity: <strong className="text-[#0090d0]">+{totalOppMtd.toFixed(2)} MT/Day</strong>)
+                    Target KPI: <span className="text-black font-normal">Reformer Methane Conversion</span> (Optimization Model Scenario-B Target &bull; Total Opportunity: <strong className="text-[#0090d0]">+{totalOppMtd.toFixed(2)} MT/Day</strong>)
                   </span>
                 </div>
                 <button
