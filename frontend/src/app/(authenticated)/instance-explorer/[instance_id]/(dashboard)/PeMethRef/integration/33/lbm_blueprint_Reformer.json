@@ -1,0 +1,332 @@
+{
+  "version": "1.0",
+  "model_name": "SMR Reformer Live Benchmarking Model",
+  "model_type": "LBM",
+  "attribute_groups": {
+    "performance_tags": [
+      {
+        "path": "",
+        "attribute": "overall_ch4_conversion",
+        "direction": "maximize"
+      }
+    ],
+    "match_tags": [
+      {
+        "path": "ambient_air",
+        "attribute": "temperature",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": -1.0,
+            "max_tol": 1.0
+          },
+          {
+            "iter": 2,
+            "min_tol": -2.0,
+            "max_tol": 2.0
+          },
+          {
+            "iter": 3,
+            "min_tol": -5.0,
+            "max_tol": 5.0
+          }
+        ]
+      },
+      {
+        "path": "primary_reformer",
+        "attribute": "outlet_temperature",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": -3.0,
+            "max_tol": 3.0
+          },
+          {
+            "iter": 2,
+            "min_tol": -4.0,
+            "max_tol": 4.0
+          },
+          {
+            "iter": 3,
+            "min_tol": -4.0,
+            "max_tol": 4.0
+          }
+        ]
+      },
+      {
+        "path": "primary_reformer",
+        "attribute": "mix_feed_mass_flowrate",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": -100.0,
+            "max_tol": 100.0
+          },
+          {
+            "iter": 2,
+            "min_tol": -1000.0,
+            "max_tol": 1000.0
+          },
+          {
+            "iter": 3,
+            "min_tol": -4000.0,
+            "max_tol": 4000.0
+          }
+        ]
+      },
+      {
+        "path": "",
+        "attribute": "overall_ch4_conversion",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": 0.0,
+            "max_tol": 5.0
+          },
+          {
+            "iter": 2,
+            "min_tol": 0.0,
+            "max_tol": 8.0
+          },
+          {
+            "iter": 3,
+            "min_tol": 0.0,
+            "max_tol": 9.0
+          }
+        ]
+      }
+    ],
+    "contributor_tags": [
+      {
+        "path": "primary_reformer.arch_zone",
+        "attribute": "excess_o2",
+        "pillar": "Energy",
+        "std_deviation": 1.69,
+        "direction": -1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      },
+      {
+        "path": "primary_reformer.arch_zone",
+        "attribute": "temperature",
+        "pillar": "Energy",
+        "std_deviation": 0.72,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      },
+      {
+        "path": "primary_reformer",
+        "attribute": "cot",
+        "pillar": "Production",
+        "std_deviation": 16.26,
+        "direction": -1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      },
+      {
+        "path": "primary_reformer",
+        "attribute": "mix_feed_mass_flowrate",
+        "pillar": "Energy",
+        "std_deviation": 0.22,
+        "direction": -1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      },
+      {
+        "path": "primary_reformer.reforming_coil.feed.natural_gas",
+        "attribute": "ng_btu",
+        "pillar": "Energy",
+        "std_deviation": 14.67,
+        "direction": -1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      },
+      {
+        "path": "primary_reformer",
+        "attribute": "steam_to_carbon_ratio",
+        "pillar": "Production",
+        "std_deviation": 6.51,
+        "direction": -1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      },
+      {
+        "path": "secondary_reformer",
+        "attribute": "air_to_carbon_ratio",
+        "pillar": "Production",
+        "std_deviation": 1.67,
+        "direction": -1,
+        "weight": 5,
+        "flag_scale_tag": true,
+        "type": null
+      }
+    ]
+  },
+  "ods_rules": [
+    {
+      "cause": {
+        "path": "primary_reformer",
+        "attribute": "steam_to_carbon_ratio",
+        "condition": "{cause}_actual < {cause}_benchmark"
+      },
+      "effect": {
+        "path": "secondary_reformer",
+        "attribute": "h2_selectivity",
+        "condition": "{effect}_actual < {effect}_benchmark"
+      },
+      "message": "Increase steam flow to achieve desired conversion and maintaining constant Radiant coil outlet temperature",
+      "message_category": "ods_cause_suggestion",
+      "actionable_tolerance": 0.2
+    },
+    {
+      "cause": {
+        "path": "secondary_reformer",
+        "attribute": "air_to_carbon_ratio",
+        "condition": "{cause}_actual < {cause}_benchmark"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "overall_ch4_conversion",
+        "condition": "{effect}_actual < {effect}_benchmark"
+      },
+      "message": "Gradually increase Air to Gas ratio by increasing Air flow to Secondary reformer setpoint to maintain Secondary reformer Methane Conversion while monitoring Secondary reformer H2 Selectivity",
+      "message_category": "ods_cause_suggestion",
+      "actionable_tolerance": 0.2
+    },
+    {
+      "cause": {
+        "path": "primary_reformer.arch_zone",
+        "attribute": "excess_o2",
+        "condition": "{cause}_actual > {cause}_benchmark"
+      },
+      "effect": {
+        "path": "primary_reformer",
+        "attribute": "thermal_efficiency",
+        "condition": "{effect}_actual < {effect}_benchmark"
+      },
+      "message": "Raise Primary reformer draft pressure (PIC1163) setpoint or adjust burner register while monitoring Arch Oxygen (AI1151) level",
+      "message_category": "ods_cause_suggestion",
+      "actionable_tolerance": 0.2
+    }
+  ],
+  "pipeline_parameters": [
+    {
+      "category": "LBM",
+      "parameter": "benchmark_selector",
+      "value": 1
+    },
+    {
+      "category": "LBM",
+      "parameter": "ccp_boundary_value_limit_exception#1",
+      "value": "plant_status"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_initialization_default_for_constant",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_initialization_default_value",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_initialization_get_pi_data",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_initialization_initialize",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_optimum_clean_data_processing",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_optimum_get_clean_data",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_postprocessing_lbm_main",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_postprocessing_prepare_output",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_preprocessing_constant_tags",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_preprocessing_model_skip_check",
+      "value": "active"
+    },
+    {
+      "category": "LBM",
+      "parameter": "performance_direction",
+      "value": "high"
+    },
+    {
+      "category": "LBM",
+      "parameter": "performance_tag_short_name",
+      "value": "ammonia_overall_ch4_conversion"
+    },
+    {
+      "category": "LBM",
+      "parameter": "window_ma_hr",
+      "value": 24
+    },
+    {
+      "category": "LBM",
+      "parameter": "window_tagstuck_hr",
+      "value": 12
+    },
+    {
+      "category": "TRG",
+      "parameter": "data_model_exists",
+      "value": 0
+    },
+    {
+      "category": "TRG",
+      "parameter": "is_using_lite_pipeline",
+      "value": "active"
+    },
+    {
+      "category": "TRG",
+      "parameter": "pullpi_window_hour",
+      "value": "720h"
+    },
+    {
+      "category": "LBM",
+      "parameter": "LBM_optimum_ml",
+      "value": "inactive"
+    }
+  ],
+  "clean_data_ranges": [
+    {
+      "packet_type": "lbm_static",
+      "start_time": "2025-01-01 00:00:00",
+      "end_time": "2025-12-31 00:00:00"
+    }
+  ]
+}

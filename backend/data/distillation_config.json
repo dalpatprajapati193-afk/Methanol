@@ -1,0 +1,567 @@
+{
+  "distillation": {
+    "toppingColumn": {
+      "feedPreheater": true,
+      "feedPreheaterFlowType": "Counter Flow",
+      "recycleWaterInFeed": true,
+      "condensers": {
+        "count": 2,
+        "utilities": [
+          "Air Cooled",
+          "Water Cooled"
+        ],
+        "flowTypes": [
+          "Counter Flow",
+          "Counter Flow"
+        ]
+      },
+      "reboilerHeatSource": "Steam Only",
+      "reboilerFlowType": "Counter Flow",
+      "causticDosing": true
+    },
+    "refiningColumn": {
+      "condensers": {
+        "count": 2,
+        "utilities": [
+          "Air Cooled",
+          "Water Cooled"
+        ],
+        "flowTypes": [
+          "Counter Flow",
+          "Counter Flow"
+        ]
+      },
+      "reboilerHeatSource": "Steam Only",
+      "reboilerFlowType": "Counter Flow",
+      "condensateDrumRG": null,
+      "sideDraw": true,
+      "hasProductCooler": true,
+      "productCoolerFlowType": "Counter Flow"
+    },
+    "recoveryColumn": {
+      "hasRecoveryColumn": true,
+      "condensers": {
+        "count": 1,
+        "utilities": [
+          "Water Cooled"
+        ],
+        "flowTypes": [
+          "Counter Flow"
+        ]
+      },
+      "reboilerHeatSource": "Steam Only",
+      "reboilerFlowType": "Counter Flow",
+      "sideDraw": {
+        "hasSideDraw": true,
+        "hasHeavyEndCooler": true,
+        "heavyEndCoolerUtility": "Water Cooled",
+        "heavyEndCoolerFlowType": "Counter Flow"
+      },
+      "bottoms": {
+        "sharedCooler": true,
+        "sharedCoolerUtility": "Water Cooled",
+        "sharedCoolerFlowType": "Counter Flow",
+        "disposalLocation": "Effluent Treatment"
+      }
+    },
+    "plantLevel": {
+      "pmaProductionAccounting": {
+        "sumOfRefiningAndRecovery": true,
+        "lossesAndByproductsTracked": false
+      },
+      "heatIntegration": {
+        "rgUsedInReboiler": false
+      }
+    }
+  },
+  "rawTagMappings": {
+    "CMA_flowrate_to_Topping Column": {
+      "piTag": "ar.ar2.syn.Outlet_CMA_flow_from_V_1403",
+      "design": "120",
+      "min": "80",
+      "max": "150",
+      "def": "117",
+      "uom": "M3/HR"
+    },
+    "Disitillation_Column_Cooler_CW_inlet_temp": {
+      "piTag": "CW_Supply_Temperature_degC",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Disitillation_Column_Cooler_CW_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Heavy_End_Cooler_CW_inlet_temp": {
+      "piTag": "CW_Supply_Temperature_degC",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Heavy_End_Cooler_CW_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Product Cooler_Outlet_PMA_temperature_to_Refining Column": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": ""
+    },
+    "Product_Cooler_CW_inlet_temp": {
+      "piTag": "CW_Supply_Temperature_degC",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Product_Cooler_CW_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Refining Column_Reflux_temperature": {
+      "piTag": "ar.ar2.dist.T1502_Reflux_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": ""
+    },
+    "CMA_feed_flow_to_Topping Column": {
+      "piTag": "ar.ar2.syn.Outlet_CMA_flow_from_V_1403",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/Kg °C"
+    },
+    "CMA_flow_to_Crude Methanol Preheater": {
+      "piTag": "ar.ar2.syn.Outlet_CMA_flow_from_V_1403",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/Kg °C"
+    },
+    "Out_temperature_from_Disitillation column Cooler": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Refining Column_Bottom_temperature": {
+      "piTag": "ar.ar2.dist.T1502_Bottom_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "CMA_moisture_from_CMA Tank": {
+      "piTag": "ar.ar2.dist.Lims_Crude_Methanol_Moisture",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Topping Column Reboiler_Steam_Temp": {
+      "piTag": "ar.ar2.dist.Steam_Temp_E1502",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/Kg"
+    },
+    "Heavy End Cooler_Outlet_Temp": {
+      "piTag": "ar.ar2.dist.E1514_Outlet_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kg/M3"
+    },
+    "Recovery Column Condenser_outlet_temp": {
+      "piTag": "ar.ar2.dist.T1503_Reflux_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Recovery Column Reboiler_steam_in_flow": {
+      "piTag": "ar.ar2.dist.E1511_Steam_Flow",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Recovery Column Reboiler_steam_temperature": {
+      "piTag": "ar.ar2.dist.E1511_Steam_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/Kg"
+    },
+    "Recovery Column_bottom_temperature": {
+      "piTag": "ar.ar2.dist.T1503_Bottom_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Recovery Column_Feed_PZ_flow": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": ""
+    },
+    "Recovery Column_PMA_Density": {
+      "piTag": "ar.ar2.dist.T_1503_Pma_Density",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Recovery Column_PMA_flow": {
+      "piTag": "ar.ar2.dist.T1503_Pma_Flow",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Recovery Column_PMA_outlet_temperature": {
+      "piTag": "ar.ar2.dist.T1503_Pma_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Recovery Column_Reflux_flowrate": {
+      "piTag": "ar.ar2.dist.T1503_Reflux_Flow",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "—"
+    },
+    "Recovery Column_side_cut": {
+      "piTag": "ar.ar2.dist.T1502_Sidedraw_To_T1503",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "M3/HR"
+    },
+    "Recovery Column_top_temperature": {
+      "piTag": "ar.ar2.dist.T_1503_Top_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Recovery_Column_Condenser_1_CW_inlet_temp": {
+      "piTag": "CW_Supply_Temperature_degC",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Recovery_Column_Condenser_1_CW_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Recovery_Column_Reboiler_condensate_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "CMA_Feed_From_Topping Column_To_Refining Column": {
+      "piTag": "ar.ar2.dist.Cma_Feed_From_T_1501_To_T_1502",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Liquid_temperature_from_Refining Column 1st Condenser": {
+      "piTag": "ar.ar2.dist.T1502_Reflux_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "PMA_from_Refining Column": {
+      "piTag": "ar.ar2.dist.T1502_Pma_Flow",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Refining Column condensate drum_RG_outlet_temperature": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Refining Column Reboiler_steam_flow": {
+      "piTag": "ar.ar2.dist.Steam_Flow_E1506",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Refining Column_89_Tray_temperature": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "M3/HR"
+    },
+    "Refining Column_PMA_Density": {
+      "piTag": "ar.ar2.dist.T_1502_Pma_Density",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kg/M3"
+    },
+    "Refining Column_Reflux_flowrate": {
+      "piTag": "ar.ar2.dist.T_1502_Reflux_Flow",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "—"
+    },
+    "Refining Column_top_temperature": {
+      "piTag": "ar.ar2.dist.T_1502_Top_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Refining_Column_2nd_Condenser_Duty": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "hr·°C/MMKcal"
+    },
+    "Refining_Column_2nd_Condenser_inlet_temperature": {
+      "piTag": "ar.ar2.dist.T1502_Reflux_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Refining_Column_2nd_Condenser_outlet_temperature": {
+      "piTag": "ar.ar2.dist.E1508_Outlet_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Refining_Column_Condenser_2_CW_inlet_temp": {
+      "piTag": "CW_Supply_Temperature_degC",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Refining_Column_Condenser_2_CW_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Steam_temperature_Refining Column Reboiler": {
+      "piTag": "ar.ar2.dist.Steam_Temp_E1506",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/Kg"
+    },
+    "Topping Column_Bottom_temperature": {
+      "piTag": "ar.ar2.dist.T1501_Bottom_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kg/M3"
+    },
+    "Ambient_Temperature": {
+      "piTag": "ar.ar2.dist.Ambient_Temperature",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "CMA_specific_gravity_from_CMA Tank": {
+      "piTag": "ar.ar2.dist.Cma_Specific_Gravity",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Out_RG_temperature_from_Topping Column condensate drum": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Recycle_Water_Topping Column": {
+      "piTag": "ar.ar2.dist.Recycle_Water_T1501",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "TPH"
+    },
+    "Recycle_Water_Topping Column_Temp": {
+      "piTag": "ar.ar2.dist.Recyle_Water_T1501_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "KG/M3"
+    },
+    "Reflux_flow_to_Topping Column": {
+      "piTag": "ar.ar2.dist.Reflux_Flow_T1501",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "—"
+    },
+    "Reflux_temperature_to_Topping Column": {
+      "piTag": "ar.ar2.dist.T_1501_Reflux_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "KG/M3"
+    },
+    "Topping Column 1st Condenser_outlet_temperature": {
+      "piTag": "ar.ar2.dist.T_1501_Reflux_Temp",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/kg"
+    },
+    "Topping Column 1st Condenser_Vap_out_temperature": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Topping Column 2nd Condenser_out_temperature": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Topping Column Reboiler_Steam_flow": {
+      "piTag": "ar.ar2.dist.Steam_Flow_E1502",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "MMKcal/hr"
+    },
+    "Topping Column_Top_temperature": {
+      "piTag": "ar.ar2.dist.T1551_Top_Temperature",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "Kcal/kg"
+    },
+    "Topping_Column_2nd_Condenser_Duty": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "hr·°C/MMKcal"
+    },
+    "Topping_Column_Condenser_2_CW_inlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    },
+    "Topping_Column_Condenser_2_CW_outlet_temp": {
+      "piTag": "",
+      "design": "",
+      "min": "",
+      "max": "",
+      "def": "",
+      "uom": "°C"
+    }
+  }
+}

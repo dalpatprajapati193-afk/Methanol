@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-hover: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-accent-blue: #009FDF;
+  --color-accent-yellow: #FFCD00;
+  --color-accent-green: #10b981;
+  --color-accent-orange: #F9AD6F;
+  --color-accent-red: #ef4444;
+}
+
+/* ─── Light Blue (default) ────────────────────────────────────────────────── */
+:root {
+  color-scheme: light;
+  --color-background: #ffffff;
+  --color-surface: #f8fafc;
+  --color-surface-hover: #f1f5f9;
+  --color-border: #e2e8f0;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #64748b;
+  --color-accent-blue: #009FDF;
+}
+
+/* ─── Dark Blue ───────────────────────────────────────────────────────────── */
+html.dark {
+  color-scheme: dark;
+  --color-background: #0d1117;
+  --color-surface: #161b22;
+  --color-surface-hover: #1c2330;
+  --color-border: #30363d;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #8b949e;
+  --color-accent-blue: #009FDF;
+}
+
+/* ─── Base styles ─────────────────────────────────────────────────────────── */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Smooth transitions on common surface elements */
+aside,
+main,
+header,
+nav,
+section,
+[class*="bg-surface"],
+[class*="bg-background"],
+[class*="border-border"] {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* ─── Custom scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-surface-hover);
+}

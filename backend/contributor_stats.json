@@ -1,0 +1,22 @@
+{
+  "Water_Cooler_Fouling_Index": {
+    "std_deviation": 0.017166,
+    "direction": -1,
+    "weight": 20.249
+  },
+  "Recycle_Ratio": {
+    "std_deviation": 0.008426,
+    "direction": -1,
+    "weight": 42.7892
+  },
+  "M_Value": {
+    "std_deviation": 0.007807,
+    "direction": 1,
+    "weight": 16.0409
+  },
+  "Loop_Pressure": {
+    "std_deviation": 5.100618,
+    "direction": -1,
+    "weight": 20.9209
+  }
+}

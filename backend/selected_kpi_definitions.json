@@ -1,0 +1,177 @@
+{
+  "total": 25,
+  "kpis": [
+    
+    {
+      "name": "Total_Energy_Consumed_Per_Knm3_Of_Co_Co2",
+      "uom": "GJ/KNm3",
+      "category": "Energy Efficiency",
+      "type": "Inferred",
+      "formula": "(Energy_Consumed_Due_To_Fpg+Energy_Consumed_Due_To_Fng+Energy_Consumed_Due_To_Pk_Off_Gas)/(Co_Volume_Rate_In_Rg+Co2_Volume_Rate_In_Rg-Co_Volume_Rate_In_Png-Co2_Volume_Rate_In_Png)",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Energy_Consumed_Due_To_Fpg\")+_get(s, \"Energy_Consumed_Due_To_Fng\")+_get(s, \"Energy_Consumed_Due_To_Pk_Off_Gas\"))/(_get(s, \"Co_Volume_Rate_In_Rg\")+_get(s, \"Co2_Volume_Rate_In_Rg\")-_get(s, \"Co_Volume_Rate_In_Png\")-_get(s, \"Co2_Volume_Rate_In_Png\"))"
+    },
+    {
+      "name": "Reformer_Conversion",
+      "uom": "%",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "100-Hc_In_Rg/Hc_In_Png*100",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: 100-_get(s, \"Hc_In_Rg\")/_get(s, \"Hc_In_Png\")*100"
+    },
+    {
+      "name": "Co_Co2",
+      "uom": "-",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "Rg_Separator_Outlet_Co/Rg_Separator_Outlet_Co2",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Rg_Separator_Outlet_Co\")/_get(s, \"Rg_Separator_Outlet_Co2\")"
+    },
+    {
+      "name": "M_Value",
+      "uom": "-",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "Rg_Separator_Outlet_H2/((2*Rg_Separator_Outlet_Co)+(3*Rg_Separator_Outlet_Co2))",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Rg_Separator_Outlet_H2\")/((2*_get(s, \"Rg_Separator_Outlet_Co\"))+(3*_get(s, \"Rg_Separator_Outlet_Co2\")))"
+    },
+    {
+      "name": "Ate_Index",
+      "uom": "°C",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "Rg_Transfer_Main_Temp-Equilibrium_Temp",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Rg_Transfer_Main_Temp\")-_get(s, \"Equilibrium_Temp\")"
+    },
+    {
+      "name": "Fpg_Fng_Ratio",
+      "uom": "[-]",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "Steam_Reformer_Inlet_Fpg/Steam_Reformer_Inlet_Fng",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Steam_Reformer_Inlet_Fpg\")/_get(s, \"Steam_Reformer_Inlet_Fng\")"
+    },
+    {
+      "name": "Thermal_Efficiency",
+      "uom": "%",
+      "category": "Energy Efficiency",
+      "type": "Inferred",
+      "formula": "(Total_Heat_Absorbed_Per_Kg_Of_Fuel/Total_Heat_Input_Per_Kg_Of_Fuel)*100",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Total_Heat_Absorbed_Per_Kg_Of_Fuel\")/_get(s, \"Total_Heat_Input_Per_Kg_Of_Fuel\"))*100"
+    },
+    {
+      "name": "Radiation_Efficiency",
+      "uom": "%",
+      "category": "Energy Efficiency",
+      "type": "Inferred",
+      "formula": "(Heat_Absorbed_In_Radiation/Heat_Input_Fuel_Firing)*100",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Heat_Absorbed_In_Radiation\")/_get(s, \"Heat_Input_Fuel_Firing\"))*100"
+    },
+    {
+      "name": "Tmt_In_Oc_In_Ng_Preheater",
+      "uom": "°C",
+      "category": "Feed Pre-treatment",
+      "type": "Inferred",
+      "formula": "(Tmt_In_F_In_Ng_Preheater-32)/1.8",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Tmt_In_F_In_Ng_Preheater\")-32)/1.8"
+    },
+    {
+      "name": "Fuel_Consumption",
+      "uom": "GJ/h",
+      "category": "Energy Efficiency",
+      "type": "Inferred",
+      "formula": "(Steam_Reformer_Inlet_Fng*Fnglhv_Calcu+Steam_Reformer_Inlet_Fpg*Fpglhv_Calcu+Steam_Reformer_Inlet_Fpk_Calc*Fpk_Lhv_Calc)/1000*4.184",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Steam_Reformer_Inlet_Fng\")*_get(s, \"Fnglhv_Calcu\")+_get(s, \"Steam_Reformer_Inlet_Fpg\")*_get(s, \"Fpglhv_Calcu\")+_get(s, \"Steam_Reformer_Inlet_Fpk_Calc\")*_get(s, \"Fpk_Lhv_Calc\"))/1000*4.184"
+    },
+    {
+      "name": "Activity_Index_Smr",
+      "uom": "%",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "Energy_Consumed_In_Gj_1Mol_Ch4_Converted/2.38*100",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Energy_Consumed_In_Gj_1Mol_Ch4_Converted\")/2.38*100"
+    },
+    {
+      "name": "Carbon_Factor",
+      "uom": "-",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "(Ch4_Analyzer_In_Png/100)*1+(C2_Analyzer_In_Png/100)*2+(C3_Analyzer_In_Png/100)*3+((Nc4_Analyzer_In_Png+Ic4_Analyzer_In_Png)/100)*4+(Co_Analyzer_In_Png/100)+(Co2_Analyzer_In_Png/100)",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Ch4_Analyzer_In_Png\")/100)*1+(_get(s, \"C2_Analyzer_In_Png\")/100)*2+(_get(s, \"C3_Analyzer_In_Png\")/100)*3+((_get(s, \"Nc4_Analyzer_In_Png\")+_get(s, \"Ic4_Analyzer_In_Png\"))/100)*4+(_get(s, \"Co_Analyzer_In_Png\")/100)+(_get(s, \"Co2_Analyzer_In_Png\")/100)"
+    },
+    {
+      "name": "Specific_Consumption",
+      "uom": "-",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "Png_Flow/Co_Co2_Molar_Flowrate_In_Rg",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Png_Flow\")/_get(s, \"Co_Co2_Molar_Flowrate_In_Rg\")"
+    },
+    {
+      "name": "Plant_Status",
+      "uom": "-",
+      "category": "Plant Operations",
+      "type": "Inferred",
+      "formula": "if(Reformer_Load<50,0,1)",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (0 if _get(s, \"Reformer_Load\")<50 else 1)"
+    },
+    {
+      "name": "Fouling_Ratio_Ng_Preheater",
+      "uom": "%",
+      "category": "Feed Pre-treatment",
+      "type": "Inferred",
+      "formula": "if(((Fouling_Rate_In_Ng_Preheater-12)/(21-12)*100)>100,100,(Fouling_Rate_In_Ng_Preheater-12)/(21-12)*100)",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (100 if ((_get(s, \"Fouling_Rate_In_Ng_Preheater\")-12)/(21-12)*100)>100 else (_get(s, \"Fouling_Rate_In_Ng_Preheater\")-12)/(21-12)*100)"
+    },
+    {
+      "name": "Scattering_Temperature",
+      "uom": "°C",
+      "category": "Reformer Tubes",
+      "type": "Inferred",
+      "formula": "if((Max_Cot-Min_Cot)>100,100,Max_Cot-Min_Cot)",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (100 if (_get(s, \"Max_Cot\")-_get(s, \"Min_Cot\"))>100 else _get(s, \"Max_Cot\")-_get(s, \"Min_Cot\"))"
+    },
+    {
+      "name": "Carbon_Flow_Ratio",
+      "uom": "%",
+      "category": "Steam Reformer",
+      "type": "Inferred",
+      "formula": "(Reformer_Inlet_Png_Flow/Reformed_Gas_Flow)*100",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: (_get(s, \"Reformer_Inlet_Png_Flow\")/_get(s, \"Reformed_Gas_Flow\"))*100"
+    },
+    {
+      "name": "Acid_Dew_Point_Degc",
+      "uom": "degC",
+      "category": "Corrosion Monitoring",
+      "type": "Inferred",
+      "formula": "((Ln_H20_Pct*18.048+Ln_So3_Ppmv*17.343+198.445)-32)/1.8",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: ((_get(s, \"Ln_H20_Pct\")*18.048+_get(s, \"Ln_So3_Ppmv\")*17.343+198.445)-32)/1.8"
+    },
+    {
+      "name": "Waste_Heat_Boiler_Duty",
+      "uom": "Gcal/h",
+      "category": "Waste Heat Recovery",
+      "type": "Inferred",
+      "formula": "Whb_St_Drum_Sh_Out_Flow*(Enthalpy_Whb_Drum-Enthalpy_Bfw_Ph)/1000",
+      "source": "kpiService.js",
+      "fn_str": "lambda s: _get(s, \"Whb_St_Drum_Sh_Out_Flow\")*(_get(s, \"Enthalpy_Whb_Drum\")-_get(s, \"Enthalpy_Bfw_Ph\"))/1000"
+    }
+  ]
+}

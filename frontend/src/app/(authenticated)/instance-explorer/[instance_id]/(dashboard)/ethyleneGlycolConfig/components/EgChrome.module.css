@@ -1,0 +1,171 @@
+/* ============================================================
+   EG Wizard — scoped chrome styling (legacy look & feel)
+   Semantic tokens only; gradients derived via color-mix.
+   ============================================================ */
+
+/* ── Root shell: pins to viewport edges so the wizard always
+   fills the full screen regardless of body/html height ── */
+.wizardRoot {
+  /* position: fixed; */
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background);
+  overflow: hidden;
+}
+
+.wizardLoading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background);
+}
+
+/* ── Middle row: fills remaining height, clips overflow ── */
+.wizardBody {
+  display: flex;
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ── Main content column: flex column that fills height ── */
+.wizardColumn {
+  flex: 1 1 0%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Scrollable step content area ── */
+.wizardMain {
+  flex: 1 1 0%;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+/* ── Brand logo box (gradient) ── */
+.logoBox {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.125rem;
+  color: #fff;
+  background: linear-gradient(135deg,
+      var(--color-accent-blue),
+      color-mix(in srgb, var(--color-accent-blue) 65%, white));
+}
+
+/* ── Brand wordmark (gradient text) ── */
+.brand {
+  font-weight: 700;
+  font-size: 1.0625rem;
+  background: linear-gradient(90deg,
+      var(--color-accent-blue),
+      color-mix(in srgb, var(--color-accent-blue) 60%, white));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ── Sidebar progress bar ── */
+.progressTrack {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background-color: var(--color-border);
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg,
+      var(--color-accent-blue),
+      color-mix(in srgb, var(--color-accent-blue) 60%, white));
+  transition: width 0.4s ease;
+}
+
+/* ── Sidebar step rows with numbered circles ── */
+.stepRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.stepRow:hover {
+  background-color: var(--color-surface-hover);
+}
+
+.stepRowActive {
+  background-color: var(--color-accent-blue-light);
+  color: var(--color-accent-blue);
+  font-weight: 600;
+}
+
+.stepRowCompleted {
+  background-color: var(--color-accent-green-light);
+  color: var(--color-accent-green);
+  font-weight: 500;
+}
+
+.stepRowNested {
+  padding-left: 1.25rem;
+}
+
+.circle {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 9999px;
+  border: 2px solid var(--color-border);
+  background-color: var(--color-surface);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.circleSmall {
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 0.7rem;
+}
+
+.circleActive {
+  border-color: var(--color-accent-blue);
+  background-color: var(--color-accent-blue);
+  color: #fff;
+}
+
+.circleCompleted {
+  border-color: var(--color-accent-green);
+  background-color: var(--color-accent-green);
+  color: #fff;
+}

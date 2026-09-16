@@ -1,0 +1,197 @@
+/* Furnace Product App – scoped overrides for things not expressible in Tailwind */
+
+/* Monospace font for industrial/label text */
+.mono { font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace; }
+
+/* Hide number input spinners */
+.numInput::-webkit-inner-spin-button,
+.numInput::-webkit-outer-spin-button { -webkit-appearance: none; }
+.numInput { -moz-appearance: textfield; }
+
+/* Segment button pair */
+.seg { display: inline-flex; gap: 0; width: 62px; }
+.segBtn {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 2px 0;
+  text-align: center;
+  font-size: 10px; /* compact YES/NO toggle — smallest of the 10–16px system */
+  font-family: ui-monospace, monospace;
+  font-weight: 500;
+  letter-spacing: .06em;
+  cursor: pointer;
+  border: 1px solid;
+  transition: background .12s, color .12s;
+}
+.segBtn:first-child { border-radius: 4px 0 0 4px; }
+/* Last button keeps all four borders but overlaps the shared divider via a
+   -1px margin, so the pair still reads as a single divider line while a
+   selected button can show its colored border on every edge. */
+.segBtn:last-child  { border-radius: 0 4px 4px 0; margin-left: -1px; }
+/* Selected state paints its colored border on top of the neighbour's. */
+.segBtnYes, .segBtnNo { position: relative; z-index: 1; }
+.segBtnNeutral { background: var(--color-surface); color: var(--color-text-secondary); border-color: var(--color-border); }
+/* Selected states use a SOLID accent fill + white text (same look as the
+   Add/Del buttons). Only the chosen side is filled; the other stays neutral. */
+.segBtnYes { background: var(--color-accent-green); border-color: var(--color-accent-green); color: #fff; }
+.segBtnNo  { background: var(--color-accent-red); border-color: var(--color-accent-red); color: #fff; }
+.segBtnYes:hover, .segBtnNo:hover { filter: brightness(1.08); }
+.segBtnAutoYes { background: var(--color-accent-blue); border-color: var(--color-accent-blue); color: #fff; pointer-events: none; }
+/* Autofilled/auto-locked is BLUE regardless of YES/NO (was orange for NO) */
+.segBtnAutoNo  { background: var(--color-accent-blue); border-color: var(--color-accent-blue); color: #fff; pointer-events: none; }
+/* Locked/auto-filled: same width as the YES|NO pair, rendered as one solid
+   BLUE block with a single centered label — signals the user has no choice.
+   The border + rounding live on the container so there's no middle divider. */
+.segLocked {
+  position: relative;
+  background: var(--color-accent-blue);
+  border: 1px solid var(--color-accent-blue);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.segLocked .segBtn {
+  color: transparent;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  pointer-events: none;
+  cursor: default;
+}
+.segLockedLabel {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 10px; /* compact YES/NO toggle — smallest of the 10–16px system */
+  font-family: ui-monospace, monospace;
+  font-weight: 500;
+  letter-spacing: .06em;
+  pointer-events: none;
+}
+
+/* P&ID SVG container */
+.pidSvgWrap {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+/* Tile progress bar */
+.tileProgressWrap {
+  width: calc(100% - 32px);
+  height: 3px;
+  background: var(--color-surface);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.tileProgressBar {
+  height: 100%;
+  border-radius: 2px;
+  transition: width .3s, background .3s;
+}
+
+/* Confirm pipeline progress bar */
+.procTrack {
+  width: 100%;
+  height: 9px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.procFill {
+  height: 100%;
+  background: var(--color-accent-blue);
+  border-radius: 999px;
+  transition: width .35s ease, background .25s ease;
+  position: relative;
+  overflow: hidden;
+}
+/* Moving sheen — signals the backend is actively working */
+.procFill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(115deg, transparent 0%, rgba(255,255,255,.45) 50%, transparent 100%);
+  background-size: 220% 100%;
+  animation: procShimmer 1.1s linear infinite;
+}
+.procDone::after { animation: none; opacity: 0; }
+@keyframes procShimmer {
+  0%   { background-position: 220% 0; }
+  100% { background-position: -220% 0; }
+}
+
+/* Accordion row arrow */
+.fmsArrowExpanded { transform: rotate(90deg); }
+
+/* Select appearance */
+.fiSel {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath d='M2 3.5L5 6.5L8 3.5' stroke='%234b5563' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  padding-right: 24px !important;
+}
+
+/* Toggle switch */
+.swTrack { position: relative; width: 30px; height: 16px; border-radius: 8px; cursor: pointer; }
+.swThumb {
+  position: absolute; top: 3px; left: 3px;
+  width: 8px; height: 8px; border-radius: 50%;
+  transition: transform .2s, background .2s;
+}
+.swThumbChecked { transform: translateX(14px); }
+
+/* Drag handle */
+.dragHandle { cursor: grab; opacity: .4; }
+.dragHandle:hover { opacity: .8; }
+
+/* Wizard Prev/Next animated chevrons — three glyphs pulse in sequence so the
+   wave travels toward the direction of travel (right for Next, left for Prev).
+   Each glyph's animation-delay is set inline by WizardNav. */
+.navChevs { display: inline-flex; font-weight: 700; letter-spacing: -1px; }
+.navChevs > span { animation: navChevWave 0.9s ease-in-out infinite; }
+@keyframes navChevWave {
+  0%, 100% { opacity: .3; }
+  50%      { opacity: 1; }
+}
+
+/* Wizard centre SAVE button — a single dot that pulses (scale + a soft halo ring)
+   to draw the eye, echoing the animated feel of the Prev/Next chevrons. */
+.saveDot {
+  position: relative;
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: currentColor;
+  animation: saveDotPulse 1.4s ease-in-out infinite;
+}
+.saveDot::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 9999px;
+  background: currentColor;
+  opacity: .5;
+  animation: saveDotHalo 1.4s ease-out infinite;
+}
+@keyframes saveDotPulse {
+  0%, 100% { transform: scale(.85); opacity: .7; }
+  50%      { transform: scale(1);   opacity: 1;  }
+}
+@keyframes saveDotHalo {
+  0%   { transform: scale(.6); opacity: .5; }
+  70%, 100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* Per-entry save-state indicator — an "unsaved" control's TEXT (only the glyphs,
+   never the box / border / button fill) fades out and reappears in a loop until
+   the edit is Saved. The fade itself is driven by ONE shared clock on :root (see
+   globals.css `--fieldFadeColor`) so every unsaved field stays in phase regardless
+   of when it became unsaved — this class only reads that shared colour, it does not
+   animate on its own. "Saved" is steady yellow text; "confirmed" no class. */
+.fieldTextFade { color: var(--fieldFadeColor, var(--color-accent-yellow)); }

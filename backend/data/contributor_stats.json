@@ -1,0 +1,410 @@
+{
+  "Ambient_Temperature": {
+    "std_deviation": 4.762018,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.166081
+  },
+  "Convertor_Effluent_Inlet_Temperature": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Convertor_Effluent_Outlet_Temperature": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Convertor_Feed_Preheater_Inlet_Temperature": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Convertor_Feed_Preheater_Outlet_Temperature": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "CMA_Density": {
+    "std_deviation": 0.000245,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.587257
+  },
+  "CMA_Flow": {
+    "std_deviation": 3.044691,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.999964
+  },
+  "Methanol_Purity_In_CMA": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "MUG_Gas_Molar_Flow": {
+    "std_deviation": 6.932563,
+    "direction": 1,
+    "weight": 96.7813,
+    "correlation": 0.968391
+  },
+  "System_MUG_Gas_CH4_Mole_Concentration": {
+    "std_deviation": 0.059572,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.241722
+  },
+  "System_MUG_Gas_CO_Mole_Concentration": {
+    "std_deviation": 0.222643,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.206203
+  },
+  "System_MUG_Gas_CO2_Mole_Concentration": {
+    "std_deviation": 0.233106,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.227081
+  },
+  "System_MUG_Gas_H2_Mole_Concentration": {
+    "std_deviation": 0.156224,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.108845
+  },
+  "System_MUG_Gas_H2O_Mole_Concentration": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "System_MUG_Gas_N2_Mole_Concentration": {
+    "std_deviation": 0.090914,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.234784
+  },
+  "Convertor_Bed_1_Inlet_Temperature": {
+    "std_deviation": 1.434141,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.150697
+  },
+  "Convertor_Bed_1_Outlet_Temperature": {
+    "std_deviation": 0.248179,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.112445
+  },
+  "Convertor_Bed_2_Inlet_Temperature": {
+    "std_deviation": 0.856537,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.069786
+  },
+  "Convertor_Bed_2_Outlet_Temperature": {
+    "std_deviation": 2.117847,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.18465
+  },
+  "Convertor_Bed_3_Inlet_Temperature": {
+    "std_deviation": 1.075163,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.105333
+  },
+  "Convertor_Bed_3_Outlet_Temperature": {
+    "std_deviation": 1.304239,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.113667
+  },
+  "Convertor_Outlet_Temperature": {
+    "std_deviation": 1.114352,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.032887
+  },
+  "Loop_Pressure": {
+    "std_deviation": 2.188265,
+    "direction": 1,
+    "weight": 1.5801,
+    "correlation": 0.822504
+  },
+  "Recycle_Gas_CH3OH_Mole_Concentration": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Recycle_Gas_CH4_Mole_Concentration": {
+    "std_deviation": 0.221346,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.673401
+  },
+  "Recycle_Gas_CO_Mole_Concentration": {
+    "std_deviation": 0.062073,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.215512
+  },
+  "Recycle_Gas_CO2_Mole_Concentration": {
+    "std_deviation": 0.107559,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.440606
+  },
+  "Recycle_Gas_H2_Mole_Concentration": {
+    "std_deviation": 0.406426,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.34826
+  },
+  "Recycle_Gas_H2O_Mole_Concentration": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Recycle_Gas_Molar_Flow": {
+    "std_deviation": 45.971321,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.870425
+  },
+  "Recycle_Gas_N2_Mole_Concentration": {
+    "std_deviation": 0.317994,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.158025
+  },
+  "Ccw_Flow": {
+    "std_deviation": 2663.019028,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.073443
+  },
+  "Ccw_Inlet_Temperature": {
+    "std_deviation": 4.267181,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.057588
+  },
+  "Convertor_Effluent_Cooler_Inlet_Temperature": {
+    "std_deviation": 4.458052,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.53021
+  },
+  "Convertor_Effluent_Cooler_Outlet_Temperature": {
+    "std_deviation": 1.8745,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.638254
+  },
+  "CMA_Density_kgm3": {
+    "std_deviation": 0.245386,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.587257
+  },
+  "Methanol_Molar_Flow": {
+    "std_deviation": 64.200003,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 1.0
+  },
+  "MUG_Gas_Molecular_Weight": {
+    "std_deviation": 0.061718,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.22789
+  },
+  "MUG_Gas_Mass_Flow": {
+    "std_deviation": 3033.501249,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.936169
+  },
+  "Recycle_Gas_Molecular_Weight": {
+    "std_deviation": 0.09836,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.108954
+  },
+  "Recycle_Gas_Mass_Flow": {
+    "std_deviation": 15014.295638,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.806883
+  },
+  "Convertor_Feed_Mass_Flow": {
+    "std_deviation": 17382.66821,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.86032
+  },
+  "Convertor_Effluent_Mass_Flow_Calc": {
+    "std_deviation": 17382.66821,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.86032
+  },
+  "Water_Cooler_Heat_Duty": {
+    "std_deviation": 1.86754,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.151163
+  },
+  "CO_Makeup_Molar_Flow": {
+    "std_deviation": 51.267394,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.885185
+  },
+  "CO2_Makeup_Molar_Flow": {
+    "std_deviation": 33.286019,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.567205
+  },
+  "CO_Recycle_Molar_Flow": {
+    "std_deviation": 37.94078,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.038012
+  },
+  "CO2_Recycle_Molar_Flow": {
+    "std_deviation": 57.524698,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.182902
+  },
+  "Ccw_Outlet_Temperature": {
+    "std_deviation": 4.968935,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.011709
+  },
+  "Water_Cooler_LMTD": {
+    "std_deviation": 4.395178,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.352372
+  },
+  "Total_Quench_Flow": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Methanol_Separation_Ratio": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Reformed_Gas_Compression_Ratio": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "H2_Recovery_Index": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "H2_Separation_Efficiency": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Methanol_Production": {
+    "std_deviation": 49.370316,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 1.0
+  },
+  "Carbon_Yield": {
+    "std_deviation": 0.752364,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.289383
+  },
+  "Catalyst_Remaining_Life": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Recycle_Ratio": {
+    "std_deviation": 0.104707,
+    "direction": 1,
+    "weight": 0.3539,
+    "correlation": 0.111361
+  },
+  "M_Value": {
+    "std_deviation": 0.030748,
+    "direction": 1,
+    "weight": 0.5458,
+    "correlation": 0.138901
+  },
+  "Water_Cooler_Fouling_Index": {
+    "std_deviation": 0.161821,
+    "direction": -1,
+    "weight": 0.127,
+    "correlation": -0.359282
+  },
+  "Catalyst_Age": {
+    "std_deviation": 166.746716,
+    "direction": -1,
+    "weight": 0.0,
+    "correlation": -0.080298
+  },
+  "Bed_1_Delta_T": {
+    "std_deviation": 1.305203,
+    "direction": -1,
+    "weight": 0.3206,
+    "correlation": -0.144203
+  },
+  "Bed_2_Delta_T": {
+    "std_deviation": 1.633833,
+    "direction": -1,
+    "weight": 0.1478,
+    "correlation": -0.202766
+  },
+  "Bed_3_Delta_T": {
+    "std_deviation": 0.725369,
+    "direction": -1,
+    "weight": 0.1435,
+    "correlation": -0.048249
+  },
+  "Preheater_Effluent_Heat_Duty": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Preheater_LMTD": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  },
+  "Preheater_Fouling_Index": {
+    "std_deviation": 1.0,
+    "direction": 1,
+    "weight": 0.0,
+    "correlation": 0.0
+  }
+}

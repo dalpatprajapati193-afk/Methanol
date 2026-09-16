@@ -1,0 +1,1195 @@
+{
+  "version": "1.0",
+  "model_name": "Methanol Distillation Benchmarking Model",
+  "model_type": "LBM",
+  "attribute_groups": {
+    "performance_tags": [],
+    "match_tags": [
+      {
+        "path": "",
+        "attribute": "Ambient_Temperature",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": -3.0,
+            "max_tol": 3.0
+          },
+          {
+            "iter": 2,
+            "min_tol": -5.0,
+            "max_tol": 5.0
+          },
+          {
+            "iter": 3,
+            "min_tol": -7.0,
+            "max_tol": 7.0
+          }
+        ]
+      },
+      {
+        "path": "",
+        "attribute": "Topping_Column_Feed_flowrate",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": -5.0,
+            "max_tol": 5.0
+          },
+          {
+            "iter": 2,
+            "min_tol": -7.0,
+            "max_tol": 7.0
+          },
+          {
+            "iter": 3,
+            "min_tol": -5.0,
+            "max_tol": 5.0
+          }
+        ]
+      },
+      {
+        "path": "",
+        "attribute": "CMA_moisture_from_CMA_Tank",
+        "decimal": 2,
+        "iterations": [
+          {
+            "iter": 1,
+            "min_tol": -4.0,
+            "max_tol": 4.0
+          },
+          {
+            "iter": 2,
+            "min_tol": -10.0,
+            "max_tol": 10.0
+          },
+          {
+            "iter": 3,
+            "min_tol": -20.0,
+            "max_tol": 20.0
+          }
+        ]
+      }
+    ],
+    "contributor_tags": [
+      {
+        "path": "",
+        "attribute": "Topping_Column_Reboiler_Steam_flow",
+        "pillar": "Energy, Environment",
+        "std_deviation": 0.4,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Reflux_Feed_Ratio_Topping_Column_Calculated",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Steam_Feed_Ratio_Topping_Column_Calculated",
+        "pillar": "Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Reflux_Feed_Ratio_Refining_Column_Calculated",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Reflux_Feed_Ratio_Recovery_Column_Calculated",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Steam_Feed_Ratio_Refining_Column_Calculated",
+        "pillar": "Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Steam_Feed_Ratio_T4503_APC",
+        "pillar": "Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4502_93_Tray_temperature",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 2.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4502_Sidedraw_To_Feed_Ratio",
+        "pillar": "Process",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "E_4511_steam_in_flow",
+        "pillar": "Energy, Environment",
+        "std_deviation": 0.2,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4503_60_Tray_temperature",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 54.76,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "Refining_Column_Reboiler_steam_flow",
+        "pillar": "Energy, Environment",
+        "std_deviation": 18.932,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4501_Bottom_temperature",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 0.6,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4503_Sidedraw_To_Feed_Ratio",
+        "pillar": "Process",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "CMA_Feed_From_T_4501_To_T_4502",
+        "pillar": "Process",
+        "std_deviation": 2.5,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4502_reflux_ratio",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      },
+      {
+        "path": "",
+        "attribute": "T_4503_reflux_ratio_1",
+        "pillar": "Process, Energy, Environment",
+        "std_deviation": 0.0,
+        "direction": 1,
+        "weight": 5,
+        "flag_scale_tag": false,
+        "type": null
+      }
+    ]
+  },
+  "ods_rules": [
+    {
+      "cause": {
+        "path": "",
+        "attribute": "LP_Steam_Venting_ods_cause",
+        "condition": "if(LP_Steam_Venting_Opening_state==1&&LP_Steam_Venting_Set_Point_actual>LP_Steam_Venting_Set_Point_benchmark&&Steam_To_Carbon_actual>3,1,0)",
+        "message": "SL Header Vent Valve Is Open",
+        "message_code": "231520001",
+        "suggestion": "Since The LP Steam Venting Is On Higher Side Reducing The Reboiler Duty will Increase The steam Venting ,Adjust SC Ratio While monitoring Methane Slippage and any hotspots in Reformer.",
+        "monitoring_tag_name": "LP_Steam_Venting"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "condition": "if([Energy_Specific_consumption_Total_Reboliers_state]==1,1,0)",
+        "message": "High Energy Specific Consumption",
+        "monitoring_tag_name": "Energy_Specific_consumption_Total_Reboliers",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "LP_Steam_Venting_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "LP_Steam_Venting_1_ods_cause",
+        "condition": "if(LP_Steam_Venting_Opening_state==1&&LP_Steam_Venting_Set_Point_actual<LP_Steam_Venting_Set_Point_benchmark,1,0)",
+        "message": "SL Header Vent Valve Is Open",
+        "message_code": "231520002",
+        "suggestion": "Since The LP Steam Venting Is On Higher Side Reducing The Reboiler Duty will Increase The steam Venting, Consider Increse Steam Header Pressure (PC5610.SV) Set Point.",
+        "monitoring_tag_name": "LP_Steam_Venting"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "Separation_Efficiency_ods_effect",
+        "condition": "if([Separation_Efficiency_state]==1,1,0)",
+        "message": "Low Seperation Efficiency",
+        "monitoring_tag_name": "Separation_Efficiency",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "LP_Steam_Venting_1_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Refining_Column_Temp_Profile_stdev_ods_cause",
+        "condition": "if(Refining_Column_Temp_Profile_stdev_state==1,1,0)",
+        "message": "High Standard Deviation in Refining Column Tray Temperature Profile",
+        "message_code": "231520003",
+        "suggestion": "High Standard Deviation in Column Tray Temperature Profile,Shifting in standard deviation between tray temperature profiles indicates the mechanical issue in the column.Consider To Check The sectional standard deviation between two trays For the specific",
+        "monitoring_tag_name": "Refining_Column_Temp_Profile_stdev"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "Yield_PMA_to_Feed_1_ods_effect",
+        "condition": "if([Yield_PMA_to_Feed_1_state]==1,1,0)",
+        "message": "Low Yield",
+        "monitoring_tag_name": "Yield_PMA_to_Feed_1",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Refining_Column_Temp_Profile_stdev_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Topping_Column_Temp_Profile_stdev_ods_cause",
+        "condition": "if(Topping_Column_Temp_Profile_stdev_state==1,1,0)",
+        "message": "High Standard Deviation in Topping Column Tray Temperature Profile",
+        "message_code": "231520004",
+        "suggestion": "High Standard Deviation in Column Tray Temperature Profile,Shifting in standard deviation between tray temperature profiles indicates the mechanical issue in the column.",
+        "monitoring_tag_name": "Topping_Column_Temp_Profile_stdev"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "Quality_Rate_ods_effect",
+        "condition": "if([Quality_Rate_new_state]==1,1,0)",
+        "message": "Low Quality Rate",
+        "monitoring_tag_name": "Quality_Rate_new",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Topping_Column_Temp_Profile_stdev_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Recovery_Column_Temp_Profile_stdev_ods_cause",
+        "condition": "if(Recovery_Column_Temp_Profile_stdev_state==1,1,0)",
+        "message": "High Standard Deviation in Recovery Column Tray Temperature Profile",
+        "message_code": "231520005",
+        "suggestion": "High Standard Deviation in Column Tray Temperature Profile,Shifting in standard deviation between tray temperature profiles indicates the mechanical issue in the column.",
+        "monitoring_tag_name": "Recovery_Column_Temp_Profile_stdev"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "AR_ETHANOL_in_PMA_ods_effect",
+        "condition": "if([AR_ETHANOL_in_PMA_state]==1,1,0)",
+        "message": "High Ethanol in PMA",
+        "monitoring_tag_name": "AR_ETHANOL_in_PMA",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Recovery_Column_Temp_Profile_stdev_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "E4517_RG_Bypass_Opening_ods_cause",
+        "condition": "if(Reboiler_Duty_E4502_state==1 &&RG_by_pass_opening_actual>0&&Topping_Column_Temp_Profile_stdev_state==0&&LP_Steam_Venting_Opening_state==0,1,0)",
+        "message": "E 4517 Reformed Gas Bypass Valve open",
+        "message_code": "231520006",
+        "suggestion": "Topping Column Steam Reboiler Duty Is High , Consider To Reduced Reformed Gas Bypass Opening HC4502 Of E 4517.",
+        "monitoring_tag_name": "RG_by_pass_opening"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "Capacity_Utilization_ods_effect",
+        "condition": "if(Capacity_Utilization_actual<110 && Separation_Efficiency_actual>97 && AR_ETHANOL_in_PMA_actual<5 && PMA_Production_Total_actual<PMA_Production_Total_benchmark,1,0)",
+        "message": "Low Capacity utilization",
+        "monitoring_tag_name": "Capacity_Utilization",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "E4517_RG_Bypass_Opening_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4501_Column_Bottom_Pressure_ods_cause",
+        "condition": "if(Reboiler_Duty_E4502_state==1 && RG_by_pass_opening_actual<1&&Topping_Column_Temp_Profile_stdev_state==0&&LP_Steam_Venting_Opening_state==0&&(T_4501_Bottom_pressure_actual/CMA_Feed_From_T_4501_To_T_4502_actual)>(T_4501_Bottom_pressure_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark),1,0)",
+        "message": "High Topping Column Bottom Pressure",
+        "message_code": "231520007",
+        "suggestion": "Topping Column Normalized Bottom Pressure with Respect To Feed Is on Higher Side,Consider To Reduced Bottom Pressure PC4506 by Adjusting Reboiler Level LC4503",
+        "monitoring_tag_name": "T_4501_Bottom_pressure"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "T4501_Column_Bottom_Pressure_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Low_Steam_Temp_E4502_ods_cause",
+        "condition": "if(Reboiler_Duty_E4502_state==1 && RG_by_pass_opening_actual<1&&Topping_Column_Temp_Profile_stdev_state==0&&LP_Steam_Venting_Opening_state==0&&(T_4501_Bottom_pressure_actual/CMA_Feed_From_T_4501_To_T_4502_actual)<(T_4501_Bottom_pressure_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark) &&(E_4502_Steam_Temp_actual < 140 ),1,0)",
+        "message": "Low E4502  Inlet Steam Temperature",
+        "message_code": "231520008",
+        "suggestion": "Topping Column Steam Reboiler Duty Is High , Consider To Adjust Inlet Steam Temperature by adjusting BFW Flow TC4513 .",
+        "monitoring_tag_name": "E_4502_Steam_Temp"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Low_Steam_Temp_E4502_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T_4501_Reflux_Temp_ods_cause",
+        "condition": "if(Reboiler_Duty_E4502_state==1 &&Reflux_temperature_to_Topping_Column_benchmark-Reflux_temperature_to_Topping_Column_actual >1 &&E_4504_Vent_flowrate_actual <E_4504_Vent_flowrate_benchmark&& RG_by_pass_opening_actual<1&&Topping_Column_Temp_Profile_stdev_state==0&&LP_Steam_Venting_Opening_state==0&&(T_4501_Bottom_pressure_actual/CMA_Feed_From_T_4501_To_T_4502_actual)<(T_4501_Bottom_pressure_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark),1,0)",
+        "message": "Low topping column Reflux temperature",
+        "message_code": "231520009",
+        "suggestion": "Reflux temperature on lower side .Consider to adjust TC4512 to increase the reflux temperature",
+        "monitoring_tag_name": "Reflux_temperature_to_Topping_Column"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "T_4501_Reflux_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "E4505_RG_Bypass_Opening_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 &&LP_Steam_Venting_Opening_state==0&&Refining_Column_Temp_Profile_stdev_state==0&&E_4505_RG_by_pass_opening_actual>0&&V_4502_RG_outlet_temperature_actual>V_4502_RG_outlet_temperature_benchmark,1,0)",
+        "message": "E 4505 Reformed Gas Bypass Valve open",
+        "message_code": "231520010",
+        "suggestion": "Refining Column steam Reboiler Duty Is High , Consider To Reduced Reformed Gas Bypass Opening HC4504 Of E 4505.",
+        "monitoring_tag_name": "E_4505_RG_by_pass_opening"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "E4505_RG_Bypass_Opening_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Reflux_Feed_Ratio_T4502_Calculated_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 &&LP_Steam_Venting_Opening_state==0&&Refining_Column_Temp_Profile_stdev_state==0&&E_4505_RG_by_pass_opening_actual<1  &&Reflux_Feed_Ratio_T4502_Calculated_actual >Reflux_Feed_Ratio_T4502_Calculated_benchmark && AR_ETHANOL_at_T_4502_distillate_actual <5&&V_4502_RG_outlet_temperature_benchmark-V_4502_RG_outlet_temperature_actual <1 &&T_4502_top_temperature_benchmark-T_4502_top_temperature_actual <1&&T_4502_Reflux_temperature_benchmark-T_4502_Reflux_temperature_actual >-1 &&T_4502_top_temperature_benchmark-T_4502_top_temperature_actual >-1,1,0)",
+        "message": "High Reflux To Feed Ratio in Refining Column",
+        "message_code": "231520011",
+        "suggestion": "Refining Column Steam Reboiler Duty Is High , Consider To Reduced Reflux Flow By Adjusting Reflux Ratio HCS4512.",
+        "monitoring_tag_name": "Reflux_Feed_Ratio_T4502_Calculated"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Reflux_Feed_Ratio_T4502_Calculated_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4502_Column_Bottom_Pressure_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 &&LP_Steam_Venting_Opening_state==0&&Refining_Column_Temp_Profile_stdev_state==0&&E_4505_RG_by_pass_opening_actual<1  &&Reflux_Feed_Ratio_T4502_Calculated_actual <Reflux_Feed_Ratio_T4502_Calculated_benchmark && (T_4502_bottom_pressure_2_actual/CMA_Feed_From_T_4501_To_T_4502_actual)>(T_4502_bottom_pressure_2_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark),1,0)",
+        "message": "High Refining Column Bottom Pressure",
+        "message_code": "231520012",
+        "suggestion": "Refining Column Normalized Bottom Pressure with Respect To Feed Is on Higher Side,Consider To Reduced Bottom Pressure PI4503 by Adjusting Reboiler Level LC4508",
+        "monitoring_tag_name": "T_4502_bottom_pressure_2"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "T4502_Column_Bottom_Pressure_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4502_Reflux_Temp_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 &&LP_Steam_Venting_Opening_state==0&&Refining_Column_Temp_Profile_stdev_state==0&&E_4505_RG_by_pass_opening_actual<1  &&Reflux_Feed_Ratio_T4502_Calculated_actual >Reflux_Feed_Ratio_T4502_Calculated_benchmark  &&T_4502_Reflux_temperature_benchmark-T_4502_Reflux_temperature_actual >1 &&T_4502_top_temperature_benchmark-T_4502_top_temperature_actual >1&&AR_ETHANOL_at_T_4502_distillate_actual <5,1,0)",
+        "message": "Low Refining column Reflux temperature",
+        "message_code": "231520013",
+        "suggestion": "Refining Column Steam Reboiler Duty Is High , Consider To Reduced Reflux Flow By Adjusting Reflux Ratio HCS4512.",
+        "monitoring_tag_name": "T_4502_Reflux_temperature"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "T4502_Reflux_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Low_Steam_Temp_E4506_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 &&LP_Steam_Venting_Opening_state==0&&Refining_Column_Temp_Profile_stdev_state==0&&E_4505_RG_by_pass_opening_actual<1  &&Reflux_Feed_Ratio_T4502_Calculated_actual <Reflux_Feed_Ratio_T4502_Calculated_benchmark && (T_4502_bottom_pressure_2_actual/CMA_Feed_From_T_4501_To_T_4502_actual)>(T_4502_bottom_pressure_2_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark)  &&(Steam_temperature_E_4506_actual < 140 ),1,0)",
+        "message": "Low E4506  Inlet Steam Temperature",
+        "message_code": "231520014",
+        "suggestion": "Refining Column Steam Reboiler Duty Is High , Consider To Adjust Inlet Steam Temperature by Adjusting BFW Flow TC4538 .",
+        "monitoring_tag_name": "Steam_temperature_E_4506"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Low_Steam_Temp_E4506_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Reflux_Feed_Ratio_T4503_Calculated_ods_cause",
+        "condition": "if(Recovery_Column_Reboiler_steam_in_flow_state==1   &&LP_Steam_Venting_Opening_state==0&&Recovery_Column_Temp_Profile_stdev_state==0&&Reflux_Feed_Ratio_T4503_Calculated_actual >Reflux_Feed_Ratio_T4503_Calculated_benchmark && AR_ETHANOL_in_PMA_actual <5&&T_4503_Reflux_temperature_benchmark-T_4503_Reflux_temperature_actual >-1 &&T_4503_top_temperature_benchmark-T_4503_top_temperature_actual >-1&&T_4503_Reflux_temperature_benchmark-T_4503_Reflux_temperature_actual <1 &&T_4503_top_temperature_benchmark-T_4503_top_temperature_actual <1,1,0)",
+        "message": "High Reflux To Feed Ratio in Recovery Column",
+        "message_code": "231520015",
+        "suggestion": "Recovery Column Steam Reboiler Duty Is High , Consider To Reduced Reflux Flow By Adjusting Reflux Ratio HCS4516.",
+        "monitoring_tag_name": "Reflux_Feed_Ratio_T4503_Calculated"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Reflux_Feed_Ratio_T4503_Calculated_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4503_Reflux_Temp_ods_cause",
+        "condition": "if(Recovery_Column_Reboiler_steam_in_flow_state==1   &&LP_Steam_Venting_Opening_state==0&&Recovery_Column_Temp_Profile_stdev_state==0&&Reflux_Feed_Ratio_T4503_Calculated_actual >Reflux_Feed_Ratio_T4503_Calculated_benchmark && AR_ETHANOL_in_PMA_actual <5 && T_4503_Reflux_temperature_benchmark-T_4503_Reflux_temperature_actual >1 &&T_4503_top_temperature_benchmark-T_4503_top_temperature_actual >1,1,0)",
+        "message": "Low Recovery column Reflux temperature",
+        "message_code": "231520016",
+        "suggestion": "Recovery Column Steam Reboiler Duty Is High , Consider To Reduced Reflux Flow By Adjusting Reflux Ratio HCS4516.",
+        "monitoring_tag_name": "T_4503_Reflux_temperature"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "T4503_Reflux_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4503_Sidedraw_Temp_Value_ods_cause",
+        "condition": "if(Recovery_Column_Reboiler_steam_in_flow_state==1   &&LP_Steam_Venting_Opening_state==0&&Recovery_Column_Temp_Profile_stdev_state==0&&Reflux_Feed_Ratio_T4503_Calculated_actual <Reflux_Feed_Ratio_T4503_Calculated_benchmark && T_4503_60_Tray_temperature_actual>T_4503_60_Tray_temperature_benchmark,1,0)",
+        "message": "High Recovery Column Side Draw Temperature",
+        "message_code": "231520017",
+        "suggestion": "Recovery Column Side Draw Temperature Is High,Consider To Decresese Side Draw Temperature TC4549 while Monitoring Methanol Losses In sidedraw",
+        "monitoring_tag_name": "T_4503_60_Tray_temperature"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "T4503_Sidedraw_Temp_Value_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Low_E4511_Steam_Temp_ods_cause",
+        "condition": "if(Recovery_Column_Reboiler_steam_in_flow_state==1   &&LP_Steam_Venting_Opening_state==0&&Recovery_Column_Temp_Profile_stdev_state==0&&Reflux_Feed_Ratio_T4503_Calculated_actual <Reflux_Feed_Ratio_T4503_Calculated_benchmark && T_4503_60_Tray_temperature_actual<T_4503_60_Tray_temperature_benchmark   &&(E_4511_steam_temperature_actual < 140 ),1,0)",
+        "message": "Low E4511  Inlet Steam Temperature",
+        "message_code": "231520018",
+        "suggestion": "Recovery Column Steam Reboiler Duty Is High , Consider To Increase Inlet Steam Temperature by Adjusting BFW Flow TC4554 .",
+        "monitoring_tag_name": "E_4511_steam_temperature"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Low_E4511_Steam_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "High_E4511_Steam_Temp_ods_cause",
+        "condition": "if(Recovery_Column_Reboiler_steam_in_flow_state==1   &&LP_Steam_Venting_Opening_state==0&&Recovery_Column_Temp_Profile_stdev_state==0&&Reflux_Feed_Ratio_T4503_Calculated_actual <Reflux_Feed_Ratio_T4503_Calculated_benchmark && T_4503_60_Tray_temperature_actual<T_4503_60_Tray_temperature_benchmark   &&(E_4511_steam_temperature_actual >148),1,0)",
+        "message": "High E4511  Inlet Steam Temperature",
+        "message_code": "231520019",
+        "suggestion": "Recovery Column Steam Reboiler Duty Is High , Consider To Decrease Inlet Steam Temperature by Opening BFW Flow TC4554 .",
+        "monitoring_tag_name": "E_4511_steam_temperature"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "High_E4511_Steam_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "High_Steam_Temp_E4502_ods_cause",
+        "condition": "if(Reboiler_Duty_E4502_state==1 && RG_by_pass_opening_actual<1&&Topping_Column_Temp_Profile_stdev_state==0&&LP_Steam_Venting_Opening_state==0&&(T_4501_Bottom_pressure_actual/CMA_Feed_From_T_4501_To_T_4502_actual)<(T_4501_Bottom_pressure_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark) &&(E_4502_Steam_Temp_actual>148),1,0)",
+        "message": "High E4502  Inlet Steam Temperature",
+        "message_code": "231520020",
+        "suggestion": "Topping Column Steam Reboiler Duty Is High , Consider To Decrease Inlet Steam Temperature by opening BFW Flow TC4513 .",
+        "monitoring_tag_name": "E_4502_Steam_Temp"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "High_Steam_Temp_E4502_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "High_Steam_Temp_E4506_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 &&LP_Steam_Venting_Opening_state==0&&Refining_Column_Temp_Profile_stdev_state==0&&E_4505_RG_by_pass_opening_actual<1  &&Reflux_Feed_Ratio_T4502_Calculated_actual <Reflux_Feed_Ratio_T4502_Calculated_benchmark && (T_4502_bottom_pressure_2_actual/CMA_Feed_From_T_4501_To_T_4502_actual)>(T_4502_bottom_pressure_2_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark)  &&(Steam_temperature_E_4506_actual >148),1,0)",
+        "message": "High E4506  Inlet Steam Temperature",
+        "message_code": "231520021",
+        "suggestion": "Refining Column Steam Reboiler Duty Is High , Consider To Decrease Inlet Steam Temperature by Opening BFW Flow TC4538 .",
+        "monitoring_tag_name": "Steam_temperature_E_4506"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "High_Steam_Temp_E4506_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "High_T_4501_Reflux_Temp_ods_cause",
+        "condition": "if(Topping_Column_Methanol_Loss_actual >Topping_Column_Methanol_Loss_benchmark && Reflux_temperature_to_Topping_Column_actual >Reflux_temperature_to_Topping_Column_benchmark &&Topping_Column_Reflux_Temp_Controller_Opening_actual>1 ,1,0)",
+        "message": "High topping column Reflux temperature",
+        "message_code": "231520022",
+        "suggestion": "Reflux temperature on Higher side .Consider to adjust TC4512 to decrease the reflux temperature",
+        "monitoring_tag_name": "Reflux_temperature_to_Topping_Column"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "High_T_4501_Reflux_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Cma_To_T4501_Feed_Temp_ods_cause",
+        "condition": "if(Topping_Column_Methanol_Loss_actual >Topping_Column_Methanol_Loss_benchmark && Reflux_temperature_to_Topping_Column_actual <Reflux_temperature_to_Topping_Column_benchmark &&(T_4501_Bottom_pressure_actual/CMA_Feed_From_T_4501_To_T_4502_actual)<(T_4501_Bottom_pressure_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark)&&T_4501_Top_temperature_actual>T_4501_Top_temperature_benchmark && CMA_feed_temperature_to_T_4501_actual>CMA_feed_temperature_to_T_4501_benchmark,1,0)",
+        "message": "High Topping Column Bottom Pressure",
+        "message_code": "231520023",
+        "suggestion": "Normalized Bottom Pressure is on Higher side .Consider To Reduced Bottom Pressure PC4506 by Adjusting Reboiler Level LC4503",
+        "monitoring_tag_name": "CMA_feed_temperature_to_T_4501"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "Cma_To_T4501_Feed_Temp_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4501_Column_Bottom_Pressure_ods_cause",
+        "condition": "if(Topping_Column_Methanol_Loss_actual >Topping_Column_Methanol_Loss_benchmark && Reflux_temperature_to_Topping_Column_actual <Reflux_temperature_to_Topping_Column_benchmark &&(T_4501_Bottom_pressure_actual/CMA_Feed_From_T_4501_To_T_4502_actual)>(T_4501_Bottom_pressure_benchmark/CMA_Feed_From_T_4501_To_T_4502_benchmark)&&T_4501_Top_temperature_actual>T_4501_Top_temperature_benchmark,1,0)",
+        "message": "High Topping Column Bottom Pressure",
+        "message_code": "231520024",
+        "suggestion": "Normalized Bottom Pressure is on Higher side .Consider To Reduced Bottom Pressure PC4506 by Adjusting Reboiler Level LC4503",
+        "monitoring_tag_name": "T_4501_Bottom_pressure"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "T4501_Column_Bottom_Pressure_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "E_4503_Approach_ods_cause",
+        "condition": "if(Topping_Column_Methanol_Loss_actual >Topping_Column_Methanol_Loss_benchmark && Reflux_temperature_to_Topping_Column_actual >Reflux_temperature_to_Topping_Column_benchmark &&Topping_Column_Reflux_Temp_Controller_Opening_actual<1 &&E_4503_Approach_actual-E_4503_Approach_benchmark>5 &&abs(T_4501_Top_temperature_actual-T_4501_Top_temperature_benchmark)<2,1,0)",
+        "message": "High Approach In E4503 Fin Fan Cooler",
+        "message_code": "231520025",
+        "suggestion": "E4503 Fin Fan Cooler Approach Is High,Consider to Clean E4503 in Shutdown.",
+        "monitoring_tag_name": "E_4503_Approach"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "E_4503_Approach_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Low_T4503_Sidedraw_Temp_Value_ods_cause",
+        "condition": "if(Recovery_Column_Sidedraw_Methanol_Loss_actual>Recovery_Column_Sidedraw_Methanol_Loss_benchmark && T_4503_60_Tray_temperature_actual<T_4503_60_Tray_temperature_benchmark,1,0)",
+        "message": "Low Recovery Column Side Draw Temperature",
+        "message_code": "231520026",
+        "suggestion": "Recovery Column Side Draw Temperature Is Low,Consider To Increase Side Draw Temperature TC4549",
+        "monitoring_tag_name": "T_4503_60_Tray_temperature"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "Low_T4503_Sidedraw_Temp_Value_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "T4502_Sidedraw_To_T4503_ods_cause",
+        "condition": "if(T_4503_Feed_PZ_flow_actual>T_4503_Feed_PZ_flow_benchmark&&Recovery_Column_Sidedraw_Methanol_Loss_actual>Recovery_Column_Sidedraw_Methanol_Loss_benchmark && T_4503_60_Tray_temperature_actual>T_4503_60_Tray_temperature_benchmark && Refining_Column_Temp_Profile_stdev_state==0&&Recovery_Column_Temp_Profile_stdev_state==0,1,0)",
+        "message": "High Load in Recovery Column.",
+        "message_code": "231520027",
+        "suggestion": "High Load in Recovery Column. Consider increasing Bottom Pressure in Refining Column PI4503 by Adjusting Reboiler Level LC4508",
+        "monitoring_tag_name": "T_4503_Feed_PZ_flow"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "T4502_Sidedraw_To_T4503_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Yield_PMA_to_Feed_1_ods_cause",
+        "condition": "if([Yield_PMA_to_Feed_1_state]==1,1,0)",
+        "message": "Unreliable moisture analyzer.",
+        "message_code": "231520028",
+        "suggestion": "Caliberate the LIMS moisture analyzer at V 3403 outlet.",
+        "monitoring_tag_name": "Yield_PMA_to_Feed_1"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Yield_PMA_to_Feed_1_ods_effect",
+        "cause_tag_name": "Yield_PMA_to_Feed_1_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Refining_Column_Temp_Profile_stdev_1_ods_cause",
+        "condition": "if(Refining_Column_Temp_Profile_stdev_state==1,1,0)",
+        "message": "High Standard Deviation in Refining Column Tray Temperature Profile",
+        "message_code": "231520029",
+        "suggestion": "High Standard Deviation in Column Tray Temperature Profile,Shifting in standard deviation between tray temperature profiles indicates the mechanical issue in the column.Consider To Check The sectional standard deviation between two trays For the specific",
+        "monitoring_tag_name": "Refining_Column_Temp_Profile_stdev"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "Refining_Column_Temp_Profile_stdev_1_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Topping_Column_Temp_Profile_stdev_1_ods_cause",
+        "condition": "if(Topping_Column_Temp_Profile_stdev_state==1,1,0)",
+        "message": "High Standard Deviation in Topping Column Tray Temperature Profile",
+        "message_code": "231520030",
+        "suggestion": "High Standard Deviation in Column Tray Temperature Profile,Shifting in standard deviation between tray temperature profiles indicates the mechanical issue in the column.",
+        "monitoring_tag_name": "Topping_Column_Temp_Profile_stdev"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "Topping_Column_Temp_Profile_stdev_1_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Recovery_Column_Temp_Profile_stdev_1_ods_cause",
+        "condition": "if(Recovery_Column_Temp_Profile_stdev_state==1,1,0)",
+        "message": "High Standard Deviation in Recovery Column Tray Temperature Profile",
+        "message_code": "231520031",
+        "suggestion": "High Standard Deviation in Column Tray Temperature Profile,Shifting in standard deviation between tray temperature profiles indicates the mechanical issue in the column.",
+        "monitoring_tag_name": "Recovery_Column_Temp_Profile_stdev"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "Recovery_Column_Temp_Profile_stdev_1_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "quality_rate_ods_cause",
+        "condition": "if([AR_ETHANOL_in_PMA_state]==1,1,0)",
+        "message": "Low Quality",
+        "message_code": "231520033",
+        "suggestion": "Quality of PMA is low. Icrease L/D recovery column.",
+        "monitoring_tag_name": "AR_ETHANOL_in_PMA"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production, Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Quality_Rate_ods_effect",
+        "cause_tag_name": "quality_rate_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "AR_ETHANOL_in_PMA_ods_cause",
+        "condition": "if([AR_ETHANOL_in_PMA_state]==1,1,0)",
+        "message": "High Ethanol content",
+        "message_code": "231520034",
+        "suggestion": "Check the PMA Ethanol LIMS sample. After checking, increase L/D of recovery column.",
+        "monitoring_tag_name": "AR_ETHANOL_in_PMA"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production, Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "AR_ETHANOL_in_PMA_ods_effect",
+        "cause_tag_name": "AR_ETHANOL_in_PMA_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "capacity_utilization_ods_cause",
+        "condition": "if(Capacity_Utilization_actual<105 && Separation_Efficiency_actual>97 && AR_ETHANOL_in_PMA_actual<5 && PMA_Production_Total_actual<PMA_Production_Total_benchmark,1,0)",
+        "message": "Low distillation load",
+        "message_code": "231520032",
+        "suggestion": "Increase the distillation load to increase the overall methanol production",
+        "monitoring_tag_name": "Topping_Column_Feed_flowrate"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Capacity_Utilization_ods_effect",
+        "cause_tag_name": "capacity_utilization_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "topping_vent_opening_ods_cause",
+        "condition": "if(Reflux_temperature_to_Topping_Column_actual>68||Topping_column_pitch_opening_actual>5,1,0)",
+        "message": "High pitch control valve opening (PIC 4506-1)",
+        "message_code": "231520035",
+        "suggestion": "Adjust PIC4506-1 set point to decrease the reflux temperature or check for PC4506.MV stuck status.",
+        "monitoring_tag_name": "Topping_column_pitch_opening"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production, Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "topping_vent_opening_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "CMA_feed_temperature_to_T_4501_ods_cause",
+        "condition": "if(CMA_feed_temperature_to_T_4501_actual>58,1,0)",
+        "message": "High CMA feed temperature to T 4501",
+        "message_code": "231520036",
+        "suggestion": "Decrease the CMA feed temperature by bypassing the feed from E-4501 and monitoring the condensate line.",
+        "monitoring_tag_name": "CMA_feed_temperature_to_T_4501"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "CMA_feed_temperature_to_T_4501_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Steam_Feed_Ratio_T4501_Calculated_1_ods_cause",
+        "condition": "if(T4501_Normalised_Delta_P_Mmh2o_actual>T4501_Normalised_Delta_P_Mmh2o_benchmark && Steam_Feed_Ratio_Topping_Column_Calculated_1_actual>Steam_Feed_Ratio_Topping_Column_Calculated_1_benchmark&&Level_in_E_4502_actual<95,1,0)",
+        "message": "High steam to feed ratio",
+        "message_code": "231520037",
+        "suggestion": "Reduce Bottom Pressure PC4506.PV to maintain steam to feed ratio and normalized delta pressure under acceptable limits.",
+        "monitoring_tag_name": "Steam_Feed_Ratio_T4501_Calculated_1"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "Steam_Feed_Ratio_T4501_Calculated_1_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "toc_in_t_4502_ods_cause",
+        "condition": "if(TOC_of_T_4502_bottom_actual>TOC_of_T_4502_bottom_benchmark,1,0)",
+        "message": "High TOC in the bottom of Refining column",
+        "message_code": "231520038",
+        "suggestion": "Increase side cut temperature TC4532 by increasing the Side cut flow FC 4509.SV after monitoring FC 4509 opening percentage.",
+        "monitoring_tag_name": "TOC_of_T_4502_bottom"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "toc_in_t_4502_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "toc_in_t_4503_ods_cause",
+        "condition": "if(TOC_of_T_4503_bottom_actual>TOC_of_T_4503_bottom_benchmark,1,0)",
+        "message": "High TOC in the bottom of Recovery column",
+        "message_code": "231520039",
+        "suggestion": "Increase side cut temperature TC4549 by monitoring moisture content in methanol",
+        "monitoring_tag_name": "TOC_of_T_4503_bottom"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Production"
+      },
+      "mapping": {
+        "effect_tag_name": "Separation_Efficiency_ods_effect",
+        "cause_tag_name": "toc_in_t_4503_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Steam_Feed_Ratio_T4501_for_reboiler_ods_cause",
+        "condition": "if(Reboiler_Duty_E4502_state==1 && RG_by_pass_opening_actual>0&& Steam_Feed_Ratio_Topping_Column_Calculated_1_actual>Steam_Feed_Ratio_Topping_Column_Calculated_1_benchmark,1,0)",
+        "message": "High Steam to feed ratio in T 4501",
+        "message_code": "231520040",
+        "suggestion": "Reduce Reformed gas bypass opening HC4502 of E-4517 by monitoring venting in steam header and level of reboiler E-4502 less than 95 %",
+        "monitoring_tag_name": "Steam_Feed_Ratio_T4501_Calculated_1"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Steam_Feed_Ratio_T4501_for_reboiler_ods_cause"
+      }
+    },
+    {
+      "cause": {
+        "path": "",
+        "attribute": "Steam_Feed_Ratio_T4502_for_reboiler_ods_cause",
+        "condition": "if(Reboiler_Duty_E4506_state==1 && E_4505_RG_by_pass_opening_actual>0&& Steam_Feed_Ratio_Refining_Column_Calculated_1_actual>Steam_Feed_Ratio_Refining_Column_Calculated_1_benchmark,1,0)",
+        "message": "High Steam to feed ratio in T 4502",
+        "message_code": "231520041",
+        "suggestion": "Reduce Reformed gas bypass opening HC4502 of E-4517 by monitoring venting in steam header and level of reboiler E-4502 less than 95 %",
+        "monitoring_tag_name": "Steam_Feed_Ratio_T4502_Calculated_1"
+      },
+      "effect": {
+        "path": "",
+        "attribute": "",
+        "condition": "",
+        "message": "",
+        "monitoring_tag_name": "",
+        "category": "Energy, Environment"
+      },
+      "mapping": {
+        "effect_tag_name": "Energy_Specific_consumption_Total_Reboliers_ods_effect",
+        "cause_tag_name": "Steam_Feed_Ratio_T4502_for_reboiler_ods_cause"
+      }
+    }
+  ],
+  "pipeline_parameters": [],
+  "clean_data_ranges": []
+}

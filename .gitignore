@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+package-lock.json.bak
+
+# Next.js build
+.next/
+out/
+build/
+dist/
+*.tsbuildinfo
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+*.pkl.bak
+
+# OS & temporary files
+~$*.xlsx
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+.env.local
+.env.production

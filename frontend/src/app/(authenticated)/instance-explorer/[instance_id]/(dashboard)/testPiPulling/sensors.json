@@ -1,0 +1,7 @@
+[
+  { "displayName": "Reactor Inlet Temperature", "defaultUnit": "°C" },
+  { "displayName": "Reactor Outlet Pressure", "defaultUnit": "barg" },
+  { "displayName": "Feed Flow Rate", "defaultUnit": "t/h" },
+  { "displayName": "Steam Header Pressure", "defaultUnit": "barg" },
+  { "displayName": "Product Purity", "defaultUnit": "wt%" }
+]

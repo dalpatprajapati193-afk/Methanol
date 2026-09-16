@@ -1,0 +1,546 @@
+[
+  {
+    "name_short": "Ambient_Temperature",
+    "pi_name": "Ar.Ti001.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Ambient system"
+  },
+  {
+    "name_short": "Convertor_Effluent_Inlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI1101.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Convertor preheater"
+  },
+  {
+    "name_short": "Convertor_Effluent_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI1102.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Convertor preheater"
+  },
+  {
+    "name_short": "Convertor_Feed_Preheater_Inlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI1103.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Convertor preheater"
+  },
+  {
+    "name_short": "Convertor_Feed_Preheater_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI1104.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Convertor preheater"
+  },
+  {
+    "name_short": "CMA_Density",
+    "pi_name": "AR.LIMS.AR-V-1403OUT_SPECIFIC GRAVITY",
+    "type": "pi",
+    "formula": null,
+    "uom": "Sp. gravity",
+    "category": "Methanol separator"
+  },
+  {
+    "name_short": "CMA_Flow",
+    "pi_name": "AR.AR2.DCS.FI1411.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "m\u00c2\u00b3/h",
+    "category": "Methanol separator"
+  },
+  {
+    "name_short": "Methanol_Purity_In_CMA",
+    "pi_name": "AR.AR2.DCS.QI1602.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "fraction 0\u00e2\u20ac\u201c1",
+    "category": "Methanol separator"
+  },
+  {
+    "name_short": "MUG_Gas_Molar_Flow",
+    "pi_name": "AR.AR2.DCS.FC1301.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "Nm\u00c2\u00b3/h",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "System_MUG_Gas_CH4_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI12061.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "System_MUG_Gas_CO_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI12062.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "System_MUG_Gas_CO2_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI12063.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "System_MUG_Gas_H2_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI12064.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "System_MUG_Gas_H2O_Mole_Concentration",
+    "pi_name": "AR.AR3.DCS.AI3002",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "System_MUG_Gas_N2_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI12065.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "MUG gas"
+  },
+  {
+    "name_short": "Convertor_Bed_1_Inlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI14110.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Convertor_Bed_1_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI14111.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Convertor_Bed_2_Inlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI14113.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Convertor_Bed_2_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI14114.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Convertor_Bed_3_Inlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI14131.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Convertor_Bed_3_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI14133.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Convertor_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI1421.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Reactor beds"
+  },
+  {
+    "name_short": "Loop_Pressure",
+    "pi_name": "AR.AR2.DCS.PI1421.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "bar g",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_CH3OH_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14017.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_CH4_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14011.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_CO_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14012.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_CO2_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14013.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_H2_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14014.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_H2O_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14016.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_Molar_Flow",
+    "pi_name": "AR.AR2.DCS.FI1302.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "Nm\u00c2\u00b3/h",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Recycle_Gas_N2_Mole_Concentration",
+    "pi_name": "AR.AR2.DCS.QI14015.pv",
+    "type": "pi",
+    "formula": null,
+    "uom": "mol%",
+    "category": "Recycle gas"
+  },
+  {
+    "name_short": "Ccw_Flow",
+    "pi_name": "AR.AR2.DCS.FI1001.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "kg/h",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "Ccw_Inlet_Temperature",
+    "pi_name": "AR.AR3.DCS.TI3001",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "Convertor_Effluent_Cooler_Inlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI3551.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "Convertor_Effluent_Cooler_Outlet_Temperature",
+    "pi_name": "AR.AR2.DCS.TI3552.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "\u00c2\u00b0C",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "CMA_Density_kgm3",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "CMA_Density * 1000",
+    "uom": "kg/m\u00c2\u00b3",
+    "category": "Methanol Separator"
+  },
+  {
+    "name_short": "Methanol_Molar_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "CMA_Flow * CMA_Density_kgm3 * Methanol_Purity_In_CMA / 32.04",
+    "uom": "kmol/hr",
+    "category": "Methanol Separator"
+  },
+  {
+    "name_short": "MUG_Gas_Molecular_Weight",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(System_MUG_Gas_CO_Mole_Concentration * 28.01 + System_MUG_Gas_CO2_Mole_Concentration * 44.01 + System_MUG_Gas_H2_Mole_Concentration * 2.016 + System_MUG_Gas_CH4_Mole_Concentration * 16.04 + System_MUG_Gas_N2_Mole_Concentration * 28.013 + System_MUG_Gas_H2O_Mole_Concentration * 18.015) / (System_MUG_Gas_CO_Mole_Concentration + System_MUG_Gas_CO2_Mole_Concentration + System_MUG_Gas_H2_Mole_Concentration + System_MUG_Gas_CH4_Mole_Concentration + System_MUG_Gas_N2_Mole_Concentration + System_MUG_Gas_H2O_Mole_Concentration)",
+    "uom": "g/mol",
+    "category": "System"
+  },
+  {
+    "name_short": "MUG_Gas_Mass_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "MUG_Gas_Molecular_Weight * MUG_Gas_Molar_Flow * 44.14",
+    "uom": "kg/h",
+    "category": "System"
+  },
+  {
+    "name_short": "Recycle_Gas_Molecular_Weight",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(Recycle_Gas_CO_Mole_Concentration * 28.01 + Recycle_Gas_CO2_Mole_Concentration * 44.01 + Recycle_Gas_H2_Mole_Concentration * 2.016 + Recycle_Gas_CH4_Mole_Concentration * 16.04 + Recycle_Gas_N2_Mole_Concentration * 28.013 + Recycle_Gas_H2O_Mole_Concentration * 18.015 + Recycle_Gas_CH3OH_Mole_Concentration * 32.04) / (Recycle_Gas_CO_Mole_Concentration + Recycle_Gas_CO2_Mole_Concentration + Recycle_Gas_H2_Mole_Concentration + Recycle_Gas_CH4_Mole_Concentration + Recycle_Gas_N2_Mole_Concentration + Recycle_Gas_H2O_Mole_Concentration + Recycle_Gas_CH3OH_Mole_Concentration)",
+    "uom": "g/mol",
+    "category": "Recycle Gas Compressor"
+  },
+  {
+    "name_short": "Recycle_Gas_Mass_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Recycle_Gas_Molecular_Weight * Recycle_Gas_Molar_Flow * 44.14",
+    "uom": "kg/h",
+    "category": "Recycle Gas Compressor"
+  },
+  {
+    "name_short": "Convertor_Feed_Mass_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "MUG_Gas_Mass_Flow + Recycle_Gas_Mass_Flow",
+    "uom": "kg/h",
+    "category": "Convertor Preheater"
+  },
+  {
+    "name_short": "Convertor_Effluent_Mass_Flow_Calc",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Convertor_Feed_Mass_Flow",
+    "uom": "kg/h",
+    "category": "Convertor Preheater"
+  },
+  {
+    "name_short": "Water_Cooler_Heat_Duty",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(Convertor_Effluent_Mass_Flow_Calc * 0.97 * (Convertor_Effluent_Cooler_Inlet_Temperature - Convertor_Effluent_Cooler_Outlet_Temperature) + Convertor_Effluent_Mass_Flow_Calc * 0.07 * 400) / 1000000",
+    "uom": "Gcal/hr",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "CO_Makeup_Molar_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "MUG_Gas_Molar_Flow * System_MUG_Gas_CO_Mole_Concentration * 44.68 / 100",
+    "uom": "kmol/hr",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "CO2_Makeup_Molar_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "MUG_Gas_Molar_Flow * System_MUG_Gas_CO2_Mole_Concentration * 44.68 / 100",
+    "uom": "kmol/hr",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "CO_Recycle_Molar_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Recycle_Gas_Molar_Flow * Recycle_Gas_CO_Mole_Concentration * 44.68 / 100",
+    "uom": "kmol/hr",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "CO2_Recycle_Molar_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Recycle_Gas_Molar_Flow * Recycle_Gas_CO2_Mole_Concentration * 44.68 / 100",
+    "uom": "kmol/hr",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "Ccw_Outlet_Temperature",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Ccw_Inlet_Temperature + (Water_Cooler_Heat_Duty * 1000000) / (Ccw_Flow * 1.0)",
+    "uom": "\u00c2\u00b0C",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "Water_Cooler_LMTD",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "((Convertor_Effluent_Cooler_Inlet_Temperature - Ccw_Outlet_Temperature) - (Convertor_Effluent_Cooler_Outlet_Temperature - Ccw_Inlet_Temperature)) / log((Convertor_Effluent_Cooler_Inlet_Temperature - Ccw_Outlet_Temperature) / (Convertor_Effluent_Cooler_Outlet_Temperature - Ccw_Inlet_Temperature))",
+    "uom": "\u00c2\u00b0C",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "Total_Quench_Flow",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Quench_Flow_To_Bed_1 + Quench_Flow_To_Bed_2",
+    "uom": "kg/h",
+    "category": "Methanol Synthesis Reactor"
+  },
+  {
+    "name_short": "Methanol_Separation_Ratio",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "CMA_Flow / Methanol_Separator_inlet_flow",
+    "uom": "ratio",
+    "category": "Methanol Separator"
+  },
+  {
+    "name_short": "Reformed_Gas_Compression_Ratio",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Reformed_Gas_Outlet_Pressure / Reformed_Gas_Inlet_Pressure",
+    "uom": "ratio",
+    "category": "Reformed gas compressor"
+  },
+  {
+    "name_short": "H2_Recovery_Index",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(Purge_Gas_System_Permeate_flow * Purge_Gas_System_Permeate_H2_Mol_percent) / (Purge_Gas_System_Inlet_Flow * Purge_Gas_System_Inlet_H2_Mol_percent)",
+    "uom": "ratio",
+    "category": "Purge Gas system"
+  },
+  {
+    "name_short": "H2_Separation_Efficiency",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "((Purge_Gas_System_Inlet_H2_Mol_percent - Purge_Gas_System_Reject_H2_Mol_percent) / Purge_Gas_System_Inlet_H2_Mol_percent) * 100",
+    "uom": "%",
+    "category": "Purge Gas system"
+  },
+  {
+    "name_short": "Methanol_Production",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "CMA_Flow * CMA_Density_kgm3 * Methanol_Purity_In_CMA * 24 / 1000",
+    "uom": "MT/day",
+    "category": "Methanol Separator"
+  },
+  {
+    "name_short": "Carbon_Yield",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(Methanol_Molar_Flow / (CO_Makeup_Molar_Flow + CO2_Makeup_Molar_Flow)) * 100",
+    "uom": "%",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "Catalyst_Remaining_Life",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": null,
+    "uom": "months",
+    "category": "Asset"
+  },
+  {
+    "name_short": "Recycle_Ratio",
+    "pi_name": "FI302RC.PV / FI101.PV",
+    "type": "pi",
+    "formula": null,
+    "uom": "R/F",
+    "category": "Process"
+  },
+  {
+    "name_short": "M_Value",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(System_MUG_Gas_H2_Mole_Concentration - System_MUG_Gas_CO2_Mole_Concentration) / (System_MUG_Gas_CO_Mole_Concentration + System_MUG_Gas_CO2_Mole_Concentration)",
+    "uom": "ratio",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "Water_Cooler_Fouling_Index",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Water_Cooler_LMTD / Water_Cooler_Heat_Duty",
+    "uom": "\u00c2\u00b0C/(Gcal/hr)",
+    "category": "Water cooler"
+  },
+  {
+    "name_short": "Catalyst_Age",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "(Current Date - Catalyst_Installation_Date)",
+    "uom": "Days",
+    "category": "Methanol Synthesis"
+  },
+  {
+    "name_short": "Bed_1_Delta_T",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Convertor_Bed_1_Outlet_Temperature - Convertor_Bed_1_Inlet_Temperature",
+    "uom": "\u00c2\u00b0C",
+    "category": "Methanol Synthesis Reactor"
+  },
+  {
+    "name_short": "Bed_2_Delta_T",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Convertor_Bed_2_Outlet_Temperature - Convertor_Bed_2_Inlet_Temperature",
+    "uom": "\u00c2\u00b0C",
+    "category": "Methanol Synthesis Reactor"
+  },
+  {
+    "name_short": "Bed_3_Delta_T",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Convertor_Bed_3_Outlet_Temperature - Convertor_Bed_3_Inlet_Temperature",
+    "uom": "\u00c2\u00b0C",
+    "category": "Methanol Synthesis Reactor"
+  },
+  {
+    "name_short": "Preheater_Effluent_Heat_Duty",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Convertor_Effluent_Mass_Flow_Calc * 2.34 * (Convertor_Effluent_Inlet_Temperature - Convertor_Effluent_Outlet_Temperature)",
+    "uom": "kW",
+    "category": "Convertor Preheater"
+  },
+  {
+    "name_short": "Preheater_LMTD",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "((Convertor_Effluent_Inlet_Temperature - Convertor_Feed_Preheater_Outlet_Temperature) - (Convertor_Effluent_Outlet_Temperature - Convertor_Feed_Preheater_Inlet_Temperature)) / log((Convertor_Effluent_Inlet_Temperature - Convertor_Feed_Preheater_Outlet_Temperature) / (Convertor_Effluent_Outlet_Temperature - Convertor_Feed_Preheater_Inlet_Temperature))",
+    "uom": "\u00c2\u00b0C",
+    "category": "Convertor Preheater"
+  },
+  {
+    "name_short": "Preheater_Fouling_Index",
+    "pi_name": null,
+    "type": "inferred",
+    "formula": "Preheater_LMTD / Preheater_Effluent_Heat_Duty",
+    "uom": "\u00c2\u00b0C/kW",
+    "category": "Convertor Preheater"
+  }
+]

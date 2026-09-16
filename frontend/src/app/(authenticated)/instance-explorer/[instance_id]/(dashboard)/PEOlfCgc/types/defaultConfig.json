@@ -1,0 +1,4388 @@
+{
+  "schema": "cgc_master_configuration_v1",
+  "plant": {
+    "plant_name": "SABIC OLF CGC",
+    "train": "CGC Train 1",
+    "process_licensor": "",
+    "driver_type": "steam_turbine",
+    "stage_count": 5,
+    "max_stage_limit": 50,
+    "composition_basis": "dry",
+    "final_outlet_destination": "",
+    "data_source": "PI historian + EFF data Excel",
+    "property_mode": "mapped_inputs",
+    "unit_system": {
+      "pressure": "bar(g)",
+      "temperature": "°C",
+      "mass_flow": "t/h",
+      "power": "kW",
+      "specific_power": "kWh/t",
+      "-": "mol%"
+    },
+    "baselines": {
+      "rated_power_kw": 76972,
+      "governor_speed_rpm": 3737,
+      "spc_benchmark_kw_t_h": 150,
+      "suction_p_benchmark_kgcm2": 0.38,
+      "cw_supply_temp_c": 33,
+      "global_dp_baseline_kgcm2": 2.46,
+      "bfw_temp_c": 105,
+      "wash_oil_mw": 126.24,
+      "total_dry_flow_kg_h": 0,
+      "design_throughput_t_h": 0
+    },
+    "feed": {
+      "mode": "fixed",
+      "water_mass_frac": 0.05,
+      "fixed_fractions": {
+        "H2": 0.12,
+        "CH4": 0.32,
+        "C2H2": 0.01,
+        "C2H4": 0.25,
+        "C2H6": 0.08,
+        "C3H4": 0.005,
+        "C3H6": 0.05,
+        "C3H8": 0.03,
+        "C4S": 0.02,
+        "C5_Above": 0.01,
+        "C6_To_C8": 0.005,
+        "C9_Plus": 0
+      },
+      "overhead_balance": {
+        "H2": [],
+        "CH4": [],
+        "C2H2": [],
+        "C2H4": [],
+        "C2H6": [],
+        "C3H4": [],
+        "C3H6": [],
+        "C3H8": [],
+        "C4S": [],
+        "C5_Above": [],
+        "C6_To_C8": [],
+        "C9_Plus": [],
+        "dm_bottoms_kg_h": null,
+        "total_dry_override_kg_h": null
+      }
+    },
+    "opportunity": {
+      "steam_calorific_value_gj_t": 13.1,
+      "energy_cost_usd_gj": 44.68,
+      "co2_emission_factor_t_per_t_steam": 2.75
+    }
+  },
+  "driver": {
+    "driver_type": "steam_turbine",
+    "_confirmed": false,
+    "has_extraction": true,
+    "has_injection": false,
+    "has_exhaust": true,
+    "injection_before_extraction": true,
+    "exhaust_condensing": true,
+    "inlet_flow_from_balance": true,
+    "extraction_flow_from_balance": false,
+    "injection_flow_from_balance": false,
+    "exhaust_flow_from_balance": false,
+    "inlet_press_abs_const": 1.01325,
+    "extraction_press_abs_const": 1.01325,
+    "injection_press_abs_const": 1.033,
+    "exhaust_press_abs_const": 1.01325,
+    "inlet_press_drop_mbar": 0,
+    "injection_press_drop_mbar": 0,
+    "shaft_efficiency_pct": 98,
+    "custom_isentropic_eff_pct": 75,
+    "df_coeff": [
+      0.917,
+      0,
+      0,
+      0,
+      0
+    ],
+    "primary_method": "A",
+    "sections": [
+      {
+        "id": "hp_to_extraction",
+        "from": "HP inlet",
+        "to": "extraction",
+        "kind": "non_condensing"
+      },
+      {
+        "id": "extraction_to_exhaust",
+        "from": "extraction",
+        "to": "exhaust",
+        "kind": "condensing"
+      }
+    ]
+  },
+  "stages": [
+    {
+      "stage_number": 1,
+      "_visited": true,
+      "_confirmed": true,
+      "equipment_tags": {
+        "suction_drum": "V-101",
+        "compressor": "K-101",
+        "aftercooler": "E-101",
+        "downstream_drum": "V-201"
+      },
+      "has_suction_drum": true,
+      "has_aftercooler": true,
+      "has_discharge_drum": true,
+      "bfw_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "wash_oil_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "stream_tags": {
+        "bfw": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {}
+        },
+        "wash_oil": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {},
+          "mw": {}
+        }
+      },
+      "additional_streams": [],
+      "interstage_after": {
+        "caustic_tower": false,
+        "caustic_outlet_separator": false,
+        "pressure_drop_vessel": false
+      },
+      "design": {
+        "ac_dp_baseline_kgcm2": 0,
+        "ac_design_duty_kw": 0,
+        "ac_design_ua_kw_c": 0,
+        "t_outlier_threshold": 5.5,
+        "bfw_design_flow_kg_h": 0,
+        "wo_design_flow_kg_h": 0,
+        "interstage_dp_kgcm2": 0
+      }
+    },
+    {
+      "stage_number": 2,
+      "_visited": true,
+      "_confirmed": true,
+      "equipment_tags": {
+        "suction_drum": "V-201",
+        "compressor": "K-201",
+        "aftercooler": "E-201",
+        "downstream_drum": "V-301"
+      },
+      "has_suction_drum": true,
+      "has_aftercooler": true,
+      "has_discharge_drum": true,
+      "bfw_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "wash_oil_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "stream_tags": {
+        "bfw": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {}
+        },
+        "wash_oil": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {},
+          "mw": {}
+        }
+      },
+      "additional_streams": [],
+      "interstage_after": {
+        "caustic_tower": false,
+        "caustic_outlet_separator": false,
+        "pressure_drop_vessel": false
+      },
+      "design": {
+        "ac_dp_baseline_kgcm2": 0,
+        "ac_design_duty_kw": 0,
+        "ac_design_ua_kw_c": 0,
+        "t_outlier_threshold": 5.5,
+        "bfw_design_flow_kg_h": 0,
+        "wo_design_flow_kg_h": 0,
+        "interstage_dp_kgcm2": 0
+      }
+    },
+    {
+      "stage_number": 3,
+      "_visited": true,
+      "_confirmed": true,
+      "equipment_tags": {
+        "suction_drum": "V-301",
+        "compressor": "K-301",
+        "aftercooler": "E-301",
+        "downstream_drum": "V-401"
+      },
+      "has_suction_drum": true,
+      "has_aftercooler": true,
+      "has_discharge_drum": true,
+      "bfw_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "wash_oil_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "stream_tags": {
+        "bfw": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {}
+        },
+        "wash_oil": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {},
+          "mw": {}
+        }
+      },
+      "additional_streams": [],
+      "interstage_after": {
+        "caustic_tower": false,
+        "caustic_outlet_separator": false,
+        "pressure_drop_vessel": false
+      },
+      "design": {
+        "ac_dp_baseline_kgcm2": 0,
+        "ac_design_duty_kw": 0,
+        "ac_design_ua_kw_c": 0,
+        "t_outlier_threshold": 5.5,
+        "bfw_design_flow_kg_h": 0,
+        "wo_design_flow_kg_h": 0,
+        "interstage_dp_kgcm2": 0
+      }
+    },
+    {
+      "stage_number": 4,
+      "_visited": true,
+      "_confirmed": true,
+      "equipment_tags": {
+        "suction_drum": "V-401",
+        "compressor": "K-401",
+        "aftercooler": "E-401",
+        "downstream_drum": "V-501"
+      },
+      "has_suction_drum": true,
+      "has_aftercooler": true,
+      "has_discharge_drum": true,
+      "bfw_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "wash_oil_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "stream_tags": {
+        "bfw": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {}
+        },
+        "wash_oil": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {},
+          "mw": {}
+        }
+      },
+      "additional_streams": [
+        {
+          "name": "LPDE Overhead Vent to CGC",
+          "role": "additional",
+          "location": "before_compressor",
+          "description": "SQ side stream validated by Stage 3 to Stage 4 flow closure.",
+          "flow_availability": "tag",
+          "source_tag_name": "LPDE_Overhead_Vent_Flow_To_CGC",
+          "source_pi_tag": "",
+          "input_uom": "kg/h",
+          "output_uom": "kg/h",
+          "has_gc_analyzer": false,
+          "composition_basis": "component_mass_flow_kgh",
+          "component_mass_flow_cols": {
+            "C2H4": "LPDE_Overhead_Vent_Flow_To_CGC_C2H4_Mass_Flow",
+            "C2": "LPDE_Overhead_Vent_Flow_To_CGC_C2H6_Mass_Flow",
+            "C3H6": "LPDE_Overhead_Vent_Flow_To_CGC_C3H6_Mass_Flow",
+            "C3": "LPDE_Overhead_Vent_Flow_To_CGC_C3H8_Mass_Flow"
+          },
+          "design_flow_kg_h": 26922.25,
+          "component_mass_flow_defaults": {
+            "C2H4": 8382.26,
+            "C2": 14047.19,
+            "C3H6": 2657.47,
+            "C3": 1779.94
+          }
+        },
+        {
+          "name": "Recycle C3 to CGC",
+          "role": "recycle",
+          "location": "before_compressor",
+          "description": "SQ recycle C3 side stream; PI is T/H and Python consumes kg/h.",
+          "flow_availability": "tag",
+          "source_tag_name": "RECYCLE_C3_Flow",
+          "source_pi_tag": "SQ.OLF.1FIC86217.PV",
+          "input_uom": "t/h",
+          "output_uom": "kg/h",
+          "has_gc_analyzer": false,
+          "fixed_composition": {
+            "C3": 1.0
+          },
+          "design_flow_kg_h": 51.9497
+        }
+      ],
+      "interstage_after": {
+        "caustic_tower": false,
+        "caustic_outlet_separator": false,
+        "pressure_drop_vessel": false
+      },
+      "design": {
+        "ac_dp_baseline_kgcm2": 0,
+        "ac_design_duty_kw": 0,
+        "ac_design_ua_kw_c": 0,
+        "t_outlier_threshold": 5.5,
+        "bfw_design_flow_kg_h": 0,
+        "wo_design_flow_kg_h": 0,
+        "interstage_dp_kgcm2": 0
+      }
+    },
+    {
+      "stage_number": 5,
+      "_visited": true,
+      "_confirmed": true,
+      "equipment_tags": {
+        "suction_drum": "V-501",
+        "compressor": "K-501",
+        "aftercooler": "E-501",
+        "downstream_drum": "V-601"
+      },
+      "has_suction_drum": true,
+      "has_aftercooler": false,
+      "has_discharge_drum": true,
+      "bfw_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "wash_oil_injection": {
+        "enabled": false,
+        "location": "compressor_internal",
+        "injection_point": "compressor_internal_nozzle"
+      },
+      "stream_tags": {
+        "bfw": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {}
+        },
+        "wash_oil": {
+          "flow": {},
+          "temperature": {},
+          "pressure": {},
+          "mw": {}
+        }
+      },
+      "additional_streams": [],
+      "interstage_after": {
+        "caustic_tower": false,
+        "caustic_outlet_separator": false,
+        "pressure_drop_vessel": false
+      },
+      "design": {
+        "ac_dp_baseline_kgcm2": 0,
+        "ac_design_duty_kw": 0,
+        "ac_design_ua_kw_c": 0,
+        "t_outlier_threshold": 5.5,
+        "bfw_design_flow_kg_h": 0,
+        "wo_design_flow_kg_h": 0,
+        "interstage_dp_kgcm2": 0
+      }
+    }
+  ],
+  "kpis": [
+    {
+      "id": "overall_power",
+      "group": "compressor",
+      "name": "Overall compressor power",
+      "has_tag": false,
+      "tag": "",
+      "formula": "sum(stage_power_kw)",
+      "variables": {}
+    },
+    {
+      "id": "stage_pressure_ratio",
+      "group": "compressor",
+      "name": "Stage pressure ratio",
+      "has_tag": false,
+      "tag": "",
+      "formula": "discharge_pressure / suction_pressure",
+      "variables": {}
+    },
+    {
+      "id": "specific_steam_rate",
+      "group": "steam",
+      "name": "Specific steam rate",
+      "has_tag": false,
+      "tag": "",
+      "formula": "steam_flow / shaft_power_kw",
+      "variables": {}
+    },
+    {
+      "id": "aftercooler_duty",
+      "group": "cooling",
+      "name": "Aftercooler duty",
+      "has_tag": false,
+      "tag": "",
+      "formula": "gas_flow * cp_gas * (hot_temperature - cold_temperature)",
+      "variables": {}
+    },
+    {
+      "id": "caustic_tower_dp",
+      "group": "plant",
+      "name": "Caustic tower pressure drop",
+      "has_tag": false,
+      "tag": "",
+      "formula": "inlet_pressure - outlet_pressure",
+      "variables": {}
+    }
+  ],
+  "tag_mappings": {},
+  "kpi_shared_inputs": {},
+  "kpi_input_tag_bank": {
+    "CGC_1st_Stage_Suction_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1PIC8405A.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 0.51934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_1st_Stage_Discharge_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8400.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 1.94934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_2nd_Stage_Suction_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8407.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 1.44934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_2nd_Stage_Discharge_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8406.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 4.68934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_3rd_Stage_Suction_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8410.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 4.22934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_3rd_Stage_Discharge_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8411.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 9.06934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_1st_Stage_Suction_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8401.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 46,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_1st_Stage_Discharge_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8400.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 93.6,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_2nd_Stage_Suction_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8403.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 45,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_2nd_Stage_Discharge_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8402.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 107.6,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_3rd_Stage_Suction_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8405.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 45,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_3rd_Stage_Discharge_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8406.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 92.3,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_4th_Stage_Suction_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8413.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 8.60934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_4th_Stage_Discharge_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8414.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 19.23034,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_4th_Stage_Suction_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8407.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 45,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_4th_Stage_Discharge_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8408.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 98.1,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_5th_Stage_Discharge_Flow": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1FIC8425.PV",
+      "uom": "t/h",
+      "input_uom": "t/h",
+      "output_uom": "t/h",
+      "conversion_factor": 1,
+      "design_value": 496.875,
+      "default_value": null,
+      "min_val": 350,
+      "max_val": 550
+    },
+    "CGC_5th_Stage_Suction_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8499.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 18.06934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_5th_Stage_Discharge_Pressure": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1PI8434.PV",
+      "uom": "kg/cm²(g)",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1,
+      "design_value": 37.21934,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_5th_Stage_Suction_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8436.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 50,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_5th_Stage_Discharge_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8448.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 101.5,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "Cooling_Water_Supply_Temperature": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1TI8040.PV",
+      "uom": "°C",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1,
+      "design_value": 25,
+      "default_value": null,
+      "min_val": null,
+      "max_val": null
+    },
+    "Bfw_Flow_Stage_1": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "Bfw_Flow_Stage_2": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "Bfw_Flow_Stage_3": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "Bfw_Flow_Stage_4": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "Bfw_Flow_Stage_5": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_Feed_GC_H2": {
+      "source_type": "constant",
+      "pi_tag": "15",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 15,
+      "default_value": 15,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_C1": {
+      "source_type": "constant",
+      "pi_tag": "35",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 35,
+      "default_value": 35,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_C2H4": {
+      "source_type": "constant",
+      "pi_tag": "26",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 26,
+      "default_value": 26,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_C2": {
+      "source_type": "constant",
+      "pi_tag": "10",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 10,
+      "default_value": 10,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_C3H6": {
+      "source_type": "constant",
+      "pi_tag": "5.5",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 5.5,
+      "default_value": 5.5,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_C3": {
+      "source_type": "constant",
+      "pi_tag": "3",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 3,
+      "default_value": 3,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_C4H8": {
+      "source_type": "constant",
+      "pi_tag": "2",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 2,
+      "default_value": 2,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_nC5": {
+      "source_type": "constant",
+      "pi_tag": "1",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 1,
+      "default_value": 1,
+      "min_val": 0,
+      "max_val": 100
+    },
+    "CGC_Feed_GC_CO": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_Feed_GC_CO2": {
+      "source_type": "constant",
+      "pi_tag": "0",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 0,
+      "default_value": 0,
+      "min_val": null,
+      "max_val": null
+    },
+    "Atmospheric_Pressure_Abs": {
+      "source_type": "constant",
+      "pi_tag": "1.0332",
+      "uom": "kg/cm²(a)",
+      "input_uom": "kg/cm²(a)",
+      "output_uom": "kg/cm²(a)",
+      "conversion_factor": 1,
+      "design_value": 1.0332,
+      "default_value": 1.0332,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_Feed_GC_C2H2": {
+      "source_type": "constant",
+      "pi_tag": "1",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 1,
+      "default_value": 1,
+      "min_val": null,
+      "max_val": null
+    },
+    "CGC_IS1_Flow": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "LPDE_Overhead_Vent_Flow_To_CGC",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1
+    },
+    "CGC_IS2_Flow": {
+      "source_type": "pi_tag",
+      "pi_tag": "SQ.OLF.1FIC86217.PV",
+      "uom": "t/h",
+      "input_uom": "t/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1000
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "(LPDE_Feed_Flow-LPDE_Bottom_Flow)*1000",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC_Molecular_Wt": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "(LPDE_Overhead_Vent_Flow_C3_Analyser*42.87+(100-LPDE_Overhead_Vent_Flow_C3_Analyser)*29.28)/100",
+      "uom": "kg/kmol",
+      "input_uom": "kg/kmol",
+      "output_uom": "kg/kmol",
+      "conversion_factor": 1
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "LPDE_Overhead_Vent_Flow_To_CGC/LPDE_Overhead_Vent_Flow_To_CGC_Molecular_Wt",
+      "uom": "kmol/h",
+      "input_uom": "kmol/h",
+      "output_uom": "kmol/h",
+      "conversion_factor": 1
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC_C3H6_Mass_Flow": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.61*LPDE_Overhead_Vent_Flow_C3_Analyser/100)*42",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC_C3H8_Mass_Flow": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.39*LPDE_Overhead_Vent_Flow_C3_Analyser/100)*44",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC_C2H6_Mass_Flow": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.61*(100-LPDE_Overhead_Vent_Flow_C3_Analyser)/100)*30",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1
+    },
+    "LPDE_Overhead_Vent_Flow_To_CGC_C2H4_Mass_Flow": {
+      "source_type": "inferred",
+      "pi_tag": "",
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.39*(100-LPDE_Overhead_Vent_Flow_C3_Analyser)/100)*28",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1
+    }
+  },
+  "composition_components": [
+    {
+      "id": "H2",
+      "label": "H₁‚",
+      "mw": 2.016
+    },
+    {
+      "id": "CH4",
+      "label": "CH₁„",
+      "mw": 16.043
+    },
+    {
+      "id": "C2H2",
+      "label": "C₁‚H₁‚",
+      "mw": 26.038
+    },
+    {
+      "id": "C2H4",
+      "label": "C₁‚H₁„",
+      "mw": 28.054
+    },
+    {
+      "id": "C2H6",
+      "label": "C₁‚H₁†",
+      "mw": 30.07
+    },
+    {
+      "id": "C3H6",
+      "label": "C₁ƒH₁†",
+      "mw": 42.081
+    },
+    {
+      "id": "C3H8",
+      "label": "C₁ƒH₁ˆ",
+      "mw": 44.097
+    },
+    {
+      "id": "C4_lmp",
+      "label": "C₁„ lumps",
+      "mw": 56
+    },
+    {
+      "id": "C5plus",
+      "label": "C₁…+",
+      "mw": 72.15
+    },
+    {
+      "id": "CO",
+      "label": "CO",
+      "mw": 28.01
+    },
+    {
+      "id": "CO2",
+      "label": "CO₁‚",
+      "mw": 44.01
+    },
+    {
+      "id": "N2",
+      "label": "N₁‚",
+      "mw": 28.014
+    },
+    {
+      "id": "H2S",
+      "label": "H₁‚S",
+      "mw": 34.081
+    },
+    {
+      "id": "H2O",
+      "label": "H₁‚O",
+      "mw": 18.015
+    }
+  ],
+  "kpi_catalog": [
+    {
+      "name": "CGC_1st_Stage_Discharge_Temperature_Corr",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_3rd_Stage_Discharge_Temperature_Corr",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_2nd_Stage_Discharge_Temperature_Corr",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_4th_Stage_Discharge_Temperature_Corr",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_5th_Stage_Discharge_Temperature_Corr",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_1st_Stage_Discharge_Temperature_Corrected",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_2nd_Stage_Discharge_Temperature_Corrected",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_3rd_Stage_Discharge_Temperature_Corrected",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_4th_Stage_Discharge_Temperature_Corrected",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_5th_Stage_Discharge_Temperature_Corrected",
+      "category": "Corrected Discharge Temperature"
+    },
+    {
+      "name": "CGC_1st_Stage_Pressure_Ratio",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_Efficiency",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_Polytropic_Head",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_Power",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_Aftercooler_Duty",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_Hot_Approach",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_UA",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_1st_Stage_Fouling_Index",
+      "category": "Stage 1"
+    },
+    {
+      "name": "Volumetric_Flow_Suction_1st_Stage",
+      "category": "Stage 1"
+    },
+    {
+      "name": "Volumetric_Flow_Discharge_1st_Stage",
+      "category": "Stage 1"
+    },
+    {
+      "name": "Pressure_Drop_Across_1st_Stage_Aftercooler",
+      "category": "Stage 1"
+    },
+    {
+      "name": "Fouling_Index_1st_Stage_Percentage_Dp_Basis",
+      "category": "Stage 1"
+    },
+    {
+      "name": "CGC_2nd_Stage_Pressure_Ratio",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_Efficiency",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_Polytropic_Head",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_Power",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_Aftercooler_Duty",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_Hot_Approach",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_UA",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_2nd_Stage_Fouling_Index",
+      "category": "Stage 2"
+    },
+    {
+      "name": "Volumetric_Flow_Suction_2nd_Stage",
+      "category": "Stage 2"
+    },
+    {
+      "name": "Volumetric_Flow_Discharge_2nd_Stage",
+      "category": "Stage 2"
+    },
+    {
+      "name": "Pressure_Drop_Across_2nd_Stage_Aftercooler",
+      "category": "Stage 2"
+    },
+    {
+      "name": "Fouling_Index_2nd_Stage_Percentage_Dp_Basis",
+      "category": "Stage 2"
+    },
+    {
+      "name": "CGC_3rd_Stage_Pressure_Ratio",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_Efficiency",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_Polytropic_Head",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_Power",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_Aftercooler_Duty",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_Hot_Approach",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_UA",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_3rd_Stage_Fouling_Index",
+      "category": "Stage 3"
+    },
+    {
+      "name": "Volumetric_Flow_Suction_3rd_Stage",
+      "category": "Stage 3"
+    },
+    {
+      "name": "Volumetric_Flow_Discharge_3rd_Stage",
+      "category": "Stage 3"
+    },
+    {
+      "name": "Pressure_Drop_Across_3rd_Stage_Aftercooler",
+      "category": "Stage 3"
+    },
+    {
+      "name": "Fouling_Index_3rd_Stage_Percentage_Dp_Basis",
+      "category": "Stage 3"
+    },
+    {
+      "name": "CGC_4th_Stage_Pressure_Ratio",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_Efficiency",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_Polytropic_Head",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_Power",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_Aftercooler_Duty",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_Hot_Approach",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_UA",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_4th_Stage_Fouling_Index",
+      "category": "Stage 4"
+    },
+    {
+      "name": "Volumetric_Flow_Suction_4th_Stage",
+      "category": "Stage 4"
+    },
+    {
+      "name": "Volumetric_Flow_Discharge_4th_Stage",
+      "category": "Stage 4"
+    },
+    {
+      "name": "Pressure_Drop_Across_4th_Stage_Aftercooler",
+      "category": "Stage 4"
+    },
+    {
+      "name": "Fouling_Index_4th_Stage_Percentage_Dp_Basis",
+      "category": "Stage 4"
+    },
+    {
+      "name": "CGC_5th_Stage_Pressure_Ratio",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_Efficiency",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_Polytropic_Head",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_Power",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_Aftercooler_Duty",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_Hot_Approach",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_UA",
+      "category": "Stage 5"
+    },
+    {
+      "name": "CGC_5th_Stage_Fouling_Index",
+      "category": "Stage 5"
+    },
+    {
+      "name": "Volumetric_Flow_Suction_5th_Stage",
+      "category": "Stage 5"
+    },
+    {
+      "name": "Volumetric_Flow_Discharge_5th_Stage",
+      "category": "Stage 5"
+    },
+    {
+      "name": "Pressure_Drop_Across_5th_Stage_Aftercooler",
+      "category": "Stage 5"
+    },
+    {
+      "name": "Fouling_Index_5th_Stage_Percentage_Dp_Basis",
+      "category": "Stage 5"
+    },
+    {
+      "name": "Total_Raw_Hydrogen",
+      "category": "Overall"
+    },
+    {
+      "name": "Compressor_Power",
+      "category": "Overall"
+    },
+    {
+      "name": "CGC_Power_Margin",
+      "category": "Overall"
+    },
+    {
+      "name": "CGC_Throughput",
+      "category": "Overall"
+    },
+    {
+      "name": "CGC_Efficiency",
+      "category": "Overall"
+    },
+    {
+      "name": "Average_Pressure_Ratio",
+      "category": "Overall"
+    },
+    {
+      "name": "Flow_Normalized_Avg_Interstage_Dp",
+      "category": "Overall"
+    },
+    {
+      "name": "CGC_Total_Dp_By_Load",
+      "category": "Overall"
+    },
+    {
+      "name": "Fouling_Index_Final",
+      "category": "Overall"
+    },
+    {
+      "name": "plant_status",
+      "category": "Overall"
+    },
+    {
+      "name": "Calc_capacity",
+      "category": "Overall"
+    },
+    {
+      "name": "Capacity_Utilization",
+      "category": "Overall"
+    },
+    {
+      "name": "Curve_Eff_Stage1",
+      "category": "Overall"
+    },
+    {
+      "name": "Curve_Eff_Stage2",
+      "category": "Overall"
+    },
+    {
+      "name": "Curve_Eff_Stage3",
+      "category": "Overall"
+    },
+    {
+      "name": "Curve_Eff_Stage4",
+      "category": "Overall"
+    },
+    {
+      "name": "Curve_Eff_Stage5",
+      "category": "Overall"
+    },
+    {
+      "name": "CGC_S1_SUC_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_SUC_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_DIS_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_DIS_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_H2O_Removed",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_HC_Condensate",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_C3plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_C4plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_C5plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S1_KO_Total_Liquid",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_SUC_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_SUC_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_DIS_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_DIS_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_H2O_Removed",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_HC_Condensate",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_C3plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_C4plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_C5plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S2_KO_Total_Liquid",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_SUC_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_SUC_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_DIS_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_DIS_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_H2O_Removed",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_HC_Condensate",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_C3plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_C4plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_C5plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S3_KO_Total_Liquid",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_SUC_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_SUC_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_DIS_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_DIS_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_H2O_Removed",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_HC_Condensate",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_C3plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_C4plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_C5plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S4_KO_Total_Liquid",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_SUC_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_SUC_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_DIS_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_DIS_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_Flow_Wet",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_Flow_Dry",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_H2O_Removed",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_HC_Condensate",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_C3plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_C4plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_C5plus",
+      "category": "Mass Flow Estimation"
+    },
+    {
+      "name": "CGC_S5_KO_Total_Liquid",
+      "category": "Mass Flow Estimation"
+    }
+  ],
+  "kpi_mappings": {},
+  "kpi_conditions": {},
+  "engine_defaults": {
+    "cp_cool_kj_kg_k": 2.2,
+    "cp_gas_kj_kg_k": 2.4,
+    "bfw_dh_kj_kg": 2400,
+    "cp_wash_oil_kj_kg_k": 2.5,
+    "z_factor": 0.974,
+    "cw_supply_temp_c": 33,
+    "bfw_temp_c": 35.8,
+    "wash_oil_temp_c": 40,
+    "eff_warn_pct": 95,
+    "eff_fault_pct": 100,
+    "approach_typical_min_c": 5,
+    "approach_typical_max_c": 12
+  },
+  "raw_pi_tags": [
+    {
+      "name": "CGC_Turbine_1_VHS_Pressure",
+      "pi_tag": "SQ.OLF.1PI8484.PV",
+      "description": "CGC Turbine 1 VHS Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 107,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1001,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_VHS_Temperature",
+      "pi_tag": "SQ.OLF.1TI8494.PV",
+      "description": "CGC Turbine 1 VHS Temperature",
+      "uom": "°C",
+      "design_value": 485,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1002,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_Extraction_Steam_Pressure",
+      "pi_tag": "SQ.OLF.1PI8491.PV",
+      "description": "CGC Turbine 1 Extraction Steam Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 23,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1003,
+      "data_type": "real",
+      "kpi_ref_count": 10,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_Extraction_Steam_Temperature_Raw",
+      "pi_tag": "SQ.OLF.1TI8491.PV",
+      "description": "CGC Turbine 1 Extraction Steam Temperature Raw",
+      "uom": "°C",
+      "design_value": 294.6,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1004,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_Exhaust_Steam_Pressure",
+      "pi_tag": "SQ.OLF.1PI8492.PV",
+      "description": "CGC Turbine 1 Exhaust Steam Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": -0.78,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1005,
+      "data_type": "real",
+      "kpi_ref_count": 9,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_ExHaust_Steam_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8492.PV",
+      "description": "CGC Turbine 1 ExHaust Steam Temperature",
+      "uom": "°C",
+      "design_value": 63.5,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1006,
+      "data_type": "real",
+      "kpi_ref_count": 9,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_VHS_Flow",
+      "pi_tag": "SQ.OLF.1FI8486_TOT.PV",
+      "description": "CGC Turbine 1 VHS Flow",
+      "uom": "t/h",
+      "design_value": 444.3,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1007,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_Extraction_Steam_Flow",
+      "pi_tag": "SQ.OLF.1FI8011.PV",
+      "description": "CGC Turbine 1 Extraction Steam Flow",
+      "uom": "t/h",
+      "design_value": 169.748,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1008,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_1_Exhaust_Steam_Flow",
+      "pi_tag": "SQ.OLF.1FIC8485.PV",
+      "description": "CGC Turbine 1 Exhaust Steam Flow",
+      "uom": "t/h",
+      "design_value": 274.6,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1009,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_Total_Feed_From_Separator",
+      "pi_tag": "SQ.OLF.1FI8501_T.PV",
+      "description": "DM Total Feed From Separator",
+      "uom": "t/h",
+      "design_value": 291.461,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1010,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_Bottom_Flow_1",
+      "pi_tag": "SQ.OLF.1FIC8510.PV",
+      "description": "DM Bottom Flow 1",
+      "uom": "t/h",
+      "design_value": 97.835,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1011,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_Bottom_Flow_2",
+      "pi_tag": "SQ.OLF.1FIC8500.PV",
+      "description": "DM Bottom Flow 2",
+      "uom": "t/h",
+      "design_value": 133.633,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1012,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_CH4_Prdt_Draw_Offsite_Flow",
+      "pi_tag": "SQ.OLF.1FIC8509.PV",
+      "description": "DM CH4 Prdt Draw Offsite Flow",
+      "uom": "t/h",
+      "design_value": 2,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1013,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "K8502_Off_Gas_Outlet_Flow",
+      "pi_tag": "SQ.OLF.1FI8518.PV",
+      "description": "K8502 Off Gas Outlet Flow",
+      "uom": "t/h",
+      "design_value": 62.282,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1014,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Expander_8501_Inlet_Hydrogen_Flow",
+      "pi_tag": "SQ.OLF.1FI8515.PV",
+      "description": "Expander 8501 Inlet Hydrogen Flow",
+      "uom": "t/h",
+      "design_value": 14.111,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1015,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_1st_Stage_Suction_Pressure",
+      "pi_tag": "SQ.OLF.1PIC8405A.PV",
+      "description": "CGC 1st Stage Suction Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 0.51934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1016,
+      "data_type": "real",
+      "kpi_ref_count": 10,
+      "is_kpi_input": true,
+      "pi_section": "Stage 1",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_1st_Stage_Discharge_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8400.PV",
+      "description": "CGC 1st Stage Discharge Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 1.94934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1017,
+      "data_type": "real",
+      "kpi_ref_count": 7,
+      "is_kpi_input": true,
+      "pi_section": "Stage 1",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_2nd_Stage_Suction_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8407.PV",
+      "description": "CGC 2nd Stage Suction Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 1.44934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1018,
+      "data_type": "real",
+      "kpi_ref_count": 12,
+      "is_kpi_input": true,
+      "pi_section": "Stage 2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_2nd_Stage_Discharge_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8406.PV",
+      "description": "CGC 2nd Stage Discharge Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 4.68934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1019,
+      "data_type": "real",
+      "kpi_ref_count": 7,
+      "is_kpi_input": true,
+      "pi_section": "Stage 2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_3rd_Stage_Suction_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8410.PV",
+      "description": "CGC 3rd Stage Suction Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 4.22934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1020,
+      "data_type": "real",
+      "kpi_ref_count": 11,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_3rd_Stage_Discharge_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8411.PV",
+      "description": "CGC 3rd Stage Discharge Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 9.06934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1021,
+      "data_type": "real",
+      "kpi_ref_count": 6,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_1st_Stage_Suction_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8401.PV",
+      "description": "CGC 1st Stage Suction Temperature",
+      "uom": "°C",
+      "design_value": 46,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1022,
+      "data_type": "real",
+      "kpi_ref_count": 9,
+      "is_kpi_input": true,
+      "pi_section": "Stage 1",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_1st_Stage_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8400.PV",
+      "description": "CGC 1st Stage Discharge Temperature",
+      "uom": "°C",
+      "design_value": 93.6,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1023,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Stage 1",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_2nd_Stage_Suction_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8403.PV",
+      "description": "CGC 2nd Stage Suction Temperature",
+      "uom": "°C",
+      "design_value": 45,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1024,
+      "data_type": "real",
+      "kpi_ref_count": 15,
+      "is_kpi_input": true,
+      "pi_section": "Stage 2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_2nd_Stage_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8402.PV",
+      "description": "CGC 2nd Stage Discharge Temperature",
+      "uom": "°C",
+      "design_value": 107.6,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1025,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Stage 2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 2"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_3rd_Stage_Suction_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8405.PV",
+      "description": "CGC 3rd Stage Suction Temperature",
+      "uom": "°C",
+      "design_value": 45,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1026,
+      "data_type": "real",
+      "kpi_ref_count": 16,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_3rd_Stage_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8406.PV",
+      "description": "CGC 3rd Stage Discharge Temperature",
+      "uom": "°C",
+      "design_value": 92.3,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1027,
+      "data_type": "real",
+      "kpi_ref_count": 4,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 3"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_3rd_Stage_Suction_Flow",
+      "pi_tag": "SQ.OLF.1FIC8404.PV",
+      "description": "CGC 3rd Stage Suction Flow",
+      "uom": "t/h",
+      "design_value": 466.979,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1028,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_4th_Stage_Suction_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8413.PV",
+      "description": "CGC 4th Stage Suction Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 8.60934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1029,
+      "data_type": "real",
+      "kpi_ref_count": 12,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_4th_Stage_Discharge_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8414.PV",
+      "description": "CGC 4th Stage Discharge Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 19.23034,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1030,
+      "data_type": "real",
+      "kpi_ref_count": 8,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_4th_Stage_Suction_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8407.PV",
+      "description": "CGC 4th Stage Suction Temperature",
+      "uom": "°C",
+      "design_value": 45,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1031,
+      "data_type": "real",
+      "kpi_ref_count": 15,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 3",
+        "Stage 4"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_4th_Stage_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8408.PV",
+      "description": "CGC 4th Stage Discharge Temperature",
+      "uom": "°C",
+      "design_value": 98.1,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1032,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 4"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_5th_Stage_Discharge_Flow",
+      "pi_tag": "SQ.OLF.1FIC8425.PV",
+      "description": "CGC 5th Stage Discharge Flow",
+      "uom": "t/h",
+      "design_value": 496.875,
+      "min_val": 350,
+      "max_val": 550,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data,LBM_postprocessing_capacity_utilization_pi",
+      "user_tag_id": 1033,
+      "data_type": "real",
+      "kpi_ref_count": 11,
+      "is_kpi_input": true,
+      "pi_section": "Stage 5",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "t/h",
+      "output_uom": "t/h",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_3rd_Stage_Discharge_Aftercooler_Inlet_Temperature",
+      "pi_tag": "SQ.OLF.1TI8413.PV",
+      "description": "CGC 3rd Stage Discharge Aftercooler Inlet Temperature",
+      "uom": "°C",
+      "design_value": 89.12,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1034,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "Stage 3"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "LPDE_Feed_Flow",
+      "pi_tag": "SQ.OLF.1FI8550.PV",
+      "description": "LPDE Feed Flow",
+      "uom": "t/h",
+      "design_value": 183.82,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1035,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "LPDE_Bottom_Flow",
+      "pi_tag": "SQ.OLF.1FIC8573.PV",
+      "description": "LPDE Bottom Flow",
+      "uom": "t/h",
+      "design_value": 150.033,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1036,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_C3_Analyser",
+      "pi_tag": "SQ.OLF.1AI8528A.PV",
+      "description": "LPDE Overhead Vent Flow C3 Analyser",
+      "uom": "%",
+      "design_value": 25.44,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1037,
+      "data_type": "real",
+      "kpi_ref_count": 6,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cgc_4th_Stage_Aftercooler_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1TI8420.PV",
+      "description": "Cgc 4th Stage Aftercooler Discharge Temperature",
+      "uom": "°C",
+      "design_value": 44.96,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1038,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "Stage 4"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_5th_Stage_Suction_Pressure",
+      "pi_tag": "SQ.OLF.1K8401_I1PI8499.PV",
+      "description": "CGC 5th Stage Suction Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 18.06934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1039,
+      "data_type": "real",
+      "kpi_ref_count": 10,
+      "is_kpi_input": true,
+      "pi_section": "Stage 5",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_5th_Stage_Discharge_Pressure",
+      "pi_tag": "SQ.OLF.1PI8434.PV",
+      "description": "CGC 5th Stage Discharge Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 37.21934,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1040,
+      "data_type": "real",
+      "kpi_ref_count": 9,
+      "is_kpi_input": true,
+      "pi_section": "Stage 5",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "kg/cm²(g)",
+      "output_uom": "kg/cm²(g)",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_5th_Stage_Suction_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8436.PV",
+      "description": "CGC 5th Stage Suction Temperature",
+      "uom": "°C",
+      "design_value": 50,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1041,
+      "data_type": "real",
+      "kpi_ref_count": 12,
+      "is_kpi_input": true,
+      "pi_section": "Stage 5",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "CGC_5th_Stage_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1K8401_I1TI8448.PV",
+      "description": "CGC 5th Stage Discharge Temperature",
+      "uom": "°C",
+      "design_value": 101.5,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1042,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Stage 5",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "Dryer_Feed_Knockout_Drum_Ovhd_Temperature",
+      "pi_tag": "SQ.OLF.1TIC8427.PV",
+      "description": "Dryer Feed Knockout Drum Ovhd Temperature",
+      "uom": "°C",
+      "design_value": 15,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1043,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Dryer_Feed_Knockout_Drum_Ovhd_Press",
+      "pi_tag": "SQ.OLF.1PI8441.PV",
+      "description": "Dryer Feed Knockout Drum Ovhd Press",
+      "uom": "kg/cm²(g)",
+      "design_value": 36.5,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1044,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cooling_Water_Supply_Temperature",
+      "pi_tag": "SQ.OLF.1TI8040.PV",
+      "description": "Cooling Water Supply Temperature",
+      "uom": "°C",
+      "design_value": 25,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1045,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag",
+      "input_uom": "°C",
+      "output_uom": "°C",
+      "conversion_factor": 1
+    },
+    {
+      "name": "Caustic_Top_Pressure",
+      "pi_tag": "SQ.OLF.1PI8420.PV",
+      "description": "Caustic Top Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 19,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1046,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 4"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Caustic_DP",
+      "pi_tag": "SQ.OLF.1PDI8421.PV",
+      "description": "Caustic DP",
+      "uom": "kg/cm²(g)",
+      "design_value": 0.05,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1047,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 4"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CG_Dryer_Feed_Cooler_Pressure_Drop",
+      "pi_tag": "SQ.OLF.1PDI8442.PV",
+      "description": "Cgc 5th Stage Aftercooler Discharge Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 37,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1049,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Plant / General",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cgc_5th_Stage_Aftercooler_Discharge_Temperature",
+      "pi_tag": "SQ.OLF.1TI8429.PV",
+      "description": "Cgc 5th Stage Aftercooler Discharge Temperature",
+      "uom": "°C",
+      "design_value": 45,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1050,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Stage 5",
+      "feeds_sections": [
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_Steam_Inlet_Governor_Opening",
+      "pi_tag": "SQ.OLF.1K8401_I1SV8470A.PV",
+      "description": "CGC Turbine Steam Inlet Governor Opening",
+      "uom": "%",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1051,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Turbine_Extraction_Valve_Opening",
+      "pi_tag": "SQ.OLF.1K8401_I1SV8470B.PV",
+      "description": "CGC Turbine Extraction Valve Opening",
+      "uom": "%",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1052,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Steam Turbine",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2_PUMP_PRDT_FLOW",
+      "pi_tag": "SQ.OLF.1FIC8551.PV",
+      "description": "C2 PUMP PRDT FLOW",
+      "uom": "t/h",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1053,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2_PRDT_FRM_OSBL",
+      "pi_tag": "SQ.OLF.1FIC8559.PV",
+      "description": "C2 PRDT FRM OSBL",
+      "uom": "t/h",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1054,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2_PRDT_TO_OSBL",
+      "pi_tag": "SQ.OLF.1FIC8552.PV",
+      "description": "C2 PRDT TO OSBL",
+      "uom": "t/h",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1055,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "ERC_Speed",
+      "pi_tag": "SQ.OLF.1SI8770B.PV",
+      "description": "ERC_Speed",
+      "uom": "rpm",
+      "design_value": 3200,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1056,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "PRC_Speed",
+      "pi_tag": "SQ.OLF.1SI8870B.PV",
+      "description": "PRC_Speed",
+      "uom": "rpm",
+      "design_value": 2900,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1057,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Speed",
+      "pi_tag": "SQ.OLF.1SI8470B.PV",
+      "description": "CGC_Speed",
+      "uom": "rpm",
+      "design_value": 3737,
+      "min_val": 1000,
+      "max_val": 4000,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1058,
+      "data_type": "real",
+      "kpi_ref_count": 33,
+      "is_kpi_input": true,
+      "pi_section": "CGC Train",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Steam Turbine"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Secondary_Dryer_Outlet_Flow",
+      "pi_tag": "SQ.OLF.1FIC8540.PV",
+      "description": "Secondary Dryer Outlet Flow",
+      "uom": "t/h",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1059,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2H2_In_Guard_Bed_Effluent",
+      "pi_tag": "SQ.OLF.1AI8539A.PV",
+      "description": "C2H2 In Guard Bed Effluent",
+      "uom": "ppm(v)",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1060,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2H4_In_Guard_Bed_Effluent",
+      "pi_tag": "SQ.OLF.1AI8539B.PV",
+      "description": "C2H4 In Guard Bed Effluent",
+      "uom": "mol%",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1061,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2H6_In_Guard_Bed_Effluent",
+      "pi_tag": "SQ.OLF.1AI8539C.PV",
+      "description": "C2H6 In Guard Bed Effluent",
+      "uom": "mol%",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1062,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "MAPD_In_Guard_Bed_Effluent",
+      "pi_tag": "SQ.OLF.1AI8539D.PV",
+      "description": "MAPD In Guard Bed Effluent",
+      "uom": "ppm(v)",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1063,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CO_In_Guard_Bed_Effluent",
+      "pi_tag": "SQ.OLF.1AI8539E.PV",
+      "description": "CO In Guard Bed Effluent",
+      "uom": "mol%",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1064,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Ethylene_Vapor_Product_Flow",
+      "pi_tag": "sq.olf.1f8564_7803.pv",
+      "description": "Ethylene Vapor Product Flow",
+      "uom": "t/h",
+      "design_value": 75,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1065,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Ethylene_Storage_Inventory",
+      "pi_tag": "sq.olf.4TMAS_7234a_Ca.pv",
+      "description": "Ethylene Storage Inventory",
+      "uom": "m³",
+      "design_value": 2500,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1066,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Ethylene_From_Storage_to_Grid",
+      "pi_tag": "sq.olf.4FQI7259.pv",
+      "description": "Ethylene From Storage to Grid",
+      "uom": "t/h",
+      "design_value": 20,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1067,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Propylene_Product_to_Grid",
+      "pi_tag": "sq.olf.4fqi_5311.pv",
+      "description": "Propylene Product to Grid",
+      "uom": "t/h",
+      "design_value": 30,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1068,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Propylene_Tank_Inventory",
+      "pi_tag": "sq.olf.4GOVOL_7236b_CA.pv",
+      "description": "Propylene Tank Inventory",
+      "uom": "m³",
+      "design_value": 1500,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1069,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "RECYCLE_C3_Flow",
+      "pi_tag": "SQ.OLF.1FIC86217.PV",
+      "description": "RECYCLE C3 Flow",
+      "uom": "t/h",
+      "design_value": 30,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1070,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DB_BOTTOM_GASOLINE_FLOW",
+      "pi_tag": "SQ.OLF.1FIC8646.PV",
+      "description": "DB BOTTOM GASOLINE FLOW",
+      "uom": "t/h",
+      "design_value": 10,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1071,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "MIXED_C4_FLOW_TO_STORAGE",
+      "pi_tag": "SQ.OLF.1FIC8655.PV",
+      "description": "MIXED C4 FLOW TO STORAGE",
+      "uom": "t/h",
+      "design_value": 8,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1072,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "MIXED_C4_FLOW_TO_C4_UNIT",
+      "pi_tag": "SQ.OLF.1FIC8653.PV",
+      "description": "MIXED C4 FLOW TO C4 UNIT",
+      "uom": "t/h",
+      "design_value": 7,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1073,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Raw_H2_To_Expander_Pdic",
+      "pi_tag": "SQ.OLF.1PDIC8510.PV",
+      "description": "Raw H2 To Expander Pdic",
+      "uom": "kg/cm²(g)",
+      "design_value": 37,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1074,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Raw_H2_To_Expander_Pdic_CV",
+      "pi_tag": "SQ.OLF.1PDIC8510.MV",
+      "description": "Raw H2 To Expander Pdic CV",
+      "uom": "%",
+      "design_value": 55,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1075,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Raw_H2_To_Psa",
+      "pi_tag": "SQ.OLF.1FIC8508.PV",
+      "description": "Raw H2 To Psa",
+      "uom": "t/h",
+      "design_value": 75,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1076,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Secondary_Dryer_Outlet_Flow_Cv",
+      "pi_tag": "SQ.OLF.1FIC8540.MV",
+      "description": "Secondary Dryer Outlet Flow Cv",
+      "uom": "%",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1077,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Plant / General",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "H2_In_Raw_H2_Analyser",
+      "pi_tag": "SQ.OLF.1AI8524AA.PV",
+      "description": "H2 In Raw H2 Analyser",
+      "uom": "%",
+      "design_value": 87,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1078,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CH4_In_Raw_H2_Analyser",
+      "pi_tag": "SQ.OLF.1AI8524AB.PV",
+      "description": "CH4 In Raw H2 Analyser",
+      "uom": "%",
+      "design_value": 7,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1079,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CO_In_Raw_H2_Analyser",
+      "pi_tag": "SQ.OLF.1AI8524AC.PV",
+      "description": "CO In Raw H2 Analyser",
+      "uom": "%",
+      "design_value": 2,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1080,
+      "data_type": "real",
+      "kpi_ref_count": 4,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "C2H4_In_Raw_H2_Analyser",
+      "pi_tag": "SQ.OLF.1AI8524AD.PV",
+      "description": "C2H4 In Raw H2 Analyser",
+      "uom": "%",
+      "design_value": 1.5,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1081,
+      "data_type": "real",
+      "kpi_ref_count": 4,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_Overhead_H2_Analyser",
+      "pi_tag": "SQ.OLF.1AI8518A.PV",
+      "description": "DM Overhead H2 Analyser",
+      "uom": "%",
+      "design_value": 50,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1082,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_Overhead_CH4_Analyser",
+      "pi_tag": "SQ.OLF.1AI8518B.PV",
+      "description": "DM Overhead CH4 Analyser",
+      "uom": "%",
+      "design_value": 25,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1083,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "DM_Overhead_C2H4_Analyser",
+      "pi_tag": "SQ.OLF.1AI8518C.PV",
+      "description": "DM Overhead C2H4 Analyser",
+      "uom": "%",
+      "design_value": 20,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1084,
+      "data_type": "real",
+      "kpi_ref_count": 3,
+      "is_kpi_input": true,
+      "pi_section": "Downstream / H2",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Washoil_To_Cgc_Pressure",
+      "pi_tag": "SQ.OLF.1PIC84105.pv",
+      "description": "Washoil To Cgc Pressure",
+      "uom": "kg/cm²(g)",
+      "design_value": 42,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1085,
+      "data_type": "real",
+      "kpi_ref_count": 10,
+      "is_kpi_input": true,
+      "pi_section": "BFW / Wash Oil",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Washoil_To_Cgc_Flow",
+      "pi_tag": "SQ.OLF.1FI8443.pv",
+      "description": "Washoil To Cgc Flow",
+      "uom": "t/h",
+      "design_value": 6,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1086,
+      "data_type": "real",
+      "kpi_ref_count": 5,
+      "is_kpi_input": true,
+      "pi_section": "BFW / Wash Oil",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cooled_Hp_Bfw_Header_Press",
+      "pi_tag": "SQ.OLF.1PIC8459.PV",
+      "description": "Cooled Hp Bfw Header Press",
+      "uom": "kg/cm²(g)",
+      "design_value": 45,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1087,
+      "data_type": "real",
+      "kpi_ref_count": 10,
+      "is_kpi_input": true,
+      "pi_section": "BFW / Wash Oil",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Hp_Bfw_To_Lp_Bfw_Cooler_Press",
+      "pi_tag": "SQ.OLF.1PIC8021.PV",
+      "description": "Hp Bfw To Lp Bfw Cooler Press",
+      "uom": "kg/cm²(g)",
+      "design_value": 6.5,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1088,
+      "data_type": "real",
+      "kpi_ref_count": 2,
+      "is_kpi_input": true,
+      "pi_section": "BFW / Wash Oil",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cooled_Hp_Bfw_Header_Press_1st_3rd_Stage",
+      "pi_tag": "SQ.OLF.1PIC8423.PV",
+      "description": "Cooled Hp Bfw Header Press 1st 3rd Stage",
+      "uom": "kg/cm²(g)",
+      "design_value": 45,
+      "min_val": 5,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1089,
+      "data_type": "real",
+      "kpi_ref_count": 7,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cooled_Hp_Bfw_Header_Press_Mv",
+      "pi_tag": "SQ.OLF.1PIC8459.MV",
+      "description": "Cooled Hp Bfw Header Press Mv",
+      "uom": "%",
+      "design_value": 50,
+      "min_val": 3,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1090,
+      "data_type": "real",
+      "kpi_ref_count": 4,
+      "is_kpi_input": true,
+      "pi_section": "BFW / Wash Oil",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "Cooled_Hp_Bfw_Header_Press_1st_3rd_Stage_Mv",
+      "pi_tag": "SQ.OLF.1PIC8423.MV",
+      "description": "Cooled Hp Bfw Header Press 1st 3rd Stage Mv",
+      "uom": "%",
+      "design_value": 50,
+      "min_val": 3,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1091,
+      "data_type": "real",
+      "kpi_ref_count": 9,
+      "is_kpi_input": true,
+      "pi_section": "Stage 3",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "FRESH_PROPANE_FLOW_FROM_ARAMCO",
+      "pi_tag": "SQ.OLF.4FQI_5317.PV",
+      "description": "FRESH PROPANE FLOW FROM ARAMCO",
+      "uom": "t/h",
+      "design_value": 35,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1092,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "RECYCLE_PROPANE_FLOW_FROM_PK_OLF3",
+      "pi_tag": "SQ.OLF.4FI5325A",
+      "description": "RECYCLE PROPANE FLOW FROM PK OLF3",
+      "uom": "t/h",
+      "design_value": 20,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1093,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "PROPANE_SPHERE_INVENTORY_M3",
+      "pi_tag": "SQ.OLF.4TOVOL_7238_CA.PV",
+      "description": "PROPANE SPHERE INVENTORY M3",
+      "uom": "m³",
+      "design_value": 1000,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1094,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "FRESH_ETHANE_FLOW",
+      "pi_tag": "SQ.OLF.1F8100_7103.PV",
+      "description": "FRESH ETHANE FLOW",
+      "uom": "t/h",
+      "design_value": 30,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1095,
+      "data_type": "real",
+      "kpi_ref_count": 1,
+      "is_kpi_input": true,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5",
+        "Products & Utilities"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "FRESH_PROPANE_FLOW",
+      "pi_tag": "SQ.OLF.1FIC8103.PV",
+      "description": "FRESH PROPANE FLOW",
+      "uom": "t/h",
+      "design_value": null,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": 1096,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": false,
+      "pi_section": "Feed & Products",
+      "feeds_sections": [],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC",
+      "pi_tag": "",
+      "description": "LPDE overhead vent flow to CGC",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "(LPDE_Feed_Flow-LPDE_Bottom_Flow)*1000",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC_Molecular_Wt",
+      "pi_tag": "",
+      "description": "LPDE overhead vent molecular weight",
+      "uom": "kg/kmol",
+      "input_uom": "kg/kmol",
+      "output_uom": "kg/kmol",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "(LPDE_Overhead_Vent_Flow_C3_Analyser*42.87+(100-LPDE_Overhead_Vent_Flow_C3_Analyser)*29.28)/100",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow",
+      "pi_tag": "",
+      "description": "LPDE overhead vent molar flow",
+      "uom": "kmol/h",
+      "input_uom": "kmol/h",
+      "output_uom": "kmol/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "LPDE_Overhead_Vent_Flow_To_CGC/LPDE_Overhead_Vent_Flow_To_CGC_Molecular_Wt",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC_C3H6_Mass_Flow",
+      "pi_tag": "",
+      "description": "LPDE overhead vent C3H6 mass flow",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.61*LPDE_Overhead_Vent_Flow_C3_Analyser/100)*42",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC_C3H8_Mass_Flow",
+      "pi_tag": "",
+      "description": "LPDE overhead vent C3H8 mass flow",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.39*LPDE_Overhead_Vent_Flow_C3_Analyser/100)*44",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC_C2H6_Mass_Flow",
+      "pi_tag": "",
+      "description": "LPDE overhead vent C2H6 mass flow",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.61*(100-LPDE_Overhead_Vent_Flow_C3_Analyser)/100)*30",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "LPDE_Overhead_Vent_Flow_To_CGC_C2H4_Mass_Flow",
+      "pi_tag": "",
+      "description": "LPDE overhead vent C2H4 mass flow",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "(LPDE_Overhead_Vent_Flow_To_CGC_Molar_Flow*0.39*(100-LPDE_Overhead_Vent_Flow_C3_Analyser)/100)*28",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_preprocessing_inferred_tags_main",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Downstream",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "CGC_IS1_Flow",
+      "pi_tag": "",
+      "description": "LPDE Overhead Vent to CGC flow to Stage 4 suction",
+      "uom": "kg/h",
+      "input_uom": "kg/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "LPDE_Overhead_Vent_Flow_To_CGC",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "inferred"
+    },
+    {
+      "name": "CGC_IS2_Flow",
+      "pi_tag": "SQ.OLF.1FIC86217.PV",
+      "description": "Recycle C3 to CGC flow to Stage 4 suction",
+      "uom": "t/h",
+      "input_uom": "t/h",
+      "output_uom": "kg/h",
+      "conversion_factor": 1,
+      "design_value": null,
+      "formula": "",
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "Stage 4",
+      "feeds_sections": [
+        "CGC Train",
+        "Stage 1",
+        "Stage 2",
+        "Stage 3",
+        "Stage 4",
+        "Stage 5"
+      ],
+      "source_type": "pi_tag"
+    },
+    {
+      "name": "CGC_Feed_GC_H2",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_H2",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 15,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_CH4",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_CH4",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 35,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C2H2",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C2H2",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 1,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C2H4",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C2H4",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 26,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C2H6",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C2H6",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 10,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C3H6",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C3H6",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 5.5,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C3H8",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C3H8",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 3,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C4S",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C4S",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 2,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    },
+    {
+      "name": "CGC_Feed_GC_C5_Above",
+      "pi_tag": "",
+      "description": "CGC_Feed_GC_C5_Above",
+      "uom": "mol%",
+      "input_uom": "mol%",
+      "output_uom": "mol%",
+      "conversion_factor": 1,
+      "design_value": 1,
+      "min_val": null,
+      "max_val": null,
+      "ccp_default": null,
+      "category": "LBM_initialization_get_pi_data",
+      "user_tag_id": null,
+      "data_type": "real",
+      "kpi_ref_count": 0,
+      "is_kpi_input": true,
+      "pi_section": "",
+      "feeds_sections": [],
+      "source_type": "constant",
+      "_auto_generated": true
+    }
+  ]
+}
