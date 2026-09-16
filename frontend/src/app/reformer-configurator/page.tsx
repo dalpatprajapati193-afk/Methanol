@@ -47,7 +47,7 @@ export default function ReformerConfiguratorPage() {
   const [isPlantDropdownOpen, setIsPlantDropdownOpen] = useState<boolean>(false);
 
   // Step State: 1 = Equipment & PFD, 2 = Define KPIs, 3 = RAW POI Tags, 4 = Review & Submit, 5 = Live LBM Mode
-  const [currentStep, setCurrentStep] = useState<number>(1);
+  const [currentStep, setCurrentStep] = useState<number>(5);
 
   // Configuration States
   const [equipmentList, setEquipmentList] = useState<EquipmentConfig[]>(INITIAL_EQUIPMENT);
