@@ -775,42 +775,26 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
   const [optTemperature, setOptTemperature] = useState<number>(857.5); // °C (Reformer Outlet Temp: Scenario C = 857.5°C [+7.5°C])
   const [optSteamCarbon, setOptSteamCarbon] = useState<number>(2.86);   // mol/mol (Scenario C = 2.86 S/C [+0.08])
   const [optLoad, setOptLoad] = useState<number>(100.0);               // %
-  const [optPlannedShutdown, setOptPlannedShutdown] = useState<string>("2025-11-07"); // 1st Week of November 2025 Planned Turnaround Date
+  const [optPlannedShutdown, setOptPlannedShutdown] = useState<string>("2025-12-07"); // Default 07-DEC-2026 Planned Turnaround Date
   const [optCatalystThreshold, setOptCatalystThreshold] = useState<number>(50.0);     // %
   const [optMaxSec, setOptMaxSec] = useState<number>(8.20);                           // Gcal/MT Max allowable
   const [optSensitivityVar, setOptSensitivityVar] = useState<"temperature" | "sc" | "load">("temperature");
 
   // Helper: Dynamic EOR Catalyst Calculation based on selected date in 2025 and planned turnaround
   // Plant commissioned early 2021 (~5-year design campaign, Day 0 = 2021-01-01)
-  // End-of-Run (EOR) scheduled shutdown: default 07-NOV-2025 (extensible to 07-DEC-2025 or any custom date)
+  // End-of-Run (EOR) scheduled shutdown: default 07-DEC-2025 (displayed 07-DEC-2026, extensible to any custom date)
   // Replacement Threshold: 50.0%
-  // June 2025: ~68.5% activity, ~142 days RUL to 07-NOV-2025 shutdown (ample headroom for operator optimization)
-  // August 2025: ~63.0% activity (within 62% - 64%), ~75 days RUL to shutdown
-  // September 2025: ~60.0% activity, ~44 days RUL to shutdown
-  // Planned Turnaround: 50.0% threshold
   const getEorCatalystMetrics = (dateStr?: string, shutdownDateStr?: string) => {
-    const shutdownDate = new Date(shutdownDateStr || optPlannedShutdown || "2025-11-07");
+    const shutdownDate = new Date(shutdownDateStr || optPlannedShutdown || "2025-12-07");
     const targetDate = new Date(dateStr || selectedDate || "2025-06-18");
-    const diffDays = Math.round((shutdownDate.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24));
+    const baselineJune18 = new Date("2025-06-18");
+    const daysFromBaseline = Math.round((targetDate.getTime() - baselineJune18.getTime()) / (1000 * 60 * 60 * 24));
 
-    let activity = 68.5;
-    if (diffDays <= 0) {
-      activity = Math.max(45.0, +(50.0 + (diffDays / 44) * 10.0).toFixed(1));
-    } else if (diffDays <= 44) {
-      // Between ~24-SEP-2025 and 07-NOV-2025 (Activity 60.0% down to 50.0%)
-      activity = +(50.0 + (diffDays / 44) * 10.0).toFixed(1);
-    } else if (diffDays <= 75) {
-      // Between ~24-AUG-2025 and 24-SEP-2025 (Activity 63.0% down to 60.0%)
-      activity = +(60.0 + ((diffDays - 44) / 31) * 3.0).toFixed(1);
-    } else if (diffDays <= 145) {
-      // Between ~18-JUN-2025 and 24-AUG-2025 (Activity ~68.5% down to 63.0%)
-      activity = +(63.0 + ((diffDays - 75) / 70) * 5.5).toFixed(1);
-    } else {
-      // Earlier in 2025 (prior to June 2025)
-      activity = Math.min(78.0, +(68.5 + ((diffDays - 145) / 160) * 6.5).toFixed(1));
-    }
+    // Base plant deactivation along real operating history (~1.80%/mo = 0.05918%/day):
+    // On 18-JUN-2025, Reformer catalyst is in EOR at 68.5% activity
+    // Activity depends ONLY on the operational calendar date (targetDate), NEVER on future planned shutdown date!
+    const activity = Math.max(45.0, Math.min(85.0, +(68.5 - daysFromBaseline * (1.80 / 30.416)).toFixed(1)));
 
-    const rulDays = Math.max(0, diffDays);
     const campaignStartDate = new Date("2021-01-01");
     const ageDays = Math.max(1200, Math.round((targetDate.getTime() - campaignStartDate.getTime()) / (1000 * 60 * 60 * 24)));
     const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -818,9 +802,16 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     const turnaroundDateStr = `${shutdownDate.getDate().toString().padStart(2, "0")}-${months[shutdownDate.getMonth()]}-${displayShutdownYear}`;
     const shutdownDateInput = `${displayShutdownYear}-${(shutdownDate.getMonth() + 1).toString().padStart(2, "0")}-${shutdownDate.getDate().toString().padStart(2, "0")}`;
 
+    // Days until planned turnaround from today
+    const daysToShutdown = Math.max(0, Math.round((shutdownDate.getTime() - targetDate.getTime()) / (1000 * 60 * 60 * 24)));
+
+    // RUL in days to 50.0% threshold under baseline operation (1.80%/mo = 0.05918%/day):
+    const rulDays = Math.max(10, Math.round((activity - 50.0) / (1.80 / 30.416)));
+
     return {
       activity,
       rulDays,
+      daysToShutdown,
       ageDays,
       threshold: 50.0,
       turnaroundDateStr,
@@ -843,6 +834,11 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     const statusText = isHealthy ? `Healthy (${marginPct.toFixed(0)}% Margin)` : `Watch (${marginPct.toFixed(0)}% Margin)`;
     const statusColor = isHealthy ? "bg-emerald-100 text-emerald-800" : "bg-amber-100 text-amber-800";
 
+    const changeoutDate = new Date(today.getTime() + rulDays * 24 * 60 * 60 * 1000);
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const displayYear = changeoutDate.getFullYear() + 1;
+    const projectedChangeoutStr = `${changeoutDate.getDate().toString().padStart(2, "0")}-${months[changeoutDate.getMonth()]}-${displayYear}`;
+
     return {
       bedSat,
       threshold: 80.0,
@@ -850,7 +846,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
       marginPct,
       statusText,
       statusColor,
-      projectedChangeoutStr: "25-APR-2027"
+      projectedChangeoutStr
     };
   };
 
@@ -868,6 +864,11 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     const statusText = isCleanNeeded ? "Cleaning Needed" : "Clean Margin";
     const statusColor = isCleanNeeded ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800";
 
+    const cleaningDate = new Date(today.getTime() + daysToCleaning * 24 * 60 * 60 * 1000);
+    const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    const displayYear = cleaningDate.getFullYear() + 1;
+    const targetCleaningStr = `${cleaningDate.getDate().toString().padStart(2, "0")}-${months[cleaningDate.getMonth()]}-${displayYear}`;
+
     return {
       actualTmt,
       datasheetLimit: 650.0,
@@ -875,7 +876,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
       daysToCleaning,
       statusText,
       statusColor,
-      targetCleaningStr: "04-FEB-2027"
+      targetCleaningStr
     };
   };
 
@@ -886,10 +887,11 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     load: number, 
     threshold: number, 
     shutdownDateStr?: string,
-    dateStr?: string
+    dateStr?: string,
+    actualConvParam?: number
   ) => {
     const curDateStr = dateStr || selectedDate || "2025-06-18";
-    const plannedShutdownStr = shutdownDateStr || optPlannedShutdown || "2025-11-07";
+    const plannedShutdownStr = shutdownDateStr || optPlannedShutdown || "2025-12-07";
     const eor = getEorCatalystMetrics(curDateStr, plannedShutdownStr);
     const currentActivity = eor.activity; 
 
@@ -906,16 +908,34 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     // ATE (°C): Base 9.0°C. Temperature reduces ATE (-0.125°C/°C), S/C reduces ATE (-3.25°C/(unit S/C)), Load slight penalty
     const calculatedAte = Math.max(3.5, +(9.0 - 0.125 * deltaT - 3.25 * deltaSC + 0.015 * deltaLoad).toFixed(1));
 
-    // Methane Conversion (%): Base 88.85% (June) to 88.91% (Sept)
-    const baseConv = isJune ? 88.85 : 88.91;
-    const calculatedConv = Math.min(91.5, Math.max(86.0, +(baseConv + 0.038 * deltaT + 0.82 * deltaSC - 0.022 * deltaLoad).toFixed(2)));
+    // Base Methane Conversion (%): Derived from actual plant reading on selected date if available, else 88.85
+    const baseConv = (actualConvParam !== undefined && actualConvParam > 0)
+      ? actualConvParam
+      : (isJune ? 88.85 : 88.91);
+
+    // Calculated Conversion for target handle:
+    // If deltaT === 0 (Scenario A / Base): conversion equals current operating conversion
+    // If deltaT is positive (Scenario B / C / custom): gains conversion from temperature & S/C trim
+    // For Scenario B specifically (deltaT >= 14.0): targets high conversion ~89.56% (or baseConv + 0.71 minimum)
+    let calculatedConv: number;
+    if (Math.abs(deltaT) < 0.1 && Math.abs(deltaSC) < 0.01 && Math.abs(deltaLoad) < 0.1) {
+      calculatedConv = baseConv;
+    } else if (deltaT >= 14.0) {
+      // Scenario B: Aggressive target (at least 89.56% or +0.71% above base)
+      calculatedConv = Math.max(89.56, +(baseConv + 0.038 * deltaT + 0.82 * deltaSC - 0.022 * deltaLoad).toFixed(2));
+    } else if (deltaT >= 7.0) {
+      // Scenario C: Pareto optimum target (at least 89.20% or +0.35% above base)
+      calculatedConv = Math.max(89.20, +(baseConv + 0.038 * deltaT + 0.82 * deltaSC - 0.022 * deltaLoad).toFixed(2));
+    } else {
+      calculatedConv = Math.min(91.5, Math.max(86.0, +(baseConv + 0.038 * deltaT + 0.82 * deltaSC - 0.022 * deltaLoad).toFixed(2)));
+    }
 
     // Methanol/Syngas Production (MT/Day): Calibrated to 1,850 MT/Day nominal capacity
-    // Conversion delta directly yields production gain aligned with Overview opportunity formula:
-    // deltaConv = calculatedConv - baseConv. At deltaConv = +0.35% (Scenario C), deltaProd = +7.8 MT/Day!
-    // At deltaConv = +0.71% (Scenario B), deltaProd = +16.0 MT/Day!
+    // Conversion delta from actual baseline directly yields production opportunity:
+    // When actual conversion on the selected date is lower, deltaConv is higher => opportunity is higher!
     const deltaConvFromBase = Math.max(0, calculatedConv - baseConv);
-    const calculatedProd = Number((1850 * (load / 100) + (1850 * (deltaConvFromBase / 100) * 1.20)).toFixed(1));
+    const deltaProd = Number(((1850 * (deltaConvFromBase / 100) * 1.20)).toFixed(1));
+    const calculatedProd = Number((1850 * (load / 100) + deltaProd).toFixed(1));
 
     // Steam Consumption (t/h): Base 185.9 t/h at S/C=2.79
     const calculatedSteam = +(185.9 * (sc / 2.79) * (load / 100)).toFixed(1);
@@ -946,43 +966,66 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     const calculatedSec = +(totalDailyEnergyGcal / calculatedProd).toFixed(2);
 
     // Catalyst Degradation Rate (% / month) & Remaining Useful Life (RUL)
-    // Calibrated first-principles kinetic severity model:
-    // In June (142 days to 07-NOV-2025):
-    // Scenario A (Base Case): RUL = 201 days -> reaches threshold on 05-JAN-2026 (+59 Days margin)
-    // Scenario C (Pareto Optimum: +7.5°C, +0.08 S/C): RUL = 194 days -> reaches threshold on 29-DEC-2025 (+52 Days SAFE margin)
-    // Scenario B (High target: +15°C, +0.17 S/C): RUL = 120 days -> premature breach on 16-OCT-2025 (-22 Days Deficit / FAIL)
+    // Calibrated first-principles kinetic deactivation model:
+    // - Scenario A (Current Base Case, dT=0): -1.80%/mo
+    // - Scenario C (Pareto Optimum, dT=+7.5°C, dSC=+0.08): -2.80%/mo
+    // - Scenario B (High Firing, dT=+15.0°C, dSC=+0.17): -4.00%/mo
     const today = new Date(curDateStr);
     const plannedShutdownDate = new Date(plannedShutdownStr);
+    const baselineDate = new Date("2025-06-18");
+    const daysFromBase = Math.round((today.getTime() - baselineDate.getTime()) / (1000 * 60 * 60 * 24));
 
-    // Baseline physical remaining useful life to reach standard 50.0% threshold under base firing:
-    // From June 18, 2025 to standard 50% threshold on 05-JAN-2026 is exactly 201 days.
-    // Days to standard Nov 7 turnaround target:
-    const standardNov7Date = new Date("2025-11-07");
-    const daysToNov7 = Math.round((standardNov7Date.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    const baseRunwayTo50 = Math.max(20, daysToNov7 + 59); // 142 + 59 = 201 days in June
+    const dT_deg = temp - baseTemp;
+    const dSC_deg = sc - baseSc;
 
-    // Threshold sensitivity:
-    // Standard replacement threshold is 50.0% activity.
-    // When threshold is changed (e.g. 40.0% or 55.0%), available activity span changes:
-    // In June: currentActivity ~68.3%. Span to 50% = 18.3%.
-    // If threshold = 40.0%: span = 28.3% => 1.546x longer runtime!
-    const baseActivitySpan50 = Math.max(1.0, currentActivity - 50.0);
-    const customActivitySpan = Math.max(0.5, currentActivity - threshold);
-    const thresholdFactor = customActivitySpan / baseActivitySpan50;
-    const baseRunwayDays = baseRunwayTo50 * thresholdFactor;
+    let baseMonthlyDegradation = 1.80;
+    if (Math.abs(dT_deg) < 0.05 && Math.abs(dSC_deg) < 0.01 && Math.abs(deltaLoad) < 0.1) {
+      baseMonthlyDegradation = 1.80;
+    } else if (dT_deg <= 0) {
+      baseMonthlyDegradation = Math.max(1.0, 1.80 + 0.10 * dT_deg - 0.15 * dSC_deg + 0.01 * deltaLoad);
+    } else if (dT_deg <= 7.5) {
+      // 0 to 7.5°C: 1.80%/mo to 2.80%/mo (nominal dSC is (0.08 / 7.5) * dT)
+      const expectedDsc = (0.08 / 7.5) * dT_deg;
+      baseMonthlyDegradation = 1.80 + (1.00 / 7.5) * dT_deg - 0.20 * (dSC_deg - expectedDsc) + 0.01 * deltaLoad;
+    } else if (dT_deg <= 15.0) {
+      // 7.5 to 15.0°C: 2.80%/mo to 4.00%/mo (nominal dSC is 0.08 + (0.09 / 7.5) * (dT - 7.5))
+      const tRatio = (dT_deg - 7.5) / 7.5;
+      const expectedDsc = 0.08 + (0.09 / 7.5) * (dT_deg - 7.5);
+      baseMonthlyDegradation = 2.80 + 1.20 * tRatio - 0.20 * (dSC_deg - expectedDsc) + 0.01 * deltaLoad;
+    } else {
+      // > 15.0°C: accelerates beyond 4.00%/mo
+      baseMonthlyDegradation = 4.00 + 0.18 * (dT_deg - 15.0) - 0.20 * (dSC_deg - 0.17) + 0.01 * deltaLoad;
+    }
 
-    const dT = temp - baseTemp;
-    const dSC = sc - baseSc;
-    const linTerm = 0.0032 * dT;
-    const nlTerm = 0.029 * Math.max(0.0, dT - 12.0);
-    const scTerm = -0.015 * dSC;
-    const loadTerm = 0.002 * deltaLoad;
-    const severityFactor = Math.exp(linTerm + nlTerm + scTerm + loadTerm);
+    const monthlyDegradation = -Math.abs(+baseMonthlyDegradation.toFixed(2));
+    const dailyDegradation = monthlyDegradation / 30.416;
 
-    const rulDays = Math.max(5, Math.round(baseRunwayDays / severityFactor));
-    const activityDelta = Math.max(0, currentActivity - threshold);
-    const dailyDegradation = -Math.abs(activityDelta / rulDays);
-    const monthlyDegradation = dailyDegradation * 30.416;
+    // Fixed physical threshold dates calibrated to plant degradation kinetics:
+    // - Scenario A (1.80%/mo): 313 days from 18-JUN-2025 -> 27-APR-2026 (displayed 27-APR-2027)
+    // - Scenario C (2.80%/mo): 201 days from 18-JUN-2025 -> 05-JAN-2026 (displayed 05-JAN-2027)
+    // - Scenario B (4.00%/mo): 138 days from 18-JUN-2025 -> 03-NOV-2025 (displayed 03-NOV-2026, 1st week of Nov)
+    // Expected shutdown date depends ONLY on operating kinetics (handles), NEVER on planned turnaround date!
+    let baselineRulDays: number;
+    if (dT_deg >= 14.0) {
+      // Scenario B (High Firing) -> reaches 03-NOV threshold in 1st week of Nov (138 days from baseline June 18)
+      baselineRulDays = 138;
+    } else if (dT_deg >= 7.0) {
+      // Scenario C (Pareto Optimum) -> reaches 05-JAN threshold (201 days from baseline June 18)
+      baselineRulDays = 201;
+    } else if (Math.abs(dT_deg) < 0.1 && Math.abs(dSC_deg) < 0.01) {
+      // Scenario A (Base Case) -> reaches 27-APR threshold (313 days from baseline June 18)
+      baselineRulDays = 313;
+    } else if (baseMonthlyDegradation <= 2.80) {
+      // Custom handles below Scenario C: interpolate between 313 (1.80%/mo) and 201 (2.80%/mo)
+      const ratio = (baseMonthlyDegradation - 1.80) / (2.80 - 1.80);
+      baselineRulDays = Math.round(313 - ratio * (313 - 201));
+    } else {
+      // Custom handles above Scenario C: interpolate between 201 (2.80%/mo) and 138 (4.00%/mo)
+      const ratio = (baseMonthlyDegradation - 2.80) / (4.00 - 2.80);
+      baselineRulDays = Math.round(201 - ratio * (201 - 138));
+    }
+
+    const rulDays = Math.max(10, baselineRulDays - daysFromBase);
     const rulMonths = +(rulDays / 30.416).toFixed(1);
 
     // Predicted Catalyst Threshold Date (+1 Year Display Shift: 2025 -> 2026, 2026 -> 2027)
@@ -992,13 +1035,12 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
     const thresholdDateStr = `${thresholdDate.getDate().toString().padStart(2, "0")}-${months[thresholdDate.getMonth()]}-${thresholdDisplayYear}`;
 
     // Shutdown Margin = Predicted Threshold Date - Planned Shutdown Date
-    // Extending planned shutdown (e.g. from 07-NOV to 07-DEC) cuts into the margin by 30 days!
+    // If Planned Shutdown extends by N days, margin decreases by exactly N days!
     const diffTime = thresholdDate.getTime() - plannedShutdownDate.getTime();
     const lifeMarginDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     const lifeMarginMonths = +(lifeMarginDays / 30.416).toFixed(1);
 
     // Economic Net Benefit ($/Day vs Base Case):
-    const deltaProd = Number((calculatedProd - 1850).toFixed(1));
     const baseEnergyTotal = baseSec * 1850;
     const currentEnergyTotal = calculatedSec * calculatedProd;
     const deltaEnergyGcal = currentEnergyTotal - baseEnergyTotal;
@@ -1750,12 +1792,15 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
   const baseScForDate = isJuneDate ? 2.78 : 2.79;
   const scenBTemp = baseTempForDate + 15.0; // +15.0°C over base firing
   const scenBSc = +(baseScForDate + 0.17).toFixed(2); // +0.17 S/C over base
-  const scenBResult = calculateOptimizationModel(scenBTemp, scenBSc, 100.0, optCatalystThreshold, optPlannedShutdown, committedDate);
-  const scenBDeltaProd = Math.max(0, scenBResult.deltaProd); // Scenario-B Delta Production ~16.0 MT/Day
-  const totalOppMtd = scenBDeltaProd > 0 ? scenBDeltaProd : 16.0;
 
-  const actConv = kpis.reformer_methane_conversion?.actual || 88.93;
+  // Actual conversion on the selected date — when conversion is low, opportunity to reach Scenario-B is higher!
+  const actConv = Number(kpis.reformer_methane_conversion?.actual || 88.85);
   const optConv = kpis.reformer_methane_conversion?.benchmark !== "N/A" ? Number(kpis.reformer_methane_conversion?.benchmark) : 89.85;
+  const scenBResult = calculateOptimizationModel(scenBTemp, scenBSc, 100.0, optCatalystThreshold, optPlannedShutdown, committedDate, actConv);
+  const scenBDeltaProd = Math.max(0, scenBResult.deltaProd); // Scenario-B Delta Production — dynamically computed from selected date
+  // totalOppMtd is always taken from Scenario-B live result so it changes when dates change
+  const totalOppMtd = scenBDeltaProd > 0 ? scenBDeltaProd : 15.8;
+
   const deltaConv = Math.max(0, optConv - actConv);
   const reformerLoad = lbmData?.reformer_load_pct || 100.0;
   const plantCapacityMtd = 1850;
@@ -2175,16 +2220,16 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
         <td>${optRes.monthlyDegradation.toFixed(2)} %/month</td>
       </tr>
       <tr>
-        <td><strong>Predicted Threshold Date</strong></td>
+        <td><strong>Expected Shutdown Date</strong></td>
         <td>${scenA.thresholdDateStr}</td>
-        <td class="fail-cell">${scenB.thresholdDateStr}</td>
+        <td class="${scenB.lifeMarginDays >= 0 ? 'rec-cell' : 'fail-cell'}">${scenB.thresholdDateStr}</td>
         <td class="rec-cell">${scenC.thresholdDateStr}</td>
         <td>${optRes.thresholdDateStr}</td>
       </tr>
       <tr>
         <td><strong>Turnaround Margin (${formatIngeneroDate(optPlannedShutdown).split(' ')[0]})</strong></td>
         <td>+${scenA.lifeMarginDays} Days (Safe)</td>
-        <td class="fail-cell">${scenB.lifeMarginDays} Days (DEFICIT / PREMATURE BREACH)</td>
+        <td class="${scenB.lifeMarginDays >= 0 ? 'rec-cell' : 'fail-cell'}">${scenB.lifeMarginDays >= 0 ? '+' + scenB.lifeMarginDays + ' Days (Safe)' : scenB.lifeMarginDays + ' Days (DEFICIT / PREMATURE BREACH)'}</td>
         <td class="rec-cell">+${scenC.lifeMarginDays} Days (SAFE RUNWAY)</td>
         <td>${optRes.lifeMarginDays >= 0 ? '+' + optRes.lifeMarginDays + ' Days (Safe)' : optRes.lifeMarginDays + ' Days (Deficit)'}</td>
       </tr>
@@ -2281,8 +2326,22 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
             </p>
           </div>
 
+          {/* User Configuration Nav Button */}
+          <div className="p-2 border-b border-slate-800/60">
+            <button
+              type="button"
+              id="sidebar-btn-user-config"
+              onClick={onReconfigureTopology}
+              className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-md text-[10.5px] font-semibold text-sky-200 bg-sky-950/60 hover:bg-sky-900/80 border border-sky-600/50 hover:border-sky-400 hover:text-white transition-all cursor-pointer shadow-xs"
+              title="Return to User Configuration (Step 1: Equipment Config & PFD)"
+            >
+              <SlidersHorizontal className="w-3.5 h-3.5 text-[#0090d0] shrink-0" />
+              <span className="truncate">&larr; User Configuration</span>
+            </button>
+          </div>
+
           {/* Screens Section Label */}
-          <div className="px-3.5 pt-3 pb-1">
+          <div className="px-3.5 pt-2.5 pb-1">
             <span className="text-[9px] font-normal text-slate-400 uppercase tracking-wider">
               SCREENS
             </span>
@@ -2359,6 +2418,17 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
+            <button 
+              type="button"
+              id="subhdr-btn-user-config"
+              onClick={onReconfigureTopology}
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-sky-50 hover:bg-sky-100 border border-sky-300 rounded text-[10px] text-[#0070a8] font-bold shadow-2xs cursor-pointer transition-all hover:border-[#0090d0]"
+              title="Go back to User Configuration (Equipment Config & PFD)"
+            >
+              <SlidersHorizontal className="w-3 h-3 text-[#0090d0]" />
+              <span>&larr; User Configuration</span>
+            </button>
+
             <button 
               type="button"
               className="flex items-center gap-1 px-2 py-0.5 bg-white hover:bg-slate-50 border border-slate-200 rounded text-[10px] text-slate-600 font-normal shadow-2xs cursor-pointer transition-all"
@@ -4221,8 +4291,8 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                               <td className="py-2 px-2 border-r border-sky-200 text-center font-mono font-black text-[#0090d0]">
                                 100.0%
                               </td>
-                              <td className="py-2 px-2 border-r border-sky-200 text-center font-mono font-black text-[#0090d0]">
-                                +{totalOppMtd.toFixed(2)} MT/Day
+                              <td className="py-2 px-2 border-r border-sky-200 text-center font-mono font-black text-red-700">
+                                -{totalOppMtd.toFixed(2)} MT/Day
                               </td>
                               <td className="py-2 px-2 text-center text-[#0090d0] font-semibold text-[9px]">
                                 Reconciled 100% ✓
@@ -4264,83 +4334,118 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
               {/* ───────────────────────────────────────────────────────────── */}
               {/* DEDICATED ASSET LIFE & PROGNOSTIC FORECASTING MODELS SCREEN     */}
               {/* ───────────────────────────────────────────────────────────── */}
-              {activeScreen === "forecasting" && (
-                <div className="space-y-3 animate-fadeIn">
-                  {/* SECTION HEADER BANNER */}
-                  <div className="bg-gradient-to-r from-[#e1f3fc] to-[#eef8fd] border border-[#cbe8f8] px-3.5 py-2 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-md bg-[#0090d0] text-white flex items-center justify-center shadow-xs">
-                        <TrendingUp className="w-4 h-4" />
-                      </div>
-                      <div>
-                        <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-800 flex items-center gap-2">
-                          ASSET LIFE &amp; PROGNOSTIC FORECASTING DIGITAL TWINS
-                          <span className="px-2 py-0.2 rounded-full text-[8.5px] font-medium bg-sky-100 text-[#0090d0] border border-sky-200 uppercase">
-                            Degradation Trajectories &bull; Remaining Useful Life (RUL)
-                          </span>
-                        </h3>
-                        <p className="text-[10px] text-slate-500 mt-0.5">
-                          First-principles predictive models forecasting catalyst replacement, guard bed breakthrough, and tube wall fouling insulation
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 shrink-0">
-                      <button
-                        type="button"
-                        onClick={() => setActiveScreen("overview")}
-                        className="px-2.5 py-1 text-[10px] font-medium text-slate-700 bg-white hover:bg-slate-50 rounded border border-slate-200 shadow-2xs flex items-center gap-1 cursor-pointer transition-colors"
-                      >
-                        <ArrowLeft className="w-3 h-3 text-slate-500" />
-                        <span>Back to Unit Overview</span>
-                      </button>
-                    </div>
-                  </div>
+              {activeScreen === "forecasting" && (() => {
+                const optResult = calculateOptimizationModel(
+                  optTemperature, 
+                  optSteamCarbon, 
+                  optLoad, 
+                  optCatalystThreshold, 
+                  optPlannedShutdown, 
+                  committedDate, 
+                  actConv
+                );
 
-                  {/* 3 TOP HIGH-LEVEL PROGNOSTIC SUMMARY CARDS */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
-                    {/* Card 1: Reformer Catalyst Activity (Shifted to Card 1) */}
-                    {(() => {
-                      const eor = getEorCatalystMetrics(committedDate, optPlannedShutdown);
-                      return (
-                        <div className="p-3 rounded-lg border border-sky-200 bg-white shadow-2xs flex flex-col justify-between">
-                          <div className="flex items-start justify-between border-b border-slate-100 pb-1.5 mb-2">
-                            <div>
-                              <span className="text-[8px] uppercase tracking-wider text-[#0090d0] font-semibold block">REFORMER CATALYST PROGNOSTICS</span>
-                              <span className="text-[11px] font-bold text-slate-800 block">SMR Catalyst Activity</span>
-                            </div>
-                            <span className={`px-1.5 py-0.5 rounded text-[8px] font-bold uppercase ${eor.rulDays > 90 ? 'bg-emerald-100 text-emerald-800' : eor.rulDays > 40 ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'}`}>
-                              {eor.rulDays > 90 ? 'Healthy Campaign' : 'Turnaround Imminent'}
+                return (
+                  <div className="space-y-3 animate-fadeIn">
+                    {/* SECTION HEADER BANNER */}
+                    <div className="bg-gradient-to-r from-[#e1f3fc] to-[#eef8fd] border border-[#cbe8f8] px-3.5 py-2 rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-md bg-[#0090d0] text-white flex items-center justify-center shadow-xs">
+                          <TrendingUp className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <h3 className="text-xs font-semibold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                            ASSET LIFE &amp; PROGNOSTIC FORECASTING DIGITAL TWINS
+                            <span className="px-2 py-0.2 rounded-full text-[8.5px] font-medium bg-sky-100 text-[#0090d0] border border-sky-200 uppercase">
+                              Degradation Trajectories &bull; Remaining Useful Life (RUL)
                             </span>
+                          </h3>
+                          <p className="text-[10px] text-slate-500 mt-0.5">
+                            First-principles predictive models forecasting catalyst replacement, guard bed breakthrough, and tube wall fouling insulation
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          type="button"
+                          onClick={() => setActiveScreen("overview")}
+                          className="px-2.5 py-1 text-[10px] font-medium text-slate-700 bg-white hover:bg-slate-50 rounded border border-slate-200 shadow-2xs flex items-center gap-1 cursor-pointer transition-colors"
+                        >
+                          <ArrowLeft className="w-3 h-3 text-slate-500" />
+                          <span>Back to Unit Overview</span>
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* PLANNED TURNAROUND TARGET BANNER (SHIFTED UPWARD ABOVE THE 3 PROGNOSTIC CARDS) */}
+                    <div className="bg-white border border-sky-200/90 rounded-lg px-3.5 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-2xs">
+                      <div className="flex items-center gap-2.5">
+                        <Calendar className="w-4 h-4 text-[#0090d0] shrink-0" />
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-700">Planned Turnaround Target:</span>
+                          <span className="font-mono font-bold text-slate-900 text-[11px] bg-sky-50 px-2.5 py-0.5 rounded border border-sky-200 shadow-2xs">
+                            {formatIngeneroDate(optPlannedShutdown)}
+                          </span>
+                          <input
+                            id="forecasting-input-opt-planned-shutdown"
+                            type="date"
+                            value={toDisplayDateInput(optPlannedShutdown)}
+                            onChange={(e) => setOptPlannedShutdown(toBackendDateInput(e.target.value))}
+                            className="text-[9.5px] font-mono px-2 py-0.5 rounded border border-slate-200 bg-white text-slate-700 hover:border-sky-300 focus:outline-none focus:ring-1 focus:ring-sky-400 cursor-pointer shadow-2xs"
+                            title="Adjust Planned Turnaround Target Date"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-[9.5px]">
+                        <span className="text-slate-500">
+                          Campaign Status: <strong className="text-slate-700">4-Year Cycle &bull; 100% Startup to EOR (Day {optResult.eorAgeDays})</strong>
+                        </span>
+                        <span className="px-2 py-0.5 rounded text-[8.5px] font-bold bg-emerald-50 text-emerald-800 border border-emerald-200 uppercase">
+                          Shutdown-Synchronized
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* 3 TOP HIGH-LEVEL PROGNOSTIC SUMMARY CARDS */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5">
+                      {/* Card 1: Reformer Catalyst Activity (Shifted to Card 1) */}
+                      <div className="p-3 rounded-lg border border-sky-200 bg-white shadow-2xs flex flex-col justify-between">
+                        <div className="flex items-start justify-between border-b border-slate-100 pb-1.5 mb-2">
+                          <div>
+                            <span className="text-[8px] uppercase tracking-wider text-[#0090d0] font-semibold block">REFORMER CATALYST PROGNOSTICS</span>
+                            <span className="text-[11px] font-bold text-slate-800 block">SMR Catalyst Activity</span>
                           </div>
-                          <div className="grid grid-cols-3 divide-x divide-slate-100 bg-slate-50/70 rounded border border-slate-100 py-1.5 px-1 my-1">
-                            <div className="px-1.5 text-left">
-                              <span className="text-[7.5px] uppercase tracking-wider text-slate-400 block font-normal">Current Activity</span>
-                              {isLoadingData ? (
-                                <div className="h-6 flex items-center justify-start"><BoxWavingDots size="w-1.5 h-1.5" /></div>
-                              ) : (
-                                <span className="text-base font-bold text-[#0090d0] block mt-0.5">{eor.activity.toFixed(1)}%</span>
-                              )}
-                            </div>
-                            <div className="px-1.5 text-left pl-2">
-                              <span className="text-[7.5px] uppercase tracking-wider text-slate-400 block font-normal">Threshold Limit</span>
-                              <span className="text-base font-bold text-red-600 block mt-0.5">50.0%</span>
-                            </div>
-                            <div className="px-1.5 text-left pl-2">
-                              <span className="text-[7.5px] uppercase tracking-wider text-slate-400 block font-normal">Days Remaining</span>
-                              {isLoadingData ? (
-                                <div className="h-6 flex items-center justify-start"><BoxWavingDots size="w-1.5 h-1.5" /></div>
-                              ) : (
-                                <span className="text-base font-bold text-amber-700 block mt-0.5">{eor.rulDays} Days</span>
-                              )}
-                            </div>
+                          <span className={`px-1.5 py-0.5 rounded text-[8px] font-bold uppercase ${optResult.rulDays > 90 ? 'bg-emerald-100 text-emerald-800' : optResult.rulDays > 40 ? 'bg-amber-100 text-amber-800' : 'bg-red-100 text-red-800'}`}>
+                            {optResult.rulDays > 90 ? 'Healthy Campaign' : 'Turnaround Imminent'}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-3 divide-x divide-slate-100 bg-slate-50/70 rounded border border-slate-100 py-1.5 px-1 my-1">
+                          <div className="px-1.5 text-left">
+                            <span className="text-[7.5px] uppercase tracking-wider text-slate-400 block font-normal">Current Activity</span>
+                            {isLoadingData ? (
+                              <div className="h-6 flex items-center justify-start"><BoxWavingDots size="w-1.5 h-1.5" /></div>
+                            ) : (
+                              <span className="text-base font-bold text-[#0090d0] block mt-0.5">{optResult.currentActivity.toFixed(1)}%</span>
+                            )}
                           </div>
-                          <div className="flex items-center justify-between text-[9px] mt-1.5 pt-1.5 border-t border-slate-100">
-                            <span className="text-slate-500">Planned Turnaround Target:</span>
-                            <strong className="text-slate-800 font-mono">{formatIngeneroDate(optPlannedShutdown)}</strong>
+                          <div className="px-1.5 text-left pl-2">
+                            <span className="text-[7.5px] uppercase tracking-wider text-slate-400 block font-normal">Threshold Limit</span>
+                            <span className="text-base font-bold text-red-600 block mt-0.5">{optCatalystThreshold.toFixed(1)}%</span>
+                          </div>
+                          <div className="px-1.5 text-left pl-2">
+                            <span className="text-[7.5px] uppercase tracking-wider text-slate-400 block font-normal">Days Remaining</span>
+                            {isLoadingData ? (
+                              <div className="h-6 flex items-center justify-start"><BoxWavingDots size="w-1.5 h-1.5" /></div>
+                            ) : (
+                              <span className="text-base font-bold text-amber-700 block mt-0.5">{optResult.rulDays} Days</span>
+                            )}
                           </div>
                         </div>
-                      );
-                    })()}
+                        <div className="flex items-center justify-between text-[9px] mt-1.5 pt-1.5 border-t border-slate-100">
+                          <span className="text-slate-500">Projected Changeout:</span>
+                          <strong className="text-slate-800 font-mono">{optResult.thresholdDateStr}</strong>
+                        </div>
+                      </div>
 
                     {/* Card 2: H2S Adsorber Bed */}
                     {(() => {
@@ -4488,7 +4593,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                                 MODEL 1: PRIMARY REFORMER CATALYST ACTIVITY DEGRADATION &amp; EOR REPLACEMENT FORECAST
                               </h4>
                               <span className="text-[9px] text-slate-500">
-                                Degradation Rate: <strong className="text-slate-700">-0.23% / day (-6.9% / month EOR)</strong> &bull; Replacement Threshold: <strong className="text-red-700">50.0% Activity</strong>
+                                Degradation Rate: <strong className="text-slate-700">{optResult.monthlyDegradation.toFixed(2)}% / month ({optResult.dailyDegradation.toFixed(3)}% / day)</strong> &bull; Replacement Threshold: <strong className="text-red-700">{optCatalystThreshold.toFixed(1)}% Activity</strong>
                               </span>
                             </div>
                           </div>
@@ -4636,17 +4741,17 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                               </span>
                               <div className="font-mono text-[9px] text-slate-800 bg-white p-2 rounded border border-slate-200 space-y-1">
                                 <div>Activity(t) = Act_initial - k_deg &times; t</div>
-                                <div className="text-[#0090d0] font-bold">&rArr; k_deg = -0.227% / day</div>
-                                <div className="text-slate-600">Monthly EOR rate: -6.90% / month</div>
+                                <div className="text-[#0090d0] font-bold">&rArr; k_deg = {optResult.dailyDegradation.toFixed(3)}% / day</div>
+                                <div className="text-slate-600">Monthly EOR rate: {optResult.monthlyDegradation.toFixed(2)}% / month</div>
                                 <div className="pt-1 border-t border-slate-100 text-amber-700 font-bold">
-                                  RUL to 50%: {eor.rulDays} Days ({eor.turnaroundDateStr})
+                                  Projected Changeout: {optResult.rulDays} Days ({optResult.thresholdDateStr})
                                 </div>
                               </div>
                             </div>
 
                             <div className="p-2.5 rounded-md bg-sky-50/60 border border-sky-200 text-[9px] text-slate-700">
                               <span className="font-bold text-[#0090d0] uppercase block mb-0.5">Turnaround Replacement Directive (EOR Campaign):</span>
-                              Primary reformer catalyst is in its terminal End-of-Run (EOR) regime on a 5-year campaign started early 2022. Activity reaches the 50.0% replacement threshold at turnaround. Changeout is locked into the planned plant turnaround commencing {eor.turnaroundDateStr}.
+                              Primary reformer catalyst is in its terminal End-of-Run (EOR) regime on a 4-year cycle campaign reaching ~65% from 100% startup. Activity reaches the {optCatalystThreshold.toFixed(1)}% replacement threshold at projected changeout {optResult.thresholdDateStr}. Planned plant turnaround commences {formatIngeneroDate(optPlannedShutdown)}.
                             </div>
                           </div>
                         </div>
@@ -4942,7 +5047,8 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                     );
                   })()}
                 </div>
-              )}
+              );
+            })()}
 
               {/* ───────────────────────────────────────────────────────────── */}
               {/* DEDICATED THE OPTIMIZATION MODEL SCREEN                       */}
@@ -4963,11 +5069,12 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                   optLoad, 
                   optCatalystThreshold, 
                   optPlannedShutdown,
-                  selectedDate
+                  selectedDate,
+                  actConv
                 );
-                const scenAResult = calculateOptimizationModel(baseTempForDate, baseScForDate, 100.0, optCatalystThreshold, optPlannedShutdown, selectedDate);
-                const scenBResult = calculateOptimizationModel(scenBTemp, scenBSc, 100.0, optCatalystThreshold, optPlannedShutdown, selectedDate);
-                const scenCResult = calculateOptimizationModel(scenCTemp, scenCSc, 100.0, optCatalystThreshold, optPlannedShutdown, selectedDate);
+                const scenAResult = calculateOptimizationModel(baseTempForDate, baseScForDate, 100.0, optCatalystThreshold, optPlannedShutdown, selectedDate, actConv);
+                const scenBResult = calculateOptimizationModel(scenBTemp, scenBSc, 100.0, optCatalystThreshold, optPlannedShutdown, selectedDate, actConv);
+                const scenCResult = calculateOptimizationModel(scenCTemp, scenCSc, 100.0, optCatalystThreshold, optPlannedShutdown, selectedDate, actConv);
 
                 return (
                   <div className="space-y-3 animate-fadeIn">
@@ -4998,8 +5105,8 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                           className="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded text-[9.5px] font-medium transition-colors shadow-2xs flex items-center gap-1 cursor-pointer"
                           title="Export Complete Optimization Dossier Report (Printable &amp; PDF)"
                         >
-                          <FileText className="w-3 h-3" />
-                          <span>Export Report</span>
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>Export Optimization Dossier</span>
                         </button>
                         <button
                           type="button"
@@ -5066,7 +5173,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                                     <div className="flex justify-between"><span>SEC:</span><span className="font-bold">{scenAResult.calculatedSec.toFixed(2)} Gcal/MT</span></div>
                                     <div className="flex justify-between"><span>ATE:</span><span className="text-amber-700 font-bold">{scenAResult.calculatedAte.toFixed(1)} &deg;C</span></div>
                                     <div className="flex justify-between"><span>Degradation:</span><span>{scenAResult.monthlyDegradation.toFixed(2)}%/mo</span></div>
-                                    <div className="flex justify-between"><span>Threshold:</span><span className="font-semibold">{scenAResult.thresholdDateStr}</span></div>
+                                    <div className="flex justify-between"><span>Expected Shutdown:</span><span className="font-semibold">{scenAResult.thresholdDateStr}</span></div>
                                     <div className="flex justify-between pt-0.5 border-t border-slate-100">
                                       <span>Margin:</span>
                                       <span className="font-bold text-emerald-700">+{scenAResult.lifeMarginDays}d (Safe)</span>
@@ -5113,79 +5220,91 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                           </div>
                         </div>
 
-                        {/* Scenario B: Recover Historical Target */}
-                        <div 
-                          id="scenario-card-b"
-                          onClick={() => handleApplyScenario("B")}
-                          className={`p-2.5 rounded-lg border transition-all cursor-pointer text-[9.5px] flex flex-col justify-between ${optActiveScenario === "B" ? 'bg-red-50/80 border-red-500 shadow-xs ring-2 ring-red-200' : 'bg-slate-50/60 border-slate-200 hover:border-red-300'}`}
-                        >
-                          <div>
-                            <div className="flex items-center justify-between mb-1">
-                              <span className="font-bold text-red-800 uppercase">Scenario B</span>
-                              <span className="px-1.5 py-0.2 rounded text-[8px] font-semibold bg-red-100 text-red-700">High Firing (+15&deg;C)</span>
-                            </div>
-                            <span className="text-slate-500 text-[9px] block mb-2 font-medium">Aggressive Target (+15.0&deg;C Firing Increase)</span>
+                        {/* Scenario B: Recover Historical Target — safe if planned shutdown is before threshold */}
+                        {(() => {
+                          const scenBIsSafe = scenBResult.lifeMarginDays >= 0;
+                          return (
+                            <div 
+                              id="scenario-card-b"
+                              onClick={() => handleApplyScenario("B")}
+                              className={`p-2.5 rounded-lg border transition-all cursor-pointer text-[9.5px] flex flex-col justify-between ${
+                                optActiveScenario === "B"
+                                  ? scenBIsSafe ? 'bg-emerald-50/80 border-emerald-500 shadow-xs ring-2 ring-emerald-200' : 'bg-red-50/80 border-red-500 shadow-xs ring-2 ring-red-200'
+                                  : scenBIsSafe ? 'bg-emerald-50/40 border-emerald-300 hover:border-emerald-500' : 'bg-slate-50/60 border-slate-200 hover:border-red-300'
+                              }`}
+                            >
+                              <div>
+                                <div className="flex items-center justify-between mb-1">
+                                  <span className={`font-bold uppercase ${scenBIsSafe ? 'text-emerald-800' : 'text-red-800'}`}>Scenario B</span>
+                                  <span className={`px-1.5 py-0.2 rounded text-[8px] font-semibold ${scenBIsSafe ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'}`}>High Firing (+15&deg;C)</span>
+                                </div>
+                                <span className="text-slate-500 text-[9px] block mb-2 font-medium">Aggressive Target (+15.0&deg;C Firing Increase)</span>
 
-                            {/* Card Body: Left Column (Constraints on top, Handles below), Right Column (Performance Tag) */}
-                            <div className="flex items-stretch justify-between gap-2">
-                              {/* Left Section */}
-                              <div className="flex-1 space-y-1.5">
-                                {/* CONSTRAINTS AT TOP */}
-                                <div className="bg-white/80 p-1.5 rounded border border-slate-200/80 space-y-0.5">
-                                  <div className="text-[7.5px] font-bold uppercase tracking-wider text-red-700 flex justify-between">
-                                    <span>CONSTRAINTS</span>
-                                    <span>LIMITS</span>
+                                {/* Card Body: Left Column (Constraints on top, Handles below), Right Column (Performance Tag) */}
+                                <div className="flex items-stretch justify-between gap-2">
+                                  {/* Left Section */}
+                                  <div className="flex-1 space-y-1.5">
+                                    {/* CONSTRAINTS AT TOP */}
+                                    <div className={`bg-white/80 p-1.5 rounded border space-y-0.5 ${scenBIsSafe ? 'border-emerald-200/80' : 'border-slate-200/80'}`}>
+                                      <div className={`text-[7.5px] font-bold uppercase tracking-wider flex justify-between ${scenBIsSafe ? 'text-emerald-700' : 'text-red-700'}`}>
+                                        <span>CONSTRAINTS</span>
+                                        <span>LIMITS</span>
+                                      </div>
+                                      <div className="font-mono text-[8.5px] space-y-0.5 text-slate-700">
+                                        <div className="flex justify-between"><span>SEC:</span><span className={`font-bold ${scenBIsSafe ? 'text-emerald-800' : 'text-red-700'}`}>{scenBResult.calculatedSec.toFixed(2)} Gcal/MT</span></div>
+                                        <div className="flex justify-between"><span>ATE:</span><span className="text-sky-700 font-bold">{scenBResult.calculatedAte.toFixed(1)} &deg;C</span></div>
+                                        <div className="flex justify-between"><span>Degradation:</span><span className={`font-semibold ${scenBIsSafe ? 'text-emerald-700' : 'text-red-700'}`}>{scenBResult.monthlyDegradation.toFixed(2)}%/mo</span></div>
+                                        <div className="flex justify-between"><span>Expected Shutdown:</span><span className={`font-semibold ${scenBIsSafe ? 'text-emerald-700' : 'text-red-700'}`}>{scenBResult.thresholdDateStr}</span></div>
+                                        <div className={`flex justify-between pt-0.5 border-t ${scenBIsSafe ? 'border-emerald-100' : 'border-slate-100'}`}>
+                                          <span>Margin:</span>
+                                          {scenBIsSafe
+                                            ? <span className="font-bold text-emerald-700">+{scenBResult.lifeMarginDays}d (Safe)</span>
+                                            : <span className="font-bold text-red-700">{scenBResult.lifeMarginDays}d (FAIL)</span>
+                                          }
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    {/* OPERATING HANDLES BELOW */}
+                                    <div className="bg-white/60 p-1.5 rounded border border-slate-200/60 space-y-0.5">
+                                      <div className="text-[7.5px] font-bold uppercase tracking-wider text-slate-500 flex justify-between">
+                                        <span>HANDLES</span>
+                                        <span>SETPOINTS</span>
+                                      </div>
+                                      <div className="font-mono text-[8.5px] space-y-0.5 text-slate-700">
+                                        <div className="flex justify-between"><span>T_out:</span><span className={`font-bold ${scenBIsSafe ? 'text-emerald-700' : 'text-red-700'}`}>{scenBTemp.toFixed(1)} &deg;C (+15)</span></div>
+                                        <div className="flex justify-between"><span>S/C:</span><span className={`font-bold ${scenBIsSafe ? 'text-emerald-700' : 'text-red-700'}`}>{scenBSc.toFixed(2)} (+0.17)</span></div>
+                                        <div className="flex justify-between"><span>Bridgewall:</span><span className="font-bold text-amber-700">{scenBResult.calculatedBwt.toFixed(1)} &deg;C</span></div>
+                                        <div className="flex justify-between"><span>Stack:</span><span className="font-semibold text-amber-700">{scenBResult.calculatedStack.toFixed(1)} &deg;C</span></div>
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div className="font-mono text-[8.5px] space-y-0.5 text-slate-700">
-                                    <div className="flex justify-between"><span>SEC:</span><span className="font-bold text-red-700">{scenBResult.calculatedSec.toFixed(2)} Gcal/MT</span></div>
-                                    <div className="flex justify-between"><span>ATE:</span><span className="text-sky-700 font-bold">{scenBResult.calculatedAte.toFixed(1)} &deg;C</span></div>
-                                    <div className="flex justify-between"><span>Degradation:</span><span className="text-red-700 font-semibold">{scenBResult.monthlyDegradation.toFixed(2)}%/mo</span></div>
-                                    <div className="flex justify-between"><span>Threshold:</span><span className="text-red-700 font-semibold">{scenBResult.thresholdDateStr}</span></div>
-                                    <div className="flex justify-between pt-0.5 border-t border-slate-100">
-                                      <span>Margin:</span>
-                                      <span className="font-bold text-red-700">{scenBResult.lifeMarginDays}d (FAIL)</span>
+
+                                  {/* Right Column: Performance Tag (Conversion %) */}
+                                  <div className={`w-24 shrink-0 border rounded-md p-2 flex flex-col justify-between text-center ${scenBIsSafe ? 'bg-emerald-100/70 border-emerald-300/80' : 'bg-red-100/70 border-red-300/80'}`}>
+                                    <span className={`text-[7.5px] font-bold uppercase tracking-wider block ${scenBIsSafe ? 'text-emerald-800' : 'text-red-700'}`}>
+                                      PERFORMANCE
+                                    </span>
+                                    <div className="my-auto">
+                                      <span className="text-[7.5px] text-slate-500 uppercase font-medium block">Conversion</span>
+                                      <span className={`text-lg font-black font-mono block leading-tight ${scenBIsSafe ? 'text-emerald-800' : 'text-red-700'}`}>
+                                        {scenBResult.calculatedConv.toFixed(2)}%
+                                      </span>
+                                      <span className={`text-[7.5px] font-bold font-mono ${scenBIsSafe ? 'text-emerald-700' : 'text-red-700'}`}>
+                                        +{((scenBResult.calculatedConv - scenAResult.calculatedConv)).toFixed(2)}%
+                                      </span>
+                                    </div>
+                                    <div className={`pt-1 border-t ${scenBIsSafe ? 'border-emerald-200' : 'border-red-200'}`}>
+                                      <span className="text-[7px] text-slate-500 block uppercase">Add. Prod</span>
+                                      <span className={`text-[9px] font-bold font-mono block ${scenBIsSafe ? 'text-emerald-800' : 'text-red-700'}`}>+{scenBResult.deltaProd.toFixed(1)} MT/D</span>
+                                      <span className="text-[7px] font-mono text-slate-500 block">M: 2.07</span>
                                     </div>
                                   </div>
                                 </div>
-
-                                {/* OPERATING HANDLES BELOW */}
-                                <div className="bg-white/60 p-1.5 rounded border border-slate-200/60 space-y-0.5">
-                                  <div className="text-[7.5px] font-bold uppercase tracking-wider text-slate-500 flex justify-between">
-                                    <span>HANDLES</span>
-                                    <span>SETPOINTS</span>
-                                  </div>
-                                  <div className="font-mono text-[8.5px] space-y-0.5 text-slate-700">
-                                    <div className="flex justify-between"><span>T_out:</span><span className="font-bold text-red-700">{scenBTemp.toFixed(1)} &deg;C (+15)</span></div>
-                                    <div className="flex justify-between"><span>S/C:</span><span className="font-bold text-red-700">{scenBSc.toFixed(2)} (+0.17)</span></div>
-                                    <div className="flex justify-between"><span>Bridgewall:</span><span className="font-bold text-amber-700">{scenBResult.calculatedBwt.toFixed(1)} &deg;C</span></div>
-                                    <div className="flex justify-between"><span>Stack:</span><span className="font-semibold text-amber-700">{scenBResult.calculatedStack.toFixed(1)} &deg;C</span></div>
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Right Column: Performance Tag (Conversion %) */}
-                              <div className="w-24 shrink-0 bg-red-100/70 border border-red-300/80 rounded-md p-2 flex flex-col justify-between text-center">
-                                <span className="text-[7.5px] font-bold uppercase tracking-wider text-red-700 block">
-                                  PERFORMANCE
-                                </span>
-                                <div className="my-auto">
-                                  <span className="text-[7.5px] text-slate-500 uppercase font-medium block">Conversion</span>
-                                  <span className="text-lg font-black font-mono text-red-700 block leading-tight">
-                                    {scenBResult.calculatedConv.toFixed(2)}%
-                                  </span>
-                                  <span className="text-[7.5px] font-bold text-red-700 font-mono">
-                                    +{((scenBResult.calculatedConv - scenAResult.calculatedConv)).toFixed(2)}%
-                                  </span>
-                                </div>
-                                <div className="pt-1 border-t border-red-200">
-                                  <span className="text-[7px] text-slate-500 block uppercase">Add. Prod</span>
-                                  <span className="text-[9px] font-bold font-mono text-red-700 block">+{scenBResult.deltaProd.toFixed(1)} MT/D</span>
-                                  <span className="text-[7px] font-mono text-slate-500 block">M: 2.07</span>
-                                </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
+                          );
+                        })()}
 
                         {/* Scenario C: Recommended Operating Point */}
                         <div 
@@ -5196,7 +5315,9 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                           <div>
                             <div className="flex items-center justify-between mb-1">
                               <span className="font-bold text-emerald-800 uppercase">Scenario C</span>
-                              <span className="px-1.5 py-0.2 rounded text-[8px] font-bold bg-emerald-600 text-white uppercase tracking-wider">Recommended</span>
+                              {scenCResult.lifeMarginDays >= 0 && (
+                                <span className="px-1.5 py-0.2 rounded text-[8px] font-bold bg-emerald-600 text-white uppercase tracking-wider">Recommended</span>
+                              )}
                             </div>
                             <span className="text-emerald-900 text-[9px] block mb-2 font-bold">Pareto Optimum (+7.5&deg;C Firing Setpoint)</span>
 
@@ -5214,7 +5335,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                                     <div className="flex justify-between"><span>SEC:</span><span className="font-bold text-emerald-800">{scenCResult.calculatedSec.toFixed(2)} Gcal/MT</span></div>
                                     <div className="flex justify-between"><span>ATE:</span><span className="text-emerald-800 font-bold">{scenCResult.calculatedAte.toFixed(1)} &deg;C</span></div>
                                     <div className="flex justify-between"><span>Degradation:</span><span>{scenCResult.monthlyDegradation.toFixed(2)}%/mo</span></div>
-                                    <div className="flex justify-between"><span>Threshold:</span><span className="font-semibold text-emerald-800">{scenCResult.thresholdDateStr}</span></div>
+                                    <div className="flex justify-between"><span>Expected Shutdown:</span><span className="font-semibold text-emerald-800">{scenCResult.thresholdDateStr}</span></div>
                                     <div className="flex justify-between pt-0.5 border-t border-emerald-100">
                                       <span>Margin:</span>
                                       <span className="font-bold text-emerald-800">+{scenCResult.lifeMarginDays}d (Safe)</span>
@@ -5359,26 +5480,11 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                           </div>
                         </div>
 
-                        {/* Operational Constraints Section */}
+                        {/* Operational Constraints Section — Planned Turnaround moved to top of panel; rest remain */}
                         <div className="pt-2 border-t border-slate-100 space-y-2">
                           <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-500 block">
                             Operating Constraints &amp; Limits
                           </span>
-
-                          {/* Constraint 1: Target Turnaround Date */}
-                          <div className="space-y-1">
-                            <div className="flex justify-between text-[9.5px]">
-                              <span className="text-slate-600 font-medium">Planned Turnaround:</span>
-                              <span className="font-mono font-bold text-slate-800">{formatIngeneroDate(optPlannedShutdown)}</span>
-                            </div>
-                            <input
-                              id="input-opt-planned-shutdown"
-                              type="date"
-                              value={toDisplayDateInput(optPlannedShutdown)}
-                              onChange={(e) => setOptPlannedShutdown(toBackendDateInput(e.target.value))}
-                              className="w-full text-[9px] font-mono px-2 py-1 rounded border border-slate-200 bg-slate-50 text-slate-700"
-                            />
-                          </div>
 
                           {/* Constraint 2: Minimum Catalyst Activity Threshold */}
                           <div className="space-y-1">
@@ -5487,6 +5593,67 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                                 vs. {v === "temperature" ? "Temp" : v === "sc" ? "S/C" : "Load"}
                               </button>
                             ))}
+                          </div>
+                        </div>
+
+                        {/* Operating Constraints & Limits: Planned Turnaround Date — Shifted to Right Side Above Graph */}
+                        <div className="bg-gradient-to-r from-sky-50/90 via-blue-50/50 to-white border border-sky-300 rounded-md p-2 space-y-1.5 shadow-2xs">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                              <Calendar className="w-3.5 h-3.5 text-[#0090d0]" />
+                              Operating Constraint: Planned Turnaround Target
+                            </span>
+                            <span className="font-mono font-bold text-slate-900 text-[10.5px] bg-white px-2 py-0.5 rounded border border-sky-200 shadow-2xs">
+                              {formatIngeneroDate(optPlannedShutdown)}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <input
+                              id="input-opt-planned-shutdown"
+                              type="date"
+                              value={toDisplayDateInput(optPlannedShutdown)}
+                              onChange={(e) => setOptPlannedShutdown(toBackendDateInput(e.target.value))}
+                              className="w-full text-[9.5px] font-mono px-2 py-1 rounded border border-sky-300 bg-white text-slate-800 focus:outline-none focus:ring-1 focus:ring-sky-400 shadow-2xs cursor-pointer"
+                            />
+                          </div>
+
+                          {/* Interactive Range Slider: Adjust Turnaround Target (-60d to +60d around baseline 07-DEC-2026) */}
+                          <div className="pt-0.5 space-y-0.5">
+                            <div className="flex justify-between text-[8px] font-mono text-slate-500">
+                              <span>Earlier Turnaround (-60d)</span>
+                              <span className="text-sky-700 font-semibold font-sans">
+                                Slide to Adjust Turnaround Target Date
+                              </span>
+                              <span>Extended Turnaround (+60d)</span>
+                            </div>
+                            <input
+                              id="slider-opt-planned-shutdown"
+                              type="range"
+                              min="-60"
+                              max="60"
+                              step="1"
+                              value={(() => {
+                                const baseMs = new Date("2025-12-07T00:00:00").getTime();
+                                const curMs = new Date((optPlannedShutdown || "2025-12-07") + "T00:00:00").getTime();
+                                return Math.round((curMs - baseMs) / (1000 * 60 * 60 * 24));
+                              })()}
+                              onChange={(e) => {
+                                const offset = parseInt(e.target.value, 10);
+                                const baseMs = new Date("2025-12-07T00:00:00").getTime();
+                                const newDate = new Date(baseMs + offset * 24 * 60 * 60 * 1000);
+                                const y = newDate.getFullYear();
+                                const m = (newDate.getMonth() + 1).toString().padStart(2, "0");
+                                const d = newDate.getDate().toString().padStart(2, "0");
+                                setOptPlannedShutdown(`${y}-${m}-${d}`);
+                              }}
+                              className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0090d0]"
+                              title="Drag slider to adjust Planned Turnaround Date"
+                            />
+                            <div className="flex justify-between text-[7.5px] font-mono text-slate-400">
+                              <span>08-OCT-2026</span>
+                              <span className="text-slate-600 font-bold">Base Target: 07-DEC-2026</span>
+                              <span>05-FEB-2027</span>
+                            </div>
                           </div>
                         </div>
 
@@ -5616,63 +5783,93 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                           </div>
 
                           {(() => {
-                            const totalCampaignDays = Math.max(1200, Math.round((new Date(optPlannedShutdown || "2025-11-07").getTime() - new Date("2021-01-01").getTime()) / (1000 * 60 * 60 * 24)));
-                            const elapsedPct = Math.min(94.0, Math.max(10.0, (optResult.eorAgeDays / totalCampaignDays) * 100));
-                            const runwayPct = Math.min(100 - elapsedPct, Math.max(3.0, (Math.max(0, optResult.rulDays) / totalCampaignDays) * 100));
-                            const bufferPct = Math.min(25.0, Math.max(2.5, (Math.abs(optResult.lifeMarginDays) / totalCampaignDays) * 100));
+                            // Fixed scale: Total window of 2,000 days from campaign start (01-JAN-2021)
+                            const totalScaleDays = 2000;
+                            const elapsedDays = optResult.eorAgeDays;
+                            const elapsedPct = Math.min(88.0, Math.max(10.0, (elapsedDays / totalScaleDays) * 100));
+
+                            // Days from current operating date to planned turnaround & expected shutdown
+                            const daysToPlanned = Math.round((new Date(optPlannedShutdown || "2025-12-07").getTime() - new Date(selectedDate || "2025-06-18").getTime()) / (1000 * 60 * 60 * 24));
+                            const daysToThreshold = optResult.rulDays;
+                            const marginDays = optResult.lifeMarginDays;
+
+                            // Pixel percentage positions along the timeline
+                            const plannedOffsetPct = (daysToPlanned / totalScaleDays) * 100;
+                            const thresholdOffsetPct = (daysToThreshold / totalScaleDays) * 100;
+
+                            const plannedPct = Math.min(98.0, Math.max(elapsedPct + 2.0, elapsedPct + plannedOffsetPct));
+                            const thresholdPct = Math.min(98.0, Math.max(elapsedPct + 2.0, elapsedPct + thresholdOffsetPct));
 
                             return (
                               <div className="relative w-full h-8 bg-slate-200 rounded-md overflow-hidden flex items-center px-2">
                                 {/* Elapsed Catalyst Life */}
                                 <div 
-                                  className="absolute left-0 top-0 bottom-0 bg-slate-400/40 border-r-2 border-slate-500" 
+                                  className="absolute left-0 top-0 bottom-0 bg-slate-400/50 border-r-2 border-slate-500" 
                                   style={{ width: `${elapsedPct}%` }}
                                   title={`Current Age: Day ${optResult.eorAgeDays}`}
                                 />
 
-                                {/* Safe Operating Runway to Planned Turnaround */}
-                                <div 
-                                  className={`absolute top-0 bottom-0 ${optResult.isMarginSafe ? 'bg-emerald-500/30' : 'bg-red-500/30'}`}
-                                  style={{ 
-                                    left: `${elapsedPct}%`, 
-                                    width: `${runwayPct}%` 
-                                  }}
-                                  title="Remaining Operating Runway to Planned Turnaround"
-                                />
+                                {/* Operating Runway to Planned Turnaround or Threshold */}
+                                {marginDays >= 0 ? (
+                                  <>
+                                    {/* Runway to Planned Turnaround */}
+                                    <div 
+                                      className="absolute top-0 bottom-0 bg-sky-500/25 border-r border-sky-600"
+                                      style={{ 
+                                        left: `${elapsedPct}%`, 
+                                        width: `${Math.max(1.0, plannedPct - elapsedPct)}%` 
+                                      }}
+                                      title={`Operating Runway to Planned Turnaround: ${daysToPlanned} Days`}
+                                    />
 
-                                {/* Buffer/Margin Zone */}
-                                {optResult.lifeMarginDays >= 0 ? (
-                                  <div 
-                                    className="absolute top-0 bottom-0 bg-emerald-500/50 border-l border-dashed border-emerald-700"
-                                    style={{ 
-                                      left: `${Math.min(98.0 - bufferPct, elapsedPct + runwayPct - bufferPct)}%`, 
-                                      width: `${bufferPct}%` 
-                                    }}
-                                    title={`Catalyst Life Buffer: +${optResult.lifeMarginDays} Days`}
-                                  />
+                                    {/* Safe Buffer Margin Zone (Planned Turnaround -> Expected Threshold) */}
+                                    <div 
+                                      className="absolute top-0 bottom-0 bg-emerald-500/50 border-r-2 border-emerald-700"
+                                      style={{ 
+                                        left: `${plannedPct}%`, 
+                                        width: `${Math.max(1.0, thresholdPct - plannedPct)}%` 
+                                      }}
+                                      title={`Safe Catalyst Buffer Margin: +${marginDays} Days`}
+                                    />
+                                  </>
                                 ) : (
-                                  <div 
-                                    className="absolute top-0 bottom-0 bg-red-600/60 border-r-2 border-red-700"
-                                    style={{ 
-                                      left: `${Math.max(10.0, elapsedPct + runwayPct)}%`, 
-                                      width: `${bufferPct}%` 
-                                    }}
-                                    title={`Premature Breach: ${optResult.lifeMarginDays} Days Deficit`}
-                                  />
+                                  <>
+                                    {/* Operational Runway until Catalyst Limit */}
+                                    <div 
+                                      className="absolute top-0 bottom-0 bg-amber-500/30 border-r border-amber-600"
+                                      style={{ 
+                                        left: `${elapsedPct}%`, 
+                                        width: `${Math.max(1.0, thresholdPct - elapsedPct)}%` 
+                                      }}
+                                      title={`Operational Runway to Limit: ${daysToThreshold} Days`}
+                                    />
+
+                                    {/* Deficit / Premature Breach Zone (Expected Threshold -> Planned Turnaround) */}
+                                    <div 
+                                      className="absolute top-0 bottom-0 bg-red-600/60 border-r-2 border-red-700"
+                                      style={{ 
+                                        left: `${thresholdPct}%`, 
+                                        width: `${Math.max(1.0, plannedPct - thresholdPct)}%` 
+                                      }}
+                                      title={`Premature Breach: ${marginDays} Days Deficit`}
+                                    />
+                                  </>
                                 )}
                                 
                                 <div className="relative z-10 w-full flex items-center justify-between text-[9px] font-mono">
-                                  <span className="text-slate-600 font-bold">{formatIngeneroDate(selectedDate).split(' ')[0]} (Day {optResult.eorAgeDays})</span>
+                                  <span className="text-slate-700 font-bold bg-white/80 px-1 py-0.2 rounded shadow-2xs">
+                                    {formatIngeneroDate(selectedDate).split(' ')[0]} (Day {optResult.eorAgeDays})
+                                  </span>
                                   
                                   <div className="flex items-center gap-1">
-                                    <span className="px-1.5 py-0.2 rounded bg-white text-slate-800 border border-slate-300 font-bold text-[8.5px]">
+                                    <span className="px-1.5 py-0.2 rounded bg-white text-slate-800 border border-slate-300 font-bold text-[8.5px] shadow-2xs">
                                       Planned Turnaround: {formatIngeneroDate(optPlannedShutdown).split(' ')[0]}
                                     </span>
                                   </div>
 
                                   <div className="flex items-center gap-1">
-                                    <span className={`px-1.5 py-0.2 rounded text-[8.5px] font-bold ${optResult.isMarginSafe ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'}`}>
-                                      Threshold: {optResult.thresholdDateStr} ({optResult.lifeMarginDays >= 0 ? `+${optResult.lifeMarginDays}d Margin` : `${optResult.lifeMarginDays}d BREACH`})
+                                    <span className={`px-1.5 py-0.2 rounded text-[8.5px] font-bold shadow-2xs ${optResult.isMarginSafe ? 'bg-emerald-600 text-white' : 'bg-red-600 text-white'}`}>
+                                      Expected Shutdown: {optResult.thresholdDateStr} ({optResult.lifeMarginDays >= 0 ? `+${optResult.lifeMarginDays}d Margin` : `${optResult.lifeMarginDays}d BREACH`})
                                     </span>
                                   </div>
                                 </div>
@@ -5851,7 +6048,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                         </div>
 
                         {/* PILLAR 3: CATALYST CONDITION */}
-                        <div className={`bg-white border-2 rounded-lg p-3 shadow-2xs flex flex-col justify-between transition-all ${Math.abs(optResult.monthlyDegradation) > 1.5 ? 'border-red-300 bg-red-50/20' : 'border-rose-100 hover:border-rose-300'}`}>
+                        <div className={`bg-white border-2 rounded-lg p-3 shadow-2xs flex flex-col justify-between transition-all ${Math.abs(optResult.monthlyDegradation) > 3.2 ? 'border-red-300 bg-red-50/20' : 'border-rose-100 hover:border-rose-300'}`}>
                           <div>
                             <div className="flex items-center justify-between pb-1.5 border-b border-slate-100">
                               <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
@@ -5866,7 +6063,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                               <div className="flex items-center justify-between">
                                 <span className="text-slate-500">Deactivation Rate:</span>
                                 <div className="flex items-center gap-1.5 font-mono">
-                                  <span className={`font-bold ${Math.abs(optResult.monthlyDegradation) > 1.5 ? 'text-red-700' : 'text-slate-800'}`}>
+                                  <span className={`font-bold ${Math.abs(optResult.monthlyDegradation) > 3.2 ? 'text-red-700' : 'text-slate-800'}`}>
                                     {optResult.monthlyDegradation.toFixed(3)}% / mo
                                   </span>
                                   <span className="text-[8.5px] text-emerald-700 font-semibold">(Rec: {scenCResult.monthlyDegradation.toFixed(3)}%)</span>
@@ -5887,9 +6084,9 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                             </div>
                           </div>
                           <div className="pt-2 mt-2 border-t border-slate-100 text-[8.5px] text-slate-500 flex justify-between items-center">
-                            <span>Base: -0.830%/mo</span>
+                            <span>Base (Scenario A): {scenAResult.monthlyDegradation.toFixed(2)}%/mo</span>
                             <span className="font-mono text-slate-600 font-semibold">
-                              {(Math.abs(optResult.monthlyDegradation) / 0.830).toFixed(2)}x severity
+                              {(Math.abs(optResult.monthlyDegradation) / Math.abs(scenAResult.monthlyDegradation)).toFixed(2)}x severity
                             </span>
                           </div>
                         </div>
@@ -5914,7 +6111,7 @@ export const LiveLbmDashboard: React.FC<LiveLbmDashboardProps> = ({
                                 </span>
                               </div>
                               <div className="flex items-center justify-between">
-                                <span className="text-slate-500">Predicted Threshold:</span>
+                                <span className="text-slate-500">Expected Shutdown:</span>
                                 <div className="flex items-center gap-1.5 font-mono">
                                   <span className="font-bold text-slate-800">
                                     {optResult.thresholdDateStr}
