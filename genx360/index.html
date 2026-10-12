@@ -3,57 +3,58 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>genX360 Reformer</title>
+  <title>genX360 Reformer · Ingenero</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root { --ink: #0f2438; --sub: #475569; --accent: #0090d0; --bg: #f4f8fb; --card: #ffffff; --line: #d7e3ec; --warn: #b45309; }
-    * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; background: var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif;
-           display: flex; align-items: center; justify-content: center; padding: 16px; }
-    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 32px 36px; max-width: 520px; width: 100%;
-            box-shadow: 0 8px 30px rgba(15, 36, 56, 0.08); }
-    .brand { font-size: 13px; font-weight: 800; letter-spacing: .08em; color: var(--accent); text-transform: uppercase; }
-    h1 { margin: 6px 0 4px; font-size: 26px; letter-spacing: -0.01em; text-wrap: balance; }
-    p { color: var(--sub); line-height: 1.55; margin: 8px 0; }
-    .bar { height: 4px; border-radius: 2px; background: #e5eef5; overflow: hidden; margin: 18px 0; }
+    :root { --ink: #0f2438; --sub: #475569; --accent: #0090d0; --bg: #f4f8fb; --line: #d7e3ec; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: "Plus Jakarta Sans", system-ui, sans-serif; }
+    #app { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: none; background: #fff; }
+    .wait { height: 100%; display: flex; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; }
+    .card { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 30px 34px; max-width: 480px; width: 100%; box-shadow: 0 8px 30px rgba(15,36,56,.08); }
+    .brand { font-size: 12px; font-weight: 800; letter-spacing: .08em; color: var(--accent); text-transform: uppercase; }
+    h1 { margin: 6px 0 6px; font-size: 24px; }
+    p { color: var(--sub); line-height: 1.5; margin: 6px 0; }
+    .bar { height: 4px; border-radius: 2px; background: #e5eef5; overflow: hidden; margin: 16px 0 4px; }
     .bar i { display: block; height: 100%; width: 40%; background: var(--accent); animation: go 1.2s ease-in-out infinite; }
     @keyframes go { 0% { transform: translateX(-100%); } 100% { transform: translateX(260%); } }
     @media (prefers-reduced-motion: reduce) { .bar i { animation: none; width: 100%; } }
-    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
-    a.btn { text-decoration: none; font-weight: 700; font-size: 14px; padding: 10px 16px; border-radius: 10px; }
-    a.primary { background: var(--accent); color: #fff; }
-    a.ghost { border: 1px solid var(--line); color: var(--ink); }
-    a.btn:focus-visible { outline: 3px solid #7cc8ee; outline-offset: 2px; }
-    .note { font-size: 12.5px; color: var(--warn); margin-top: 16px; }
-    code { font-family: "JetBrains Mono", monospace; font-size: 12px; color: var(--sub); }
+    a { color: var(--accent); font-weight: 700; }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="brand">Ingenero · genX360</div>
-    <h1>Reformer optimisation agent</h1>
-    <p id="msg">Opening the live dashboard…</p>
-    <div class="bar" aria-hidden="true"><i></i></div>
-    <div class="btns">
-      <a class="btn primary" id="dash" href="#">Open dashboard</a>
-      <a class="btn ghost" id="chat" href="#">Open AI chat</a>
+  <div class="wait" id="wait">
+    <div class="card">
+      <div class="brand">Ingenero · genX360</div>
+      <h1>Reformer optimisation agent</h1>
+      <p id="msg">Loading the live dashboard… (first load can take about 20 seconds)</p>
+      <div class="bar" aria-hidden="true"><i></i></div>
+      <p id="alt"></p>
     </div>
-    <p class="note">Requires the Ingenero VPN (Sophos). If the page does not open, connect the VPN and try again.</p>
-    <p><code id="where"></code></p>
-  </main>
+  </div>
+  <iframe id="app" title="genX360 reformer dashboard" allow="clipboard-read; clipboard-write"></iframe>
   <script>
-    // live.json is updated by the "genX360 Share over VPN" shortcut with the host's current VPN address
+    // live.json says where the live dashboard runs right now:
+    //   {"url": "https://xxxx.trycloudflare.com"}      -> shown full-screen inside this Ingenero address
+    //   {"host": "172.18.x.x", "dashboard_port": 3010} -> VPN-only address, opened directly
+    const wantChat = new URLSearchParams(location.search).get('to') === 'chat';
     fetch('live.json?ts=' + Date.now(), { cache: 'no-store' })
       .then(r => r.json())
       .then(cfg => {
-        const dash = `http://${cfg.host}:${cfg.dashboard_port || 3010}/reformer-configurator`;
-        const chat = `http://${cfg.host}:${cfg.chat_port || 5001}/chat`;
-        document.getElementById('dash').href = dash;
-        document.getElementById('chat').href = chat;
-        document.getElementById('where').textContent = `live since ${cfg.updated || '-'}`;
-        const target = new URLSearchParams(location.search).get('to') === 'chat' ? chat : dash;
-        setTimeout(() => { location.href = target; }, 1200);
+        if (cfg.url) {
+          const base = cfg.url.replace(/\/+$/, '');
+          const target = base + (wantChat ? '/chat' : '/reformer-configurator');
+          const app = document.getElementById('app');
+          app.onload = () => { app.style.display = 'block'; document.getElementById('wait').style.display = 'none'; };
+          app.src = target;
+          document.getElementById('alt').innerHTML = `If it does not appear, <a href="${target}">open it directly</a>.`;
+        } else if (cfg.host) {
+          const target = `http://${cfg.host}:${wantChat ? (cfg.chat_port || 5001) + '/chat' : (cfg.dashboard_port || 3010) + '/reformer-configurator'}`;
+          document.getElementById('msg').textContent = 'Opening the live dashboard (Ingenero VPN required)…';
+          setTimeout(() => { location.href = target; }, 1000);
+        } else {
+          throw new Error('no address');
+        }
       })
       .catch(() => { document.getElementById('msg').textContent = 'The live dashboard is offline at the moment.'; });
   </script>
