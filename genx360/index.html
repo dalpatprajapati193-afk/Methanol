@@ -44,6 +44,12 @@
         if (cfg.url) {
           const base = cfg.url.replace(/\/+$/, '');
           const target = base + (wantChat ? '/chat' : '/reformer-configurator');
+          // phones/tablets often block a page from another site inside a frame: open it full-page instead
+          if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent) || (navigator.maxTouchPoints > 1 && /Macintosh/.test(navigator.userAgent))) {
+            document.getElementById('msg').textContent = 'Opening the live dashboard…';
+            location.replace(target);
+            return;
+          }
           const app = document.getElementById('app');
           app.onload = () => { app.style.display = 'block'; document.getElementById('wait').style.display = 'none'; };
           app.src = target;
